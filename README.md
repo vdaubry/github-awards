@@ -49,16 +49,18 @@ We can then download the results as JSON, parse the result, and fill missing inf
 
 Rake task are :
 
-``` rake redis:parse_users ```
+``` rake user:parse_users ```
 
-``` rake redis:parse_repos ```
+``` rake repo:parse_repos ```
 
 We now have users location, and repositories language and number of stars. In order to get country and world rank we need to geocode user locations
 
 
 ## Step 3 : Geocoding user locations
 
-Location on Github is a plain text field, there are about 1 million location to geocode. A solution is to use a combination of :
+Location on Github is a plain text field, there are about 1 million profil with location on Github. Free geocoding APIs usually have a hard rate limiting. First step is to geocode only distinct location, which leaves about 100k location to geocode.
+A solution to speed up the geocoding is to use a combination of :
+
 - [Google Geocoding API](https://developers.google.com/maps/documentation/geocoding/)
 - [Open Street Map API](http://wiki.openstreetmap.org/wiki/Nominatim)
 
@@ -76,7 +78,9 @@ To get rankings we first calculate a score for each user in each language using 
 
 Then we use Postgres [ROW_NUMBER()](http://www.postgresql.org/docs/9.4/static/functions-window.html) function to get ranks compared to other developers with repositories in the same languages, in the same location (by city, by country or worldwide).
 
-In order to speed up queries based on user ranks, we create a table with all rankings informations. Once we have all rankings informations on a table we can properly index it and query it in our web application with acceptable response time.
+Ok, now we have all github users ranking :)
+
+In order to speed up queries based on user ranks, we create a table with all rankings informations. Once we have all rankings informations on a single table we can properly index it, and get acceptable response time when we query it from a web application.
 
 The query to create the language_rankings table can be found here :
 
