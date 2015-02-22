@@ -1,6 +1,6 @@
 # Github-awards
 
-Github-awards gives your rankings on Github by language and by location (city, country and worldwide) based on the number of stars of your repos.
+Github-awards gives your ranking on Github by language and by location (city, country and worldwide) based on the number of stars of your repos.
 
 
 ## How it works ?
