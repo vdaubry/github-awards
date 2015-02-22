@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= image_tag @user.gravatar_url, :class => "thumbnail avatar-bg"%>
+    <h2><span class="mega-octicon octicon-mark-github"></span> <strong><%= link_to @user.login, "https://github.com/#{@user.login}" %></strong></h2>
+    <p class="subtitle"><%= @user.city.try(:capitalize) %></p>
+    <p class="subtitle"><%= @user.country.try(:capitalize) %></p>
+  </div>
+  <div class="col-md-9">
+    <% if @language_ranks.empty? %>
+      <div class="no-info">
+        <p><strong>That's embarrassing...</strong></p>
+        <p><strong>We don't have any info for your account. Maybe you don't have any repository on Github, or Github couldn't guess the language for any for your repos. </strong></p>
+        <p>You can manually search for <%= link_to "top github developers in your city", users_path %> </p>
+      </div>
+    <% end %>
+    
+    <% @language_ranks.each do |language| %>
+      <% presenter = LanguageRankPresenter.new(language) %>
+      <div class="row">
+        <div class="col-md-3">
+          <p class="subtitle"><%= language.language.capitalize%> ranking</p>
+        </div>
+        <div class="col-md-9 pull-left">
+          <% if @user.city && @user.country %>
+            <table class="table rank">
+              <tbody>
+                <tr>
+                  <td class="col-md-3"><%= link_to @user.city.capitalize, users_path(:language => language.language, :city => @user.city, :type => :city) %> :</td>
+                  <td><%= presenter.city_rank.html_safe %> <i class="fa fa-trophy"></i></td>
+                </tr>
+                <tr>
+                  <td class="col-md-3"><%= link_to @user.country.capitalize, users_path(:language => language.language, :country => @user.country, :type => :country) %> :</td>
+                  <td><%= presenter.country_rank.html_safe %> <i class="fa fa-trophy"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          <% else %>
+            <p> We couldn't find your city or country from your location on github :( </p>
+            <p>You can manually search for <%= link_to "top #{language.language.capitalize} github developers in your city", users_path(:language => language.language) %> </p>
+          <% end %>
+          <table class="table rank">
+            <tbody>
+              <tr>
+                <td class="col-md-3"><%= link_to "Worldwilde", users_path(:language => language.language, :type => :world) %> :</td>
+                <td><%= presenter.world_rank.html_safe %> <i class="fa fa-trophy"></i></td>
+              </tr>
+              <tr>
+                <td class="col-md-3">Repos :</td>
+                <td><%= language.repository_count %> <span class="octicon octicon-repo"></span></td>
+              </tr>
+              <tr>
+                <td class="col-md-3">Stars :</td>
+                <td><%= language.stars_count %> <span class="octicon octicon-star"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr/>
+    <% end %>
+  </div>
+</div>

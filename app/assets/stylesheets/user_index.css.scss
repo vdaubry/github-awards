@@ -1,0 +1,23 @@
+.avatar {
+  height: 75px;
+  margin-bottom: 0px;
+}
+
+
+.table>thead>tr>th {
+  text-align: center;
+  font-size: 18px;
+}
+
+.table>tbody>tr>td {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 18px;
+}
+
+
+.star {
+    color: yellow;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: orange;
+}

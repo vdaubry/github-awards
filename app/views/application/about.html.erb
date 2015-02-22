@@ -1,0 +1,132 @@
+<div class="col-lg-12">
+  <h1>About Github-awards</h1>
+  
+  <br>
+  
+  <p>I love feedback, if you have questions or comments send me a tweet : <a href="https://twitter.com/vdaubry">@vdaubry</a></p>
+  <br>
+  
+  <h2>FAQ</h2>
+  
+  <div class="panel-group" id="accordion">
+    <div class="faq_header">General questions</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_who">Who am i ?</a>
+        </h4>
+      </div>
+      <div id="collapse_who" class="panel-collapse collapse in">
+        <div class="panel-body">
+          I'm vincent daubry, i'm a Ruby developer living in Paris. You can find more about me and my project <a href="https://github.com/vdaubry">on github</a> 
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_contribute">I think this is fun, how can i help ?</a>
+        </h4>
+      </div>
+      <div id="collapse_contribute" class="panel-collapse collapse">
+        <div class="panel-body">
+          There are many simple things that can greatly help this project :
+          
+          <ul>
+            <li>
+              Send a tweet supporting this project
+            </li>
+            <li>
+              You probably are sitting next to another developer right now, tell him about Github-awards.
+            </li>
+            <li>
+              If you want to contribute to the project, that's amazing ! Open an issue on Github and let's talk about it.
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_privacy">What about privacy ?</a>
+        </h4>
+      </div>
+      <div id="collapse_privacy" class="panel-collapse collapse">
+        <div class="panel-body">
+          I care a lot about this project not being creepy : it doesn't display your name or your email, you cannot search for someone by name or get access to their email. Only github username, avatar, repository list, location, and repositories language.
+          
+          Though we don't display it, the database might contains informations <strong>already publicly available</strong> on your Github profile :
+          <ul>
+            <li>
+              email
+            </li>
+            <li>
+              Full name
+            </li>
+            <li>
+              Location
+            </li>
+            <li>
+              Picture (avatar)
+            </li>
+            <li>
+              Website or blog URL
+            </li>
+            <li>
+              Company
+            </li>
+          </ul>
+           
+           If you want to edit or remove these informations you can reach me on twitter.
+        </div>
+      </div>
+    </div>
+    <div class="faq_header">Ranking questions</div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_rank">How do you calculate ranking ?</a>
+        </h4>
+      </div>
+      <div id="collapse_rank" class="panel-collapse collapse">
+        <div class="panel-body">
+          First your score is computed for each language using this formula :
+          <div class="">
+            <pre>
+              <code class="language-html" data-lang="html">sum(stars) + (1.0 - 1.0/count(repositories))</code>
+            </pre>
+          </div>
+          
+          <p>You are then ranked according to your score compared to other developers with repositories in the same languages, in the same location (by city, by country or worldwide).</p>
+          
+          <p>If you're interested in the ranking you should have a look at the SQL query that generates the ranking table : <a href="https://github.com/vdaubry/github-awards/blob/master/sql/rank.sql">rank.sql</a></p>
+          
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_data">How did you get the data ?</a>
+        </h4>
+      </div>
+      <div id="collapse_data" class="panel-collapse collapse">
+        <div class="panel-body">
+          Github-awards retrieves data from 2 sources :
+            <ul>
+              <li>
+                <a href="https://developer.github.com/v3/">Github API</a>
+              </li>
+              <li>
+                <a href="https://www.githubarchive.org/">Github Archive</a>
+              </li>
+            </ul>
+          
+          For a detailed explanation of how the data were processed, see the project readme : <a href="https://github.com/vdaubry/github-awards">https://github.com/vdaubry/github-awards</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

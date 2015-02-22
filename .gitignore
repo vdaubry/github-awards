@@ -1,0 +1,42 @@
+*.rbc
+capybara-*.html
+.rspec
+/tmp
+/db/*.sqlite3
+/public/system
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
+.env
+*.sqlite3-journal
+db/*.dump
+db/*.bck
+db/*.backup
+.DS_Store
+client_secrets.json
+
+/log/*
+!/log/.keep
+/tmp
+
+config/initializers/secret_token.rb
+config/database.yml
+
+## Environment normalisation:
+/.bundle
+/vendor/bundle
+
+# these should all be checked in to normalise the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
+
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
+
+ressources/*

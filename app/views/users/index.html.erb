@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Top <%= @user_list_presenter.language.capitalize %> github developers <%= @user_list_presenter.title %></h1>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <%= form_tag users_path, :method => 'get' do %>
+    <%= hidden_field_tag(:type, @user_list_presenter.type) %>
+    <div class="col-lg-2 col-xs-4">
+      <%= select_tag :language, options_for_select(@user_list_presenter.languages, @user_list_presenter.language), :class => "form-control" %>
+    </div>
+    <% if @user_list_presenter.show_location_input %>
+      <div class="col-lg-4 col-xs-4">
+        <%= @user_list_presenter.location_input %>      
+      </div>
+    <% end %>
+    <div class="col-lg-6 col-xs-4 pull-left">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  <% end %>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Username</th>
+          <th><%= @user_list_presenter.rank_label %></th>
+          <th>Stars</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @user_list_presenter.language_ranks.each do |language_rank| %>
+          <tr>
+            <td><%= link_to(image_tag(language_rank.user.gravatar_url, :class => "thumbnail avatar"), user_path(language_rank.user)) %></td>
+            <td class="username"><%= link_to(language_rank.user.login, user_path(language_rank.user.login))%></td>
+            <td><%= @user_list_presenter.ranking(language_rank) %></td>
+            <td><%= language_rank.stars_count %> <i class="fa fa-star star"></i></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <%= paginate @user_list_presenter.language_ranks %>
+  </div>
+</div>

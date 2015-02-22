@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GithubAwards</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/cupertino/jquery-ui.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59714064-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    
+  </head>
+  
+  <body class="<%= "#{params[:controller]}_#{params[:action]}" %>">
+    <div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <button  type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to 'GitHub Awards', welcome_path, class: "navbar-brand" %>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <form class="navbar-form navbar-left" action="<%= search_users_path %>" accept-charset="UTF-8" method="get">
+                <input type="search" name="login" class="form-control" placeholder="Github username">
+                <button type="submit" class="btn btn-default">Search</button>
+              </form>
+            </li>
+            <li>
+              <%= link_to 'Top users by city', users_path(:type => :city) %>
+            </li>
+            <li>
+              <%= link_to 'Top users by country', users_path(:type => :country) %>
+            </li>
+            <li>
+              <%= link_to 'Top users worldwide', users_path(:type => :world) %>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav">
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <% if flash[:alert] %>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Warning!</strong> <%= flash[:alert] %>
+        </div>
+      <% end %>
+      
+      <%= yield %>
+      
+    </div>
+  </body>
+  <hr>
+  <footer>
+    <p><strong>Like this project ? support it by sending a </strong> <a href="http://twitter.com/share?text=What's your ranking on Github ? Come check it out on Github-awards !&url=http://www.github-awards.com/&hashtags=github" title="Share github-awards on Twitter" target="_blank">tweet <i class="fa fa-twitter"></i></a></p>
+    <p>Made by @vdaubry. See source on <a href="https://github.com/vdaubry/github-awards-api">GitHub</a></p>
+  </footer>
+</html>
