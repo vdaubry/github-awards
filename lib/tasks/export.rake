@@ -1,10 +1,10 @@
 namespace :export do
   
-  desc "Export language list to JSON"
+  desc "Export language list to JSON (ordered according to githut.info)"
   task languages: :environment do
     File.open(Rails.root.join('app/assets/json/languages.json'), 'w+') do |f|
       languages = LanguageRank.select(:language).order("language ASC").distinct.map{ |l| l.language}.to_a
-      new_positions = ["javascript", "ruby", "objective-c", "python", "java", "php", "c++", "c#", "c", "swift", "shell", "scala", "clojure"]
+      new_positions = ["javascript", "java", "python", "css", "php", "ruby", "c++", "c", "shell", "c#", "objective-c", "r", "swift", "scala", "clojure"]
       new_positions.each_with_index do |lang, new_pos|
         old_pos = languages.index(lang)
         languages[old_pos], languages[new_pos] = languages[new_pos], languages[old_pos]
