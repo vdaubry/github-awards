@@ -201,6 +201,8 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.0)
       multi_json (~> 1.10)
+    sitemap_generator (5.0.5)
+      builder
     slop (3.6.0)
     spring (1.2.0)
     sprockets (2.12.3)
@@ -260,6 +262,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sidekiq
   sidekiq-throttler
+  sitemap_generator
   spring
   thin
   turbolinks
