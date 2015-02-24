@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150215153904) do
   enable_extension "plpgsql"
 
   create_table "language_ranks", id: false, force: :cascade do |t|
-    t.string  "language"
+    t.text    "language"
     t.text    "country"
     t.text    "city"
     t.decimal "score"
