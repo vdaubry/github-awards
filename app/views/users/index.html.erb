@@ -1,3 +1,9 @@
+<% content_for :head do %>
+  <title> <%= @user_list_presenter.language.capitalize %> <%= @user_list_presenter.title %> | github-awards</title>
+  <meta name="description" content="List of top <%= @user_list_presenter.language.capitalize %> developers <%= @user_list_presenter.title %>"/>
+  <meta name="robots" content="nofollow">
+<% end %>
+
 <div class="row">
   <div class="col-xs-12">
     <h1>Top <%= @user_list_presenter.language.capitalize %> github developers <%= @user_list_presenter.title %></h1>

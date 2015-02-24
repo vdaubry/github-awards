@@ -1,3 +1,9 @@
+<%= content_for :head do %>
+  <title> Github ranking | github-awards</title>
+  <meta name="description" content="Discover your ranking on Github ! Find out what is your rank by language, in your city and in your country"/>
+  <link rel="canonical" href=<%= welcome_url %> />
+<% end %>
+
 <div class="col-lg-12 intro">
   <form class="" action="<%= search_users_path %>" accept-charset="UTF-8" method="get">
     <div class="col-xs-6 col-centered text-center" style="top:200px">
