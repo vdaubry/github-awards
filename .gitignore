@@ -40,4 +40,3 @@ config/database.yml
 bower.json
 
 ressources/*
-*.gz
