@@ -25,7 +25,7 @@ CREATE TABLE language_ranks AS
     INNER JOIN users ON repositories.user_id = users.login
     WHERE repositories.language IS NOT NULL AND users.organization=FALSE
     GROUP BY repositories.language, city
-  ) t2 ON t1.language = t2.language AND (t1.city = t2.city OR (t1.city IS NULL AND t2.city IS NULL)) 
+  ) t2 ON t1.language = t2.language AND (t1.city = t2.city) 
   LEFT OUTER JOIN (
     SELECT count(DISTINCT user_id) AS country_user_count, 
       LOWER(repositories.language) AS LANGUAGE, 
@@ -34,7 +34,7 @@ CREATE TABLE language_ranks AS
     INNER JOIN users ON repositories.user_id = users.login
     WHERE repositories.language IS NOT NULL AND users.organization=FALSE
     GROUP BY repositories.language, country
-  ) t3 ON t1.language = t3.language AND (t1.country = t3.country OR (t1.country IS NULL AND t3.country IS NULL))
+  ) t3 ON t1.language = t3.language AND (t1.country = t3.country)
   INNER JOIN (
     SELECT count(DISTINCT user_id) AS world_user_count, 
       LOWER(repositories.language) AS LANGUAGE
