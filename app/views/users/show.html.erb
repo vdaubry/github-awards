@@ -21,8 +21,8 @@
     
     <% @language_ranks.each do |language_rank| %>
       <div class="row">
-        <div class="col-md-3">
-          <p class="subtitle"><%= language_rank.language.capitalize%> ranking</p>
+        <div class="col-md-3 info">
+          <p><%= language_rank.language.capitalize%> ranking</p>
         </div>
         <div class="col-md-9 pull-left">
           <% if @user.city && @user.country %>
