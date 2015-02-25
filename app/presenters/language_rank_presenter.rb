@@ -50,8 +50,6 @@ class LanguageRankPresenter
     location_link(:world, language_rank) + location_rank(:world, language_rank)
   end
   
-  
-  
   def best_rank
     lr = @language_ranks.min {|a, b| a.city_rank <=> b.city_rank}
     if lr && lr.city
