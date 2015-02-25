@@ -23,21 +23,39 @@ describe "UserListPresenter" do
     @presenter = LanguageRankPresenter.new([@language_rank1, @language_rank2])
   end
   
-  describe "city_rank" do
-    it { @presenter.city_rank(@language_rank1).should == "<strong>2</strong> / 5" }
+  describe "city_infos" do
+    context "city present" do
+      it "returns city ranking" do
+        @presenter.city_infos(@language_rank2).should == "<td class=\"col-md-3\"><a href=\"/users?city=string&amp;language=css&amp;type=city\">String</a></td><td><strong>1</strong> / 4 <i class='fa fa-trophy'></i></td>"
+      end
+    end
+    context "city missing" do
+      it "returns missing city message" do
+        @presenter.city_infos(@language_rank1).should == "<td colspan=\"2\"><p> We couldn't find your city from your location on github :( </p><p>You can manually search for <a href=\"/users?language=ruby\">top Ruby github developers in your city</a></p></td>"
+      end
+    end
   end
   
-  describe "country_rank" do
-    it { @presenter.country_rank(@language_rank1).should == "<strong>3</strong> / 6" }
+  describe "country_infos" do
+    context "country present" do
+      it "returns country ranking" do
+        @presenter.country_infos(@language_rank2).should == "<td class=\"col-md-3\"><a href=\"/users?country=string&amp;language=css&amp;type=country\">String</a></td><td><strong>1</strong> / 5 <i class='fa fa-trophy'></i></td>"
+      end
+    end
+    context "country missing" do
+      it "returns nil" do
+        @presenter.country_infos(@language_rank1).should == nil
+      end
+    end
   end
   
-  describe "world_rank" do
-    it { @presenter.world_rank(@language_rank1).should == "<strong>4</strong> / 7" }
+  describe "world_infos" do
+    it { @presenter.world_infos(@language_rank1).should == "<td class=\"col-md-3\"><a href=\"/users?language=ruby&amp;type=world\">Worldwide</a></td><td><strong>4</strong> / 7 <i class='fa fa-trophy'></i></td>" }
   end
   
   describe "best_rank" do
     it "returns language with best city rank" do
-      @presenter.best_rank.should == "<p class=\"\">Tweet your <a href='http://twitter.com/share?text=I am the top 1 css developer in Paris. Check your Github ranking on Github-awards !&url=http://localhost:5000/users/#{URI.encode(@user.login)}' title='Share github-awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a></p>"
+      @presenter.best_rank.should == "<p class=\"\">Tweet your <a href='http://twitter.com/share?text=I am the top 1 css developer in Paris. Check your GitHub ranking on GitHub Awards !&url=http://localhost:5000/users/#{URI.encode(@user.login)}' title='Share GitHub Awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a></p>"
     end
     
     context "no ranking" do

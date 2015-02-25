@@ -26,28 +26,17 @@
           <p><%= language_rank.language.capitalize%> ranking</p>
         </div>
         <div class="col-md-9 pull-left">
-          <% if @user.city && @user.country %>
-            <table class="table rank">
-              <tbody>
-                <tr>
-                  <td class="col-md-3"><%= link_to @user.city.capitalize, users_path(:language => language_rank.language, :city => @user.city, :type => :city) %> :</td>
-                  <td><%= @presenter.city_rank(language_rank) %> <i class="fa fa-trophy"></i></td>
-                </tr>
-                <tr>
-                  <td class="col-md-3"><%= link_to @user.country.capitalize, users_path(:language => language_rank.language, :country => @user.country, :type => :country) %> :</td>
-                  <td><%= @presenter.country_rank(language_rank) %> <i class="fa fa-trophy"></i></td>
-                </tr>
-              </tbody>
-            </table>
-          <% else %>
-            <p> We couldn't find your city or country from your location on github :( </p>
-            <p>You can manually search for <%= link_to "top #{language_rank.language.capitalize} github developers in your city", users_path(:language => language_rank.language) %> </p>
-          <% end %>
+          
           <table class="table rank">
             <tbody>
               <tr>
-                <td class="col-md-3"><%= link_to "Worldwide", users_path(:language => language_rank.language, :type => :world) %> :</td>
-                <td><%= @presenter.world_rank(language_rank) %> <i class="fa fa-trophy"></i></td>
+                <%= @presenter.city_infos(language_rank) %>
+              </tr>
+              <tr>
+                <%= @presenter.country_infos(language_rank) %>
+              </tr>
+              <tr>
+                <%= @presenter.world_infos(language_rank) %>
               </tr>
               <tr>
                 <td class="col-md-3">Repos :</td>
