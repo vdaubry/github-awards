@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   def show_user(login)
     @user = User.where(:login => login).first || not_found
     @language_ranks = @user.language_ranks
+    @presenter = LanguageRankPresenter.new(@language_ranks)
     render action: 'show'
   end
 end
