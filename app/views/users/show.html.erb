@@ -1,4 +1,5 @@
 <% content_for :head do %>
+  <title> <%= @user.login %> | GitHub Awards </title>
   <meta name="robots" content="noindex, nofollow">
 <% end %>
 
@@ -45,7 +46,7 @@
           <table class="table rank">
             <tbody>
               <tr>
-                <td class="col-md-3"><%= link_to "Worldwilde", users_path(:language => language_rank.language, :type => :world) %> :</td>
+                <td class="col-md-3"><%= link_to "Worldwide", users_path(:language => language_rank.language, :type => :world) %> :</td>
                 <td><%= @presenter.world_rank(language_rank) %> <i class="fa fa-trophy"></i></td>
               </tr>
               <tr>

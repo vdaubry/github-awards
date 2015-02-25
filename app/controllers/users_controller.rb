@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   
   def show_user(login)
     @user = User.where(:login => login).first || not_found
-    @language_ranks = @user.language_ranks
+    @language_ranks = @user.language_ranks.order("stars_count DESC")
     @presenter = LanguageRankPresenter.new(@language_ranks)
     render action: 'show'
   end
