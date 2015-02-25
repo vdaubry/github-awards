@@ -1,11 +1,11 @@
-# Github-awards
+# GitHub Awards
 
-GitHub-awards gives your ranking on GitHub by language and by location (city, country and worldwide) based on the number of stars of your repos.
+GitHub Awards gives your ranking on GitHub by language and by location (city, country and worldwide) based on the number of stars of your repos.
 
 
-## How it works ?
+## How does it work ?
 
-In order to calculate your ranking on Github we need to :
+In order to calculate your ranking on GitHub we need to :
 - Get all GitHub users with their location
 - Geocode their location
 - Get all GitHub repositories with language and number of stars 
@@ -35,7 +35,7 @@ Now we need to get detailed informations such as location, language, number of s
 
 > GitHub Archive is a project to record the public GitHub timeline, archive it, and make it easily accessible for further analysis.
 
-The Github Archive dataset is public, with Google Big Query we can filter the dataset to get only the latest event for each repo and users. Unfortunatly the Github Archives events starts from 2011, so we won't get ranking informations for users and repos that have been inactive since 2011.
+The GitHub Archive dataset is public, with Google Big Query we can filter the dataset to get only the latest event for each repo and users. Unfortunatly the GitHub Archives events starts from 2011, so we won't get ranking informations for users and repos that have been inactive since 2011.
 
 - Request for repositories :
 
