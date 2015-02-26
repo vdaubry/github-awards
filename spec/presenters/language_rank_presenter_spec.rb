@@ -55,7 +55,7 @@ describe "UserListPresenter" do
   
   describe "best_rank" do
     it "returns language with best city rank" do
-      @presenter.best_rank.should == "<p class=\"\">Tweet your <a href='http://twitter.com/share?text=I am the top 1 css developer in Paris. Check your GitHub ranking on GitHub Awards !&url=http://localhost:5000/users/#{URI.encode(@user.login)}' title='Share GitHub Awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a></p>"
+      @presenter.best_rank.should == "<p>Tweet your <a href='http://twitter.com/share?text=I am the top 1 css developer in Paris. Check your GitHub ranking on GitHub Awards !&url=http://localhost:5000/users/#{URI.encode(@user.login)}' title='Share GitHub Awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a></p>"
     end
     
     context "no ranking" do
