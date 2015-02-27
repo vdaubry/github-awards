@@ -34,8 +34,8 @@ class LanguageRankPresenter
       location_link(:city, language_rank) + location_rank(:city, language_rank)
     else 
       content_tag(:td, colspan: 2) do
-        "<p> We couldn't find your city from your location on github :( </p>".html_safe +
-        "<p>You can manually search for ".html_safe + link_to("top #{language_rank.language.capitalize} github developers in your city", users_path(:language => language_rank.language)) + "</p>".html_safe
+        "<p>We couldn't find your city from your location on GitHub :( </p>".html_safe +
+        "<p>You can manually search for ".html_safe + link_to("top #{language_rank.language.capitalize} GitHub developers in your city", users_path(:language => language_rank.language)) + "</p>".html_safe
       end
     end
   end
@@ -53,7 +53,7 @@ class LanguageRankPresenter
   def best_rank
     lr = @language_ranks.min {|a, b| a.city_rank <=> b.city_rank}
     if lr && lr.city
-      tweet_message = "I am the top #{lr.city_rank} #{lr.language} developer in #{lr.city.capitalize}. Check your GitHub ranking on GitHub Awards !"
+      tweet_message = "I am the top #{lr.city_rank} #{lr.language} developer in #{lr.city.capitalize}. Check your GitHub ranking on GitHub Awards!"
       content_tag :p, class: "" do 
         "Tweet your <a href='http://twitter.com/share?text=#{tweet_message}&url=#{user_url(lr.user)}' title='Share GitHub Awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a>".html_safe
       end
