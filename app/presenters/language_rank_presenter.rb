@@ -53,7 +53,6 @@ class LanguageRankPresenter
   def best_rank
     lr = @language_ranks.min {|a, b| a.city_rank <=> b.city_rank}
     if lr && lr.city
-
       tweet_message = "I am the top #{lr.city_rank} #{lr.language} developer in #{lr.city.capitalize}. Check your GitHub ranking on GitHub Awards !"
       content_tag :p do 
         "Tweet your <a href='http://twitter.com/share?text=#{tweet_message}&url=#{user_url(lr.user)}' title='Share GitHub Awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a>".html_safe
