@@ -31,7 +31,7 @@ describe "UserListPresenter" do
     end
     context "city missing" do
       it "returns missing city message" do
-        @presenter.city_infos(@language_rank1).should == "<td colspan=\"2\"><p> We couldn't find your city from your location on github :( </p><p>You can manually search for <a href=\"/users?language=ruby\">top Ruby github developers in your city</a></p></td>"
+        @presenter.city_infos(@language_rank1).should == "<td colspan=\"2\"><p>We couldn't find your city from your location on GitHub :( </p><p>You can manually search for <a href=\"/users?language=ruby\">top Ruby GitHub developers in your city</a></p></td>"
       end
     end
   end

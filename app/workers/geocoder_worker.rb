@@ -2,7 +2,9 @@ class GeocoderWorker
   include Sidekiq::Worker
   
   def perform(location, geocoder, proxy_opts={})
-    result = geocode(location, geocoder, proxy_opts)
+    return if location.nil?
+    
+    result = geocode(location, geocoder.to_sym, proxy_opts)
     
     if result
       User.where("location = '#{location.downcase.gsub("'", "''")}'").update_all(:city => result[:city].try(:downcase), :country => result[:country].downcase, :processed => true)

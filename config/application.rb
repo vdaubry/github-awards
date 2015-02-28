@@ -24,7 +24,7 @@ module GithubAwards
     config.active_record.raise_in_transactional_callbacks = true
     
     config.autoload_paths += %W(#{config.root}/extras #{config.root}/extras/tasks #{config.root}/extras/models #{config.root}/extras/utils #{config.root}/app/presenters)
-    
+        
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)
   end
 end

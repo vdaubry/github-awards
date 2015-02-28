@@ -16,7 +16,7 @@ class RepositoryUpdateWorker
   def update_repo(repo, result)
     repo.name = result["name"]
     repo.github_id = result["id"]
-    repo.user_id = result["owner"]["login"]
+    repo.user_id = result["owner"]["login"].downcase
     repo.forked = result["fork"] || false
     repo.stars = result["watchers"]
     repo.language = result["language"]

@@ -14,7 +14,7 @@ With this informations we are able to compute your ranking for a given language 
 
 ## Step 1 : Get all users and repositories
 
-There are over 10 Millions users and 15 Millions repositories on GitHub, we cannot just call the get single element API from for each user and repos.
+There are over 10 Millions users and 15 Millions repositories on GitHub, we cannot just call the GitHub API for each user and repos.
 
 However the GitHub list API returns 100 results at a time with basic informations :
 - [get-all-users](https://developer.github.com/v3/users/#get-all-users)
