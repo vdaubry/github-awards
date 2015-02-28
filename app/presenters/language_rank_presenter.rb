@@ -34,8 +34,8 @@ class LanguageRankPresenter
       location_link(:city, language_rank) + location_rank(:city, language_rank)
     else 
       content_tag(:td, colspan: 2) do
-        "<p> We couldn't find your city from your location on github :( </p>".html_safe +
-        "<p>You can manually search for ".html_safe + link_to("top #{language_rank.language.capitalize} github developers in your city", users_path(:language => language_rank.language)) + "</p>".html_safe
+        "<p>We couldn't find your city from your location on GitHub :( </p>".html_safe +
+        "<p>You can manually search for ".html_safe + link_to("top #{language_rank.language.capitalize} GitHub developers in your city", users_path(:language => language_rank.language)) + "</p>".html_safe
       end
     end
   end
