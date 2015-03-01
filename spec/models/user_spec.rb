@@ -7,6 +7,15 @@ describe "User" do
     it { FactoryGirl.build(:user).save.should == true }
   end
   
+  describe "save" do
+    it "downcase login before save" do
+      user = FactoryGirl.build(:user, :login => "ABC")
+      user.save
+      user.reload.login.should == "abc" 
+    end 
+  end
+  
+  
   describe "unique fields" do
     before(:each) do
       FactoryGirl.create(:user, :login => "foo")

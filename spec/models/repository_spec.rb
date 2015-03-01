@@ -8,6 +8,14 @@ describe "Repository" do
     it { FactoryGirl.build(:repository).save.should == true }
   end
   
+  describe "save" do
+    it "downcase user_id before save" do
+      repo = FactoryGirl.build(:repository, :user_id => "ABC")
+      repo.save
+      repo.reload.user_id.should == "abc" 
+    end 
+  end
+  
   describe "unique fields" do
     before(:each) do
       FactoryGirl.create(:repository, :name => "foo", :user_id => "bar")

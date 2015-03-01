@@ -11,7 +11,7 @@ CREATE TABLE language_ranks AS
       row_number() OVER (PARTITION BY repositories.language ORDER BY (sum(stars) + (1.0 - 1.0/count(repositories.id))) DESC) AS world_rank, 
       count(repositories.id) AS repository_count, 
       sum(stars) AS stars_count, 
-      users.id AS user_id
+      LOWER(users.id) AS user_id
     FROM repositories
     INNER JOIN users ON users.login = repositories.user_id
     WHERE repositories.language IS NOT NULL AND users.organization=FALSE

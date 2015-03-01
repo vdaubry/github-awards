@@ -9,7 +9,7 @@ class UserStreamWorker
         next
       end
       
-      user = User.where(:login => event["login"]).first
+      user = User.where(:login => event["login"].downcase).first
       
       if user
         user.name ||= event["name"]

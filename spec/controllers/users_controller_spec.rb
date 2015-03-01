@@ -43,6 +43,12 @@ describe UsersController do
         get :search, :login => "vdaubry"
         assigns(:language_ranks).count.should == 2
       end
+      
+      it "search case insensitive" do
+        user
+        get :search, :login => "Vdaubry"
+        assigns(:user).should == user
+      end
     end
     
     context "user doesn't exists" do

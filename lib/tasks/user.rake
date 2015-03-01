@@ -7,7 +7,7 @@ namespace :user do
   end
   
   desc "Geocode user locations"
-  task :geocode_locations, [:start_date] => :environment do |t, args|
+  task :geocode_locations, [:geocoder] => :environment do |t, args|
     geocoder = args.geocoder || :googlemap
     proxy_opts = {http_proxyaddr: "127.0.0.1", http_proxyport: 5566}
     
@@ -38,5 +38,14 @@ namespace :user do
       Rails.logger.info "Processing user #{login}"
       UserUpdateWorker.perform_async(login)
     end
+  end
+  
+  desc "remove user"
+  task :delete, [:login] => :environment do |t, args|
+    login = args.login
+    user = User.where(:login => login).first
+    Repository.where(:user_id => login).destroy_all
+    LanguageRank.where(:user_id => user.id).delete_all
+    user.destroy
   end
 end
