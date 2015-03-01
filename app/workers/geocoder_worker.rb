@@ -7,7 +7,7 @@ class GeocoderWorker
     result = geocode(location, geocoder.to_sym, proxy_opts)
     
     if result
-      User.where("location = '#{location.downcase.gsub("'", "''")}'").update_all(:city => result[:city].try(:downcase), :country => result[:country].downcase, :processed => true)
+      User.where("lower(location) = '#{location.downcase.gsub("'", "''")}'").update_all(:city => result[:city].try(:downcase), :country => result[:country].try(:downcase), :processed => true)
       Rails.logger.info "updating users with location #{location} to city : #{result[:city]} , country : #{result[:country]}"
     else
       $redis.sadd("location_error", location)

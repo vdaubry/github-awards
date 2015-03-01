@@ -48,4 +48,12 @@ namespace :user do
     LanguageRank.where(:user_id => user.id).delete_all
     user.destroy
   end
+  
+  desc "fix philipinnes bug"
+  task :fix_location, [:login] => :environment do |t, args|
+    proxy_opts = nil
+    geocoder = :googlemap
+    user = User.where(:login => args.login).first
+    GeocoderWorker.new.perform(user.location, geocoder, proxy_opts)
+  end
 end
