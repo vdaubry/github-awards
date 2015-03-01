@@ -105,3 +105,8 @@ Next steps :
 * Commit your changes (git commit -am 'Add some feature')
 * Push to the branch (git push origin my-new-feature)
 * Create a new Pull Request
+* 
+
+## License 
+
+This project is available under the MIT license. See the license file for more details.
