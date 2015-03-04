@@ -4,7 +4,7 @@ class UserListPresenter
   def initialize(params)
     @type = params[:type].try(:to_sym) || :city
     @page = params[:page] || 0
-    @location = params[@type].try(:downcase) || default_location
+    @location = params[@type].try(:downcase).try(:strip) || default_location
     @language = params[:language].try(:downcase) || "javascript"
   end
   

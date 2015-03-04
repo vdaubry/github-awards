@@ -52,7 +52,7 @@ describe UsersController do
 
       it "search trim whitespace" do
         user
-        get :search, :login => " Vdaubry "
+        get :search, :login => " vdaubry "
         assigns(:user).should == user
       end
     end
