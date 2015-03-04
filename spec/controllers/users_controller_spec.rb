@@ -49,6 +49,12 @@ describe UsersController do
         get :search, :login => "Vdaubry"
         assigns(:user).should == user
       end
+
+      it "search trim whitespace" do
+        user
+        get :search, :login => " Vdaubry "
+        assigns(:user).should == user
+      end
     end
     
     context "user doesn't exists" do
