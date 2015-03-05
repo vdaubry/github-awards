@@ -1,7 +1,7 @@
 namespace :redis do
   
   desc "Clean sidekiq jobs"
-  task clean_sidekiq: :environment do
+  task clear_sidekiq: :environment do
     require "sidekiq/api"
     Sidekiq::Queue.new.clear
     Sidekiq::RetrySet.new.clear
@@ -9,6 +9,10 @@ namespace :redis do
   
   desc "Load ranking in redis"
   task set_ranks: :environment do
+    User.select("users.id").joins(:repositories).where("repositories.language IS NOT NULL").find_each do |user|
+      RankWorker.perform_async(user.id)
+    end
+    
     # #load ranking by city
     # cities = LanguageRank.select(:city).where("city IS NOT NULL").distinct.map(&:city)
     # cities.each do |city|
@@ -23,12 +27,12 @@ namespace :redis do
     #   RankWorker.perform_async(:country, country)
     # end
     
-    #load ranking worldwide
-    languages = LanguageRank.select(:language).distinct.map(&:language)
-    languages.each do |language|
-      puts "setting ranks for #{language}"
-      RankWorker.perform_async(:language, language)
-    end
+    # #load ranking worldwide
+    # languages = LanguageRank.select(:language).distinct.map(&:language)
+    # languages.each do |language|
+    #   puts "setting ranks for #{language}"
+    #   RankWorker.perform_async(:language, language)
+    # end
   end
 
 end

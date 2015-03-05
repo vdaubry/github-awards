@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150215153904) do
+ActiveRecord::Schema.define(version: 20150309144553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20150215153904) do
 
   create_table "repositories", force: :cascade do |t|
     t.string   "name",                         null: false
-    t.string   "user_id",                      null: false
     t.integer  "stars",        default: 0,     null: false
     t.string   "language"
     t.string   "organization"
@@ -48,11 +47,10 @@ ActiveRecord::Schema.define(version: 20150215153904) do
     t.integer  "github_id"
     t.boolean  "forked",       default: false, null: false
     t.boolean  "processed",    default: false, null: false
+    t.integer  "user_id",                      null: false
   end
 
-  add_index "repositories", ["processed"], name: "index_repositories_on_processed", using: :btree
   add_index "repositories", ["user_id", "language", "stars"], name: "index_repositories_on_user_id_and_language_and_stars", using: :btree
-  add_index "repositories", ["user_id", "stars"], name: "index_repositories_on_user_id_and_stars", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

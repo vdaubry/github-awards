@@ -16,7 +16,7 @@ class UserListPresenter
     @type==:world ? "worldwide" : "in #{@location.capitalize}"
   end
   
-  def show_location_input
+  def show_location_input?
     @type != :world
   end
   
@@ -28,16 +28,14 @@ class UserListPresenter
     "#{@type} Rank"
   end
   
-  def ranking(language_rank)
-    language_rank.send("#{@type}_rank")
+  def ranking(user_rank)
+    user_rank.send("#{@type}_rank")
   end
   
-  def language_ranks
-    res = LanguageRank.includes(:user).where(:language => @language)
-    if @type!=:world
-      res = res.where(@type => @location)
-    end
-    res.order("#{@type}_rank ASC").page(@page).per(25)
+  def user_ranks
+    top_rank = TopRank.new(type: @type, language: @language, location: @location)
+    user_ranks = top_rank.user_ranks(page: @page, per: 25)
+    Kaminari.paginate_array(user_ranks, total_count: top_rank.count).page(0).per(25)
   end
   
   def default_location

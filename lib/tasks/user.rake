@@ -56,4 +56,11 @@ namespace :user do
     user = User.where(:login => args.login).first
     GeocoderWorker.new.perform(user.location, geocoder, proxy_opts)
   end
+  
+  desc "fix missing users"
+  task :fix_missing_user => :environment do
+    Repository.select("user_login").where("user_id IS NULL").distinct.each do |repo|
+      UserUpdateWorker.perform_async(repo.user_login)
+    end
+  end
 end

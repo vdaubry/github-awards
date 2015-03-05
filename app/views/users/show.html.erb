@@ -7,12 +7,12 @@
   <div class="col-md-3 info" >
     <%= image_tag @user.gravatar_url, :class => "thumbnail avatar-bg"%>
     <h2><span class="mega-octicon octicon-mark-github"></span> <strong><%= link_to @user.login, "https://github.com/#{@user.login}" %></strong></h2>
-    <p><%= @user.city.try(:capitalize) %></p>
-    <p><%= @user.country.try(:capitalize) %></p>
-    <%= @presenter.best_rank %>
+    <p><%= @user_presenter.city %></p>
+    <p><%= @user_presenter.country %></p>
+    <%= @user_presenter.best_rank_tweet %>
   </div>
   <div class="col-md-9">
-    <% if @language_ranks.empty? %>
+    <% if @user_presenter.user_ranks.empty? %>
       <div class="no-info">
         <p><strong>That's embarrassing...</strong></p>
         <p><strong>We don't have any info for your account. Maybe you don't have any repository on GitHub, or GitHub couldn't guess the language for any for your repos. </strong></p>
@@ -20,31 +20,32 @@
       </div>
     <% end %>
     
-    <% @language_ranks.each do |language_rank| %>
+    <% @user_presenter.user_ranks.each do |user_rank| %>
+      <% presenter = LanguageRankPresenter.new(user_rank) %>
       <div class="row">
         <div class="col-md-3 info">
-          <p><%= language_rank.language.capitalize%> ranking</p>
+          <p><%= user_rank.language%> ranking</p>
         </div>
         <div class="col-md-9 pull-left">
           
           <table class="table rank">
             <tbody>
               <tr>
-                <%= @presenter.city_infos(language_rank) %>
+                <%= presenter.city_infos %>
               </tr>
               <tr>
-                <%= @presenter.country_infos(language_rank) %>
+                <%= presenter.country_infos %>
               </tr>
               <tr>
-                <%= @presenter.world_infos(language_rank) %>
+                <%= presenter.world_infos %>
               </tr>
               <tr>
                 <td class="col-md-3">Repos :</td>
-                <td><%= language_rank.repository_count %> <span class="octicon octicon-repo"></span></td>
+                <td><%= user_rank.repository_count %> <span class="octicon octicon-repo"></span></td>
               </tr>
               <tr>
                 <td class="col-md-3">Stars :</td>
-                <td><%= language_rank.stars_count %> <span class="octicon octicon-star"></span></td>
+                <td><%= user_rank.stars_count %> <span class="octicon octicon-star"></span></td>
               </tr>
             </tbody>
           </table>

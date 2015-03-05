@@ -75,6 +75,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    fakeredis (0.5.0)
+      redis (~> 3.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     globalid (0.3.0)
@@ -98,7 +100,7 @@ GEM
     i18n (0.7.0)
     json (1.8.2)
     jwt (1.2.1)
-    kaminari (0.16.2)
+    kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     launchy (2.4.3)
@@ -244,6 +246,7 @@ DEPENDENCIES
   actionpack-action_caching
   byebug
   factory_girl_rails
+  fakeredis
   google-api-client
   highline
   httparty

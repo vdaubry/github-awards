@@ -17,7 +17,7 @@
     <div class="col-lg-2 col-xs-4">
       <%= select_tag :language, options_for_select(@user_list_presenter.languages, @user_list_presenter.language), :class => "form-control" %>
     </div>
-    <% if @user_list_presenter.show_location_input %>
+    <% if @user_list_presenter.show_location_input? %>
       <div class="col-lg-4 col-xs-4">
         <%= @user_list_presenter.location_input %>      
       </div>
@@ -42,12 +42,12 @@
       </thead>
 
       <tbody>
-        <% @user_list_presenter.language_ranks.each do |language_rank| %>
+        <% @user_list_presenter.user_ranks.each do |user_rank| %>
           <tr>
-            <td><%= link_to(image_tag(language_rank.user.gravatar_url, :class => "thumbnail avatar"), user_path(language_rank.user)) %></td>
-            <td class="username"><%= link_to(language_rank.user.login, user_path(language_rank.user.login))%></td>
-            <td><%= @user_list_presenter.ranking(language_rank) %></td>
-            <td><%= language_rank.stars_count %> <i class="fa fa-star star"></i></td>
+            <td><%= link_to(image_tag(user_rank.user.gravatar_url, :class => "thumbnail avatar"), user_path(user_rank.user)) %></td>
+            <td class="username"><%= link_to(user_rank.user.login, user_path(user_rank.user.login))%></td>
+            <td><%= @user_list_presenter.ranking(user_rank) %></td>
+            <td><%= user_rank.stars_count %> <i class="fa fa-star star"></i></td>
           </tr>
         <% end %>
       </tbody>
@@ -57,6 +57,6 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <%= paginate @user_list_presenter.language_ranks %>
+    <%= paginate @user_list_presenter.user_ranks %>
   </div>
 </div>
