@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
   
   def search
-    show_user(params[:login].downcase)
+    show_user(params[:login].downcase.strip)
     rescue ActiveRecord::RecordNotFound => e
       redirect_to welcome_path, :alert => "User #{params[:login]} not found"
   end

@@ -18,6 +18,12 @@ describe "UserListPresenter" do
         presenter.language.should == "javascript"
       end
     end
+
+    context "location provided" do
+      it "location trim whitespace" do
+        UserListPresenter.new(:type => :city, :city => " paris ").location.should == "paris"
+      end
+    end
   end
   
   describe "languages" do
