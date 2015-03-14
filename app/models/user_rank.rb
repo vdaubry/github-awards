@@ -9,11 +9,11 @@ class UserRank
   end
   
   def city_rank
-    rank("user_#{@user.city}_#{@language}")
+    rank("user_#{@language}_#{@user.city}")
   end
   
   def country_rank
-    rank("user_#{@user.country}_#{@language}")
+    rank("user_#{@language}_#{@user.country}")
   end
   
   def world_rank
@@ -21,11 +21,11 @@ class UserRank
   end
   
   def city_user_count
-    count("user_#{@user.city}_#{@language}")
+    count("user_#{@language}_#{@user.city}")
   end
   
   def country_user_count
-    count("user_#{@user.country}_#{@language}")
+    count("user_#{@language}_#{@user.country}")
   end
   
   def world_user_count

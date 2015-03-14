@@ -15,9 +15,9 @@ describe "UserRank" do
   
   describe "city" do
     before(:each) do
-      $redis.zadd("user_paris_ruby", 1.1, 1234)
-      $redis.zadd("user_paris_ruby", 5.0, 1235)
-      $redis.zadd("user_paris_ruby", 3.2, user.id)
+      $redis.zadd("user_ruby_paris", 1.1, 1234)
+      $redis.zadd("user_ruby_paris", 5.0, 1235)
+      $redis.zadd("user_ruby_paris", 3.2, user.id)
     end
     
     it { user_rank.city_rank.should == 2 }
@@ -26,9 +26,9 @@ describe "UserRank" do
   
   describe "country" do
     before(:each) do
-      $redis.zadd("user_france_ruby", 1.1, 1234)
-      $redis.zadd("user_france_ruby", 5.0, 1235)
-      $redis.zadd("user_france_ruby", 6.2, user.id)
+      $redis.zadd("user_ruby_france", 1.1, 1234)
+      $redis.zadd("user_ruby_france", 5.0, 1235)
+      $redis.zadd("user_ruby_france", 6.2, user.id)
     end
     
     it { user_rank.country_rank.should == 1 }

@@ -15,7 +15,7 @@ describe "UserListPresenter" do
       end
       
       it "sets default language" do
-        presenter.language.should == "javascript"
+        presenter.language.should == "JavaScript"
       end
     end
 
@@ -27,7 +27,7 @@ describe "UserListPresenter" do
   end
   
   describe "languages" do
-    it { presenter.languages.count.should == 219 }
+    it { presenter.languages.count.should == 223 }
   end
   
   describe "title" do
@@ -50,9 +50,9 @@ describe "UserListPresenter" do
         r2 = FactoryGirl.create(:repository, :user => u2, :language => "ruby")
         r3 = FactoryGirl.create(:repository, :user => u3, :language => "ruby")
         
-        $redis.zadd("user_paris_ruby", 1.1, u1.id)
-        $redis.zadd("user_paris_ruby", 3.2, u2.id)
-        $redis.zadd("user_paris_ruby", 2.2, u3.id)
+        $redis.zadd("user_ruby_paris", 1.1, u1.id)
+        $redis.zadd("user_ruby_paris", 3.2, u2.id)
+        $redis.zadd("user_ruby_paris", 2.2, u3.id)
         
         presenter = UserListPresenter.new(:type => :city, :city => "paris", :language => "ruby") 
         

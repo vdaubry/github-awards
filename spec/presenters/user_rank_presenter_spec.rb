@@ -5,7 +5,7 @@ describe "UserRankPresenter" do
     context "city present" do
       it "returns city ranking" do
         user = FactoryGirl.create(:user, :city => "paris")
-        $redis.zadd("user_paris_ruby", 1, user.id)
+        $redis.zadd("user_ruby_paris", 1, user.id)
         user_rank = UserRank.new(user, "ruby", 7, 2)
         UserRankPresenter.new(user_rank).city_infos.should == "<td class=\"col-md-3\"><a href=\"/users?city=paris&amp;language=ruby&amp;type=city\">Paris</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>"
       end
@@ -22,7 +22,7 @@ describe "UserRankPresenter" do
     context "country present" do
       it "returns country ranking" do
         user = FactoryGirl.create(:user, :country => "france")
-        $redis.zadd("user_france_ruby", 1, user.id)
+        $redis.zadd("user_ruby_france", 1, user.id)
         user_rank = UserRank.new(user, "ruby", 7, 2)
         UserRankPresenter.new(user_rank).country_infos.should == "<td class=\"col-md-3\"><a href=\"/users?country=france&amp;language=ruby&amp;type=country\">France</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>"
       end

@@ -3,9 +3,9 @@ class UserListPresenter
   
   def initialize(params)
     @type = params[:type].try(:to_sym) || :city
-    @page = params[:page] || 0
+    @page = [params[:page].to_i, 1].max
     @location = params[@type].try(:downcase).try(:strip) || default_location
-    @language = params[:language].try(:downcase) || "javascript"
+    @language = params[:language] || "JavaScript"
   end
   
   def languages
@@ -25,7 +25,7 @@ class UserListPresenter
   end
   
   def rank_label
-    "#{@type} Rank"
+    "#{@type.capitalize} rank"
   end
   
   def ranking(user_rank)
@@ -35,7 +35,7 @@ class UserListPresenter
   def user_ranks
     top_rank = TopRank.new(type: @type, language: @language, location: @location)
     user_ranks = top_rank.user_ranks(page: @page, per: 25)
-    Kaminari.paginate_array(user_ranks, total_count: top_rank.count).page(0).per(25)
+    Kaminari.paginate_array(user_ranks, total_count: top_rank.count).page(@page).per(25)
   end
   
   def default_location

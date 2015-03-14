@@ -21,7 +21,7 @@
     <% end %>
     
     <% @user_presenter.user_ranks.each do |user_rank| %>
-      <% presenter = LanguageRankPresenter.new(user_rank) %>
+      <% presenter = UserRankPresenter.new(user_rank) %>
       <div class="row">
         <div class="col-md-3 info">
           <p><%= user_rank.language%> ranking</p>

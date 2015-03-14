@@ -8,10 +8,10 @@ describe "UserPresenter" do
     FactoryGirl.create(:repository, :user => @user, :language => "javascript", :stars => 2)
     FactoryGirl.create(:repository, :user => @user, :language => "ruby", :stars => 0)
     
-    $redis.zadd("user_paris_ruby", 1.5, @user.id)
-    $redis.zadd("user_paris_javascript", 2.0, @user.id)
-    $redis.zadd("user_france_ruby", 1.5, @user.id)
-    $redis.zadd("user_france_javascript", 2.0, @user.id)
+    $redis.zadd("user_ruby_paris", 1.5, @user.id)
+    $redis.zadd("user_javascript_paris", 2.0, @user.id)
+    $redis.zadd("user_ruby_france", 1.5, @user.id)
+    $redis.zadd("user_javascript_france", 2.0, @user.id)
     
     @presenter = UserPresenter.new(@user)
   end
@@ -31,7 +31,7 @@ describe "UserPresenter" do
       it "returns nil" do
         user = FactoryGirl.create(:user, :city => nil)
         FactoryGirl.create(:repository, :user => user, :language => "ruby", :stars => 1)
-        $redis.zadd("user_paris_ruby", 1.0, user.id)
+        $redis.zadd("user_ruby_paris", 1.0, user.id)
         UserPresenter.new(user).best_rank_tweet.should == nil
       end
     end
