@@ -5,11 +5,20 @@
 
 <div class="row">
   <div class="col-md-3 info" >
-    <%= image_tag @user.gravatar_url, :class => "thumbnail avatar-bg"%>
-    <h2><span class="mega-octicon octicon-mark-github"></span> <strong><%= link_to @user.login, "https://github.com/#{@user.login}" %></strong></h2>
-    <p><%= @user_presenter.city %></p>
-    <p><%= @user_presenter.country %></p>
-    <%= @user_presenter.best_rank_tweet %>
+    <div class="row">
+      <%= image_tag @user.gravatar_url, :class => "thumbnail avatar-bg"%>
+      <h2><span class="mega-octicon octicon-mark-github"></span> <strong><%= link_to @user.login, "https://github.com/#{@user.login}" %></strong></h2>
+      <p><%= @user_presenter.city %></p>
+      <p><%= @user_presenter.country %></p>
+      <%= @user_presenter.best_rank_tweet %>
+    </div>
+    <hr/>
+    <div class="row sponsor">
+      <p>Partnered with :</p>
+      <br>
+      <%= link_to image_tag("loggly-logo.jpg"), "http://www.loggly.com" %>
+      <p>Simplify Log Management</p>
+    </div>
   </div>
   <div class="col-md-9">
     <% if @user_presenter.user_ranks.empty? %>

@@ -24,9 +24,8 @@ With this you can get up to 500k user / repo per hour : this is enough to get th
 
 Rake task are :
 
-``` rake user:crawl ```
-
-``` rake repo:crawl ```
+    rake user:crawl
+    rake repo:crawl
 
 Now we need to get detailed informations such as location, language, number of stars.
 
@@ -49,9 +48,8 @@ We can then download the results as JSON, parse the result, and fill missing inf
 
 Rake task are :
 
-``` rake user:parse_users ```
-
-``` rake repo:parse_repos ```
+    rake user:parse_users
+    rake repo:parse_repos
 
 We now have users location, and repositories language and number of stars. In order to get country and world rank we need to geocode user locations
 
@@ -66,7 +64,7 @@ A solution to speed up the geocoding is to use a combination of :
 
 Rake task is :
 
-``` rake user:geocode_locations ```
+    rake user:geocode_locations
 
 We now have all informations we need to compute ranking.
 
@@ -74,7 +72,7 @@ We now have all informations we need to compute ranking.
 
 To get rankings we first calculate a score for each user in each language using this formula :
 
-``` sum(stars) + (1.0 - 1.0/count(repositories)) ```
+    sum(stars) + (1.0 - 1.0/count(repositories))
 
 Then we use Postgres [ROW_NUMBER()](http://www.postgresql.org/docs/9.4/static/functions-window.html) function to get ranks compared to other developers with repositories in the same languages, in the same location (by city, by country or worldwide).
 
@@ -100,13 +98,12 @@ Next steps :
 
 ## Contributing :
 
-* Fork it ( https://github.com/vdaubry/github-awards/fork )
-* Create your feature branch (git checkout -b my-new-feature)
-* Commit your changes (git commit -am 'Add some feature')
-* Push to the branch (git push origin my-new-feature)
+* Fork it `https://github.com/vdaubry/github-awards/fork`
+* Create your feature branch `git checkout -b my-new-feature`
+* Commit your changes `git commit -am 'Add some feature'`
+* Push to the branch `git push origin my-new-feature`
 * Create a new Pull Request
-* 
 
 ## License 
 
-This project is available under the MIT license. See the license file for more details.
+This project is available under the MIT license. [See the license file](LICENSE.md) for more details.
