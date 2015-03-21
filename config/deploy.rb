@@ -54,6 +54,12 @@ namespace :deploy do
       end
     end
   end
+  
+  task :clear_cache  do
+    on roles(:all) do |host|
+      execute :rake, 'cache:clear'
+    end
+  end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
