@@ -68,5 +68,5 @@ namespace :deploy do
     end
   end
 
-  after :compile_assets, :symlink_config
+  before "puma:restart", "deploy:symlink_config"
 end
