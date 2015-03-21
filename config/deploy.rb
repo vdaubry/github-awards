@@ -67,6 +67,7 @@ namespace :deploy do
   task :symlink_config do
     on roles(:web) do
       execute "ln -nfs #{deploy_to}/shared/database.yml #{current_path}/config/database.yml"
+      execute "ln -nfs #{deploy_to}/shared/newrelic.yml #{current_path}/config/newrelic.yml"
     end
   end
 
