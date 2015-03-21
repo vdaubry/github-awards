@@ -18,6 +18,7 @@ gem 'puma'
 gem 'httparty'
 gem 'kaminari'
 gem 'sitemap_generator'
+gem 'dalli'
 
 
 group :development do
