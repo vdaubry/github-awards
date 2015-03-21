@@ -1,0 +1,41 @@
+#!/usr/bin/env puma
+
+directory '<%= current_path %>'
+rackup "<%=fetch(:puma_rackup)%>"
+port   ENV['PORT'] || 5000
+environment '<%= fetch(:puma_env) %>'
+<% if fetch(:puma_tag) %>
+  tag '<%= fetch(:puma_tag)%>'
+<% end %>
+pidfile "<%=fetch(:puma_pid)%>"
+state_path "<%=fetch(:puma_state)%>"
+stdout_redirect '<%=fetch(:puma_access_log)%>', '<%=fetch(:puma_error_log)%>', true
+
+
+threads <%=fetch(:puma_threads).join(',')%>
+
+<%= puma_bind %>
+workers <%= puma_workers %>
+<% if fetch(:puma_worker_timeout) %>
+worker_timeout <%= fetch(:puma_worker_timeout).to_i %>
+<% end %>
+
+
+<% if  puma_preload_app? %>
+preload_app!
+
+on_restart do
+  puts 'Refreshing Gemfile'
+  ENV["BUNDLE_GEMFILE"] = "<%= fetch(:bundle_gemfile, "#{current_path}/Gemfile") %>"
+end
+<% else %>
+prune_bundle
+<% end %>
+
+<% if fetch(:puma_init_active_record) %>
+on_worker_boot do
+  ActiveSupport.on_load(:active_record) do
+    ActiveRecord::Base.establish_connection
+  end
+end
+<% end %>

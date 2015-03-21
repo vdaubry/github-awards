@@ -39,6 +39,8 @@ Rails.application.configure do
   Rails.logger = Logger.new(STDOUT)
 
   Rails.application.routes.default_url_options = { :host => 'localhost:5000' }
+  
+  REDIS_URL="redis://localhost:6379"
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

@@ -24,12 +24,9 @@ group :development do
   gem 'quiet_assets'
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  
-  #required for google storage
-  gem 'google-api-client'
-  gem 'highline'
-  gem 'thin'
-  gem 'launchy'
+  gem 'capistrano-rails', '~> 1.1.2'
+  gem 'capistrano-bundler', '~> 1.1.4'
+  gem 'capistrano3-puma', '~> 0.9.0'
 end
 
 group :test do
