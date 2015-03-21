@@ -39,6 +39,9 @@ set :keep_releases, 2
 set :puma_threads, [5, 5]
 set :puma_workers, 5
 
+# Sidekiq conf
+set :sidekiq_processes, 5
+
 namespace :deploy do
   
   desc "Check that we can access everything"
