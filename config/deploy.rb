@@ -88,6 +88,14 @@ namespace :deploy do
     end
   end
   
+  desc "restart process watched by monit"
+  task :symlink_config do
+    on roles(:web) do
+      execute "sudo monit restart puma"
+      execute "sudo monit restart sidekiq"
+    end
+  end
+  
   desc "clear cache"
   task :cache_clear  do
     on roles(:all) do
