@@ -1,7 +1,9 @@
+directory '<%= current_path %>'
 workers Integer(ENV['WEB_CONCURRENCY'] || 5)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
-
+pidfile '<%= fetch(:puma_pid) %>'
+stdout_redirect '<%=fetch(:puma_access_log)%>', '<%=fetch(:puma_error_log)%>', true
 preload_app!
 
 rackup      DefaultRackup

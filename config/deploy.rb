@@ -36,11 +36,13 @@ set :deploy_to, '/srv/www/githubawards'
 set :keep_releases, 2
 
 # Puma conf
-set :puma_threads, [5, 5]
-set :puma_workers, 5
+set :puma_pid, -> { File.join(shared_path, 'tmp', 'pids', 'puma.pid') }
+set :puma_access_log, -> { File.join(shared_path, 'log', 'puma_access.log') }
+set :puma_error_log, -> { File.join(shared_path, 'log', 'puma_error.log') }
 
 # Sidekiq conf
-set :sidekiq_processes, 5
+set :sidekiq_pid, -> { File.join(shared_path, 'tmp', 'pids', 'sidekiq.pid') }
+
 
 namespace :deploy do
   
@@ -54,12 +56,6 @@ namespace :deploy do
       end
     end
   end
-  
-  task :clear_cache  do
-    on roles(:all) do |host|
-      execute :rake, 'cache:clear'
-    end
-  end
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -69,6 +65,21 @@ namespace :deploy do
     end
   end
   
+  desc "Upload config files"
+  task :upload_conf  do
+    on roles(:web) do
+      puma_template = ERB.new File.read("config/deploy/templates/puma.erb")
+      upload! StringIO.new(puma_template.result(binding)), File.join(shared_path, 'puma.rb')
+      
+      sidekiq_template = ERB.new File.read("config/deploy/templates/sidekiq.erb")
+      upload! StringIO.new(sidekiq_template.result(binding)), File.join(shared_path, 'sidekiq.yml')
+      
+      upload! 'config/database.yml', "#{deploy_to}/shared/database.yml"
+      upload! 'config/newrelic.yml', "#{deploy_to}/shared/newrelic.yml"
+    end
+  end
+  
+  
   desc "Symlinks config files"
   task :symlink_config do
     on roles(:web) do
@@ -76,6 +87,13 @@ namespace :deploy do
       execute "ln -nfs #{deploy_to}/shared/newrelic.yml #{current_path}/config/newrelic.yml"
     end
   end
+  
+  desc "clear cache"
+  task :cache_clear  do
+    on roles(:all) do
+      execute :rake, 'cache:clear'
+    end
+  end
 
-  before "puma:restart", "deploy:symlink_config"
+  after "deploy:compile_assets", "deploy:symlink_config"
 end
