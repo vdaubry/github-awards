@@ -96,6 +96,6 @@ namespace :deploy do
     end
   end
 
-  after "deploy:compile_assets", "deploy:symlink_config"
+  after "deploy:published", "deploy:symlink_config"
   after "deploy:symlink_config", "deploy:monit_restart"
 end
