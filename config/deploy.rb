@@ -79,7 +79,6 @@ namespace :deploy do
     end
   end
   
-  
   desc "Symlinks config files"
   task :symlink_config do
     on roles(:web) do
@@ -89,19 +88,14 @@ namespace :deploy do
   end
   
   desc "restart process watched by monit"
-  task :symlink_config do
+  task :monit_restart do
     on roles(:web) do
-      execute "sudo monit restart puma"
-      execute "sudo monit restart sidekiq"
-    end
-  end
-  
-  desc "clear cache"
-  task :cache_clear  do
-    on roles(:all) do
-      execute :rake, 'cache:clear'
+      puts "restarting services"
+      sudo "monit restart puma"
+      sudo "monit restart sidekiq"
     end
   end
 
   after "deploy:compile_assets", "deploy:symlink_config"
+  after "deploy:symlink_config", "deploy:monit_restart"
 end
