@@ -1,5 +1,5 @@
 directory '<%= current_path %>'
-workers Integer(ENV['WEB_CONCURRENCY'] || 5)
+workers Integer(ENV['WEB_CONCURRENCY'] || 3)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 pidfile '<%= fetch(:puma_pid) %>'
