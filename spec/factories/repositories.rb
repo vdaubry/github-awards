@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :repository do
-    name                "string"
-    user_id             "string"
+    sequence(:name)     {|n| "string#{n}"}
+    user
     stars               "string"
     language            "string"
     organization        "string"

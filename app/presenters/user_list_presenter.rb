@@ -3,9 +3,9 @@ class UserListPresenter
   
   def initialize(params)
     @type = params[:type].try(:to_sym) || :city
-    @page = params[:page] || 0
+    @page = [params[:page].to_i, 1].max
     @location = params[@type].try(:downcase).try(:strip) || default_location
-    @language = params[:language].try(:downcase) || "javascript"
+    @language = params[:language] || "JavaScript"
   end
   
   def languages
@@ -16,7 +16,7 @@ class UserListPresenter
     @type==:world ? "worldwide" : "in #{@location.capitalize}"
   end
   
-  def show_location_input
+  def show_location_input?
     @type != :world
   end
   
@@ -25,19 +25,17 @@ class UserListPresenter
   end
   
   def rank_label
-    "#{@type} Rank"
+    "#{@type.capitalize} rank"
   end
   
-  def ranking(language_rank)
-    language_rank.send("#{@type}_rank")
+  def ranking(user_rank)
+    user_rank.send("#{@type}_rank")
   end
   
-  def language_ranks
-    res = LanguageRank.includes(:user).where(:language => @language)
-    if @type!=:world
-      res = res.where(@type => @location)
-    end
-    res.order("#{@type}_rank ASC").page(@page).per(25)
+  def user_ranks
+    top_rank = TopRank.new(type: @type, language: @language, location: @location)
+    user_ranks = top_rank.user_ranks(page: @page, per: 25)
+    Kaminari.paginate_array(user_ranks, total_count: top_rank.count).page(@page).per(25)
   end
   
   def default_location

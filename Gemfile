@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
+
 gem 'rails', '4.2.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -16,24 +18,22 @@ gem 'puma'
 gem 'httparty'
 gem 'kaminari'
 gem 'sitemap_generator'
+gem 'dalli'
 
 
 group :development do
   gem 'quiet_assets'
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  
-  #required for google storage
-  gem 'google-api-client'
-  gem 'highline'
-  gem 'thin'
-  gem 'launchy'
+  gem 'capistrano-rails', '~> 1.1.2'
+  gem 'capistrano-bundler', '~> 1.1.4'
 end
 
 group :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
-  gem 'mocha'  
+  gem 'mocha'
+  gem 'fakeredis'
 end
 
 group :development, :test do

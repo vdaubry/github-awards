@@ -4,7 +4,7 @@ class Tasks::RepositoryImporter
     client.on_found_object = lambda do |repo| 
       Repository.create(:github_id => repo["id"],
         :name => repo["name"], 
-        :user_id => repo["owner"]["login"],
+        :user => User.where(:login => repo["owner"]["login"]).first,
         :forked => repo["fork"] || false)
     end
     

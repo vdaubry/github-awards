@@ -3,21 +3,22 @@ require 'rails_helper'
 describe RepositoryUpdateWorker do
   
   let(:github_result) { JSON.parse(File.read("spec/fixtures/github/repo.json")) }
+  let(:user) { FactoryGirl.create(:user) }
   
   describe "perform" do
     context "new repo" do
       it "creates repo" do
         Models::GithubClient.any_instance.stubs(:get).returns(github_result)
-        RepositoryUpdateWorker.perform_async("vdaubry", "foo")
-        Repository.count.should == 1
+        RepositoryUpdateWorker.perform_async(user.id, "foo")
+        user.repositories.count.should == 1
       end
     end
     
     context "repo not found on github" do
       it "ignores repo" do
         Models::GithubClient.any_instance.stubs(:get).returns(nil)
-        RepositoryUpdateWorker.perform_async("vdaubry", "foo")
-        Repository.count.should == 0
+        RepositoryUpdateWorker.perform_async(user.id, "foo")
+        user.repositories.count.should == 0
       end
     end
   end
@@ -29,7 +30,6 @@ describe RepositoryUpdateWorker do
       repo.reload
       repo.name.should == "github-awards"
       repo.github_id.should == 29809978
-      repo.user_id.should == "vdaubry"
       repo.forked.should == true
       repo.stars.should == 2
       repo.language.should == "Ruby"

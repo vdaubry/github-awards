@@ -16,6 +16,7 @@ db/*.bck
 db/*.backup
 .DS_Store
 client_secrets.json
+newrelic.yml
 
 /log/*
 !/log/.keep

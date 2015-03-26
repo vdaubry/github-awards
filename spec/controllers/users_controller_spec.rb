@@ -2,29 +2,33 @@
 require 'rails_helper'
 
 describe UsersController do
+render_views
   
-  let(:user) { FactoryGirl.create(:user, :login => "vdaubry") }
-  let(:language_ranks) { FactoryGirl.create_list(:language_rank, 2, :user => user) }
+  before(:each) do
+    @user = FactoryGirl.create(:user, :login => "vdaubry", :city => "paris", :country => "france")
+    FactoryGirl.create(:repository, :language => "ruby", :user_id => @user.login)
+    FactoryGirl.create(:repository, :language => "javascript", :user_id => @user.login)
+    $redis.zadd("rank_paris_ruby", 1.1, @user.id)
+    $redis.zadd("rank_france_ruby", 1.1, @user.id)
+    $redis.zadd("rank_ruby", 1.1, @user.id)
+    $redis.zadd("rank_paris_javascript", 1.1, @user.id)
+    $redis.zadd("rank_france_javascript", 1.1, @user.id)
+    $redis.zadd("rank_javascript", 1.1, @user.id)
+  end
+  
   
   describe "GET show" do
     context "user exists" do
       it "sets user" do
-        user
         get :show, :id => "vdaubry"
-        assigns(:user).should == user
-      end
-      
-      it "sets language_ranks" do
-        language_ranks
-        get :show, :id => "vdaubry"
-        assigns(:language_ranks).count.should == 2
+        assigns(:user).should == @user
       end
     end
     
     context "user doesn't exists" do
       it "returns 404" do
         expect {
-          get :show, :id => "vdaubry"
+          get :show, :id => "foobar"
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -33,33 +37,24 @@ describe UsersController do
   describe "GET search" do
     context "user exists" do
       it "sets user" do
-        user
         get :search, :login => "vdaubry"
-        assigns(:user).should == user
-      end
-      
-      it "sets language_ranks" do
-        language_ranks
-        get :search, :login => "vdaubry"
-        assigns(:language_ranks).count.should == 2
+        assigns(:user).should == @user
       end
       
       it "search case insensitive" do
-        user
         get :search, :login => "Vdaubry"
-        assigns(:user).should == user
+        assigns(:user).should == @user
       end
 
       it "search trim whitespace" do
-        user
         get :search, :login => " vdaubry "
-        assigns(:user).should == user
+        assigns(:user).should == @user
       end
     end
     
     context "user doesn't exists" do
       it "redirects to users index" do
-        get :search, :login => "vdaubry"
+        get :search, :login => "foobar"
         response.should redirect_to(welcome_path)
       end
     end
