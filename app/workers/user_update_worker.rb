@@ -1,6 +1,6 @@
 class UserUpdateWorker
   include Sidekiq::Worker
-  #sidekiq_options throttle: { threshold: 5000, period: 1.hour }
+  sidekiq_options throttle: { threshold: 5000, period: 1.hour }
 
   def perform(login, include_repo=false)
     github_client = Models::GithubClient.new(ENV['GITHUB_TOKEN2'])
@@ -25,15 +25,17 @@ class UserUpdateWorker
     end
     
     if user.location.present?
-      puts "geocoding #{user.location}"
+      Rails.logger.info "geocoding #{user.location}"
       GeocoderWorker.perform_async(user.location, :googlemap, nil) 
     end
+    
+    RankWorker.perform_async(user.id)
   end
   
   def update_user(user, result)
     user.name = result["name"]
     user.github_id = result["id"]
-    user.login = result["login"].downcase
+    user.login = result["login"].downcase if result["login"]
     user.company = result["company"]
     user.location = result["location"]
     user.blog = result["blog"]
