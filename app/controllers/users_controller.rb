@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  caches_action :index, :search, :show, :cache_path => Proc.new { |c| c.params }
-  
   def index
     @user_list_presenter = UserListPresenter.new(params)
   end
