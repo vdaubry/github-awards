@@ -38,5 +38,12 @@ describe TopRank do
       user_ranks = TopRank.new(type: "city", language: "ruby", location: "paris").user_ranks(page: 1, per: 1)
       user_ranks[0].user.repository_count.should == 1
     end
+    
+    context "location not found" do
+      it "returns empty result" do
+        user_ranks = TopRank.new(type: "city", language: "ruby", location: "foo").user_ranks(page: 1, per: 2)
+        user_ranks.count.should == 0
+      end
+    end
   end
 end
