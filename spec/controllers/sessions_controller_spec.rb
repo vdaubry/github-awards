@@ -22,8 +22,10 @@ render_views
   describe "create" do
     before(:each) do
       stub_request(:get, "https://api.github.com/users/vdaubry").
-         with(:headers => {'Accept'=>'application/vnd.github.v3+json', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/json', 'User-Agent'=>'Octokit Ruby Gem 3.7.0'}).
-         to_return(:status => 200, :body => "", :headers => {})
+        to_return(:status => 200, :body => "", :headers => {})
+      
+      stub_request(:get, "https://api.github.com/users/vdaubry/repos?access_token=").
+        to_return(:status => 200, :body => "", :headers => {})
          
       request.env['omniauth.auth'] = auth_hash
     end

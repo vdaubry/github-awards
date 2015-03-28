@@ -15,7 +15,6 @@ class RepositoryUpdateWorker
   end
   
   def update_repo(repo, result)
-    puts result.inspect
     repo.name = result["name"]
     repo.github_id = result["id"]
     repo.forked = result["fork"] || false
