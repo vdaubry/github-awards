@@ -31,30 +31,12 @@ namespace :user do
     end
   end
   
-  desc "update all not processed users"
-  task process: :environment do
-    LanguageRank.select("user_id, sum(stars_count) as total_stars").joins(:user).where(:users => {:processed => false}).group("user_id").order("total_stars desc").limit(1000).each do |languageRank|
-      login = languageRank.user.login
-      Rails.logger.info "Processing user #{login}"
-      UserUpdateWorker.perform_async(login)
+  desc "fix republic of china bug"
+  task :fix_china_location => :environment do |t, args|
+    User.where(:country => "people's republic of china").update_all(:country => "china")
+    User.where(:country => "china").find_each do |user|
+      RankWorker.perform_async(user.id)
     end
-  end
-  
-  desc "remove user"
-  task :delete, [:login] => :environment do |t, args|
-    login = args.login
-    user = User.where(:login => login).first
-    Repository.where(:user_id => login).destroy_all
-    LanguageRank.where(:user_id => user.id).delete_all
-    user.destroy
-  end
-  
-  desc "fix philipinnes bug"
-  task :fix_location, [:login] => :environment do |t, args|
-    proxy_opts = nil
-    geocoder = :googlemap
-    user = User.where(:login => args.login).first
-    GeocoderWorker.perform_async(user.location, geocoder, proxy_opts)
   end
   
   desc "fix missing users"
