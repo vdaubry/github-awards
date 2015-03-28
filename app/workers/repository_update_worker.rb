@@ -3,6 +3,7 @@ class RepositoryUpdateWorker
   sidekiq_options throttle: { threshold: 5000, period: 1.hour }
 
   def perform(user_id, name)
+    Rails.logger.info "Updating repositories for user #{user_id}"
     user = User.find(user_id)
     result = Models::GithubClient.new(ENV['GITHUB_TOKEN']).get(:repo, {:owner => user.login, :repo => name})
     repo = user.repositories.where(:name => name).first_or_initialize

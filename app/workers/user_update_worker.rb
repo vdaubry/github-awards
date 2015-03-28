@@ -22,14 +22,15 @@ class UserUpdateWorker
       unless resp.nil?
         repos = JSON.parse(resp)
         repos.each do |repo|
-          RepositoryUpdateWorker.perform_async(user.id, repo["name"])
+          #perform synchronously to be sure all repos are updating when we compute rank
+          RepositoryUpdateWorker.new.perform(user.id, repo["name"])
         end
       end
     end
     
     if user.location.present?
-      Rails.logger.info "geocoding #{user.location}"
-      GeocoderWorker.perform_async(user.location, :googlemap, nil) 
+      #perform synchronously to be sure all repos are updating when we compute rank
+      GeocoderWorker.new.perform(user.location, :googlemap, nil) 
     end
     
     RankWorker.perform_async(user.id)

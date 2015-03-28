@@ -2,6 +2,7 @@ class GeocoderWorker
   include Sidekiq::Worker
   
   def perform(location, geocoder, proxy_opts={})
+    Rails.logger.info "Geocoding #{location}"
     return if location.nil?
     
     result = geocode(location, geocoder.to_sym, proxy_opts)
