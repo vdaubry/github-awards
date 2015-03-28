@@ -20,7 +20,7 @@ class UserUpdateWorker
     if include_repo
       resp = HTTParty.get("https://api.github.com/users/#{user.login}/repos?access_token=#{ENV['GITHUB_TOKEN2']}").body
       unless resp.nil?
-        repos = JSON.parse()
+        repos = JSON.parse(resp)
         repos.each do |repo|
           RepositoryUpdateWorker.perform_async(user.id, repo["name"])
         end
