@@ -3,6 +3,7 @@ workers Integer(ENV['WEB_CONCURRENCY'] || 3)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 pidfile '<%= fetch(:puma_pid) %>'
+bind '<%= fetch(:puma_bind) %>'
 stdout_redirect '<%=fetch(:puma_access_log)%>', '<%=fetch(:puma_error_log)%>', true
 
 preload_app!

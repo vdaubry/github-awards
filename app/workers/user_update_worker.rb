@@ -1,6 +1,6 @@
 class UserUpdateWorker
   include Sidekiq::Worker
-  #sidekiq_options throttle: { threshold: 5000, period: 1.hour }
+  sidekiq_options throttle: { threshold: 5000, period: 1.hour }
 
   def perform(login, include_repo=false)
     github_client = Models::GithubClient.new(ENV['GITHUB_TOKEN2'])
@@ -18,22 +18,27 @@ class UserUpdateWorker
     update_user(user, result)
     
     if include_repo
-      repos = JSON.parse(HTTParty.get("https://api.github.com/users/#{user.login}/repos?access_token=#{ENV['GITHUB_TOKEN2']}").body)
-      repos.each do |repo|
-        RepositoryUpdateWorker.perform_async(user.id, repo["name"])
+      resp = HTTParty.get("https://api.github.com/users/#{user.login}/repos?access_token=#{ENV['GITHUB_TOKEN2']}").body
+      unless resp.nil?
+        repos = JSON.parse()
+        repos.each do |repo|
+          RepositoryUpdateWorker.perform_async(user.id, repo["name"])
+        end
       end
     end
     
     if user.location.present?
-      puts "geocoding #{user.location}"
+      Rails.logger.info "geocoding #{user.location}"
       GeocoderWorker.perform_async(user.location, :googlemap, nil) 
     end
+    
+    RankWorker.perform_async(user.id)
   end
   
   def update_user(user, result)
     user.name = result["name"]
     user.github_id = result["id"]
-    user.login = result["login"].downcase
+    user.login = result["login"].downcase if result["login"]
     user.company = result["company"]
     user.location = result["location"]
     user.blog = result["blog"]

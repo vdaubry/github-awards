@@ -54,7 +54,7 @@ namespace :user do
     proxy_opts = nil
     geocoder = :googlemap
     user = User.where(:login => args.login).first
-    GeocoderWorker.new.perform(user.location, geocoder, proxy_opts)
+    GeocoderWorker.perform_async(user.location, geocoder, proxy_opts)
   end
   
   desc "fix missing users"

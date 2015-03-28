@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include User::Rank  
   has_many :repositories
+  has_many :authentication_providers
   validates :login, presence: true, uniqueness: true
   before_save { |user| user.login.downcase! }
   

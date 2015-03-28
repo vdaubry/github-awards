@@ -11,6 +11,7 @@
       <p><%= @user_presenter.city %></p>
       <p><%= @user_presenter.country %></p>
       <%= @user_presenter.best_rank_tweet %>
+      <%= link_to "Refresh your profil", '/auth/github', :class => "btn btn-success" if session[:user_id].nil? %>
     </div>
     <hr/>
     <div class="row sponsor">
