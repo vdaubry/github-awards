@@ -1,6 +1,5 @@
-var cities = <%= Rails.cache.fetch("cities") { JSON.parse(File.read(Rails.root.join('app/assets/json/cities.json'))) } %>
-var countries = <%= Rails.cache.fetch("countries") { JSON.parse(File.read(Rails.root.join('app/assets/json/countries.json'))) } %>
-
+var cities = <%= JSON.parse(File.read(Rails.root.join('app/assets/json/cities.json'))) %>
+var countries = <%= JSON.parse(File.read(Rails.root.join('app/assets/json/countries.json'))) %>
 
 $(document).on('page:change', function() {
   if($('body.users_index').length > 0) {
@@ -12,4 +11,13 @@ $(document).on('page:change', function() {
      source: countries
     });
   }
+  
+  
+  $(".loggly").click(function() {
+    ga('send', 'event', 'outbound', 'click', 'Loggly', {'hitCallback':
+     function () {
+      document.location = "http://www.loggly.com";
+     }
+   });
+  });
 });
