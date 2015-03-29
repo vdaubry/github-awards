@@ -58,6 +58,13 @@ render_views
         response.should redirect_to(welcome_path)
       end
     end
+    
+    context "empty user" do
+      it "redirects to users index" do
+        get :search
+        response.should redirect_to(welcome_path)
+      end
+    end
   end
   
   describe "GET index" do
