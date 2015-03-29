@@ -48,6 +48,6 @@ class UserListPresenter
   
   def sanitize_type(type:)
     type = :city unless type && [:city, :country, :world].include?(type.to_sym)
-    type
+    type.to_sym
   end
 end

@@ -39,6 +39,12 @@ describe "UserListPresenter" do
         UserListPresenter.new(:type => "jp", :language => "CSS").title.should == "in San francisco"
       end
     end
+    
+    context "missing params" do
+      it "returns default location" do
+        UserListPresenter.new(:type => "city").title.should == "in San francisco"
+      end
+    end
   end
   
   describe "show_location_input" do
