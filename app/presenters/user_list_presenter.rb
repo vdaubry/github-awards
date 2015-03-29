@@ -2,7 +2,7 @@ class UserListPresenter
   attr_reader :type, :language, :location
   
   def initialize(params)
-    @type = params[:type].try(:to_sym) || :city
+    @type = sanitize_type(type: params[:type])
     @page = [params[:page].to_i, 1].max
     @location = params[@type].try(:downcase).try(:strip) || default_location
     @language = params[:language] || "JavaScript"
@@ -44,5 +44,10 @@ class UserListPresenter
     elsif @type == :country
       "united states"
     end
+  end
+  
+  def sanitize_type(type:)
+    type = :city unless type && [:city, :country, :world].include?(type.to_sym)
+    type
   end
 end

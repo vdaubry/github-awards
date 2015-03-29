@@ -33,6 +33,12 @@ describe "UserListPresenter" do
   describe "title" do
     it { UserListPresenter.new(:type => :city, :city => "paris").title.should == "in Paris" }
     it { UserListPresenter.new(:type => :world).title.should == "worldwide" }
+    
+    context "invalid params" do
+      it "returns default location" do
+        UserListPresenter.new(:type => "jp", :language => "CSS").title.should == "in San francisco"
+      end
+    end
   end
   
   describe "show_location_input" do
