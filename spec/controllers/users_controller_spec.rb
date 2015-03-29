@@ -23,6 +23,11 @@ render_views
         get :show, :id => "vdaubry"
         assigns(:user).should == @user
       end
+      
+      it "is case insensitive" do
+        get :show, :id => "VDAUBRY"
+        assigns(:user).should == @user
+      end
     end
     
     context "user doesn't exists" do
