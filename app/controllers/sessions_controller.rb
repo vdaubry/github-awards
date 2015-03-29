@@ -7,6 +7,11 @@ class SessionsController < ApplicationController
     redirect_to user_path(@user)
   end
   
+  def failure
+    flash[:alert] = params[:message]
+    redirect_to '/'
+  end
+  
   protected
 
   def auth_hash

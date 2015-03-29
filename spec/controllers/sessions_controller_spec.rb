@@ -53,4 +53,11 @@ render_views
       session[:user_id].should_not == nil
     end
   end
+  
+  describe "failure" do
+    it "redirects to home page" do
+      get :failure
+      response.should redirect_to '/'
+    end
+  end
 end
