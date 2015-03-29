@@ -16,7 +16,7 @@ namespace :export do
   desc "Export city list to JSON"
   task cities: :environment do
     File.open(Rails.root.join('app/assets/json/cities.json'), 'w') do |f|
-      cities = Repository.select(:city).where("city IS NOT NULL").order("city ASC").distinct
+      cities = User.select(:city).where("city IS NOT NULL").order("city ASC").distinct
       cities = cities.map{ |l| l.city.gsub(/[^0-9A-Za-z ]/, '').strip.capitalize}.to_a.reject(&:empty?)
       f.puts cities.to_json
     end
@@ -25,7 +25,7 @@ namespace :export do
   desc "Export city list to JSON"
   task countries: :environment do
     File.open(Rails.root.join('app/assets/json/countries.json'), 'w') do |f|
-      countries = Repository.select(:country).where("country IS NOT NULL").order("country ASC").distinct
+      countries = User.select(:country).where("country IS NOT NULL").order("country ASC").distinct
       countries = countries.map{ |l| l.country.gsub(/[^0-9A-Za-z ]/, '').strip.capitalize}.to_a.reject(&:empty?)
       f.puts countries.to_json
     end
