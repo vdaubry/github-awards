@@ -37,6 +37,15 @@ render_views
         }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
+    
+    context "user is an organization" do
+      it "redirects to home page with alert" do
+        FactoryGirl.create(:user, :login => "org_user", :organization => true)
+        get :show, :id => "org_user"
+        response.should redirect_to(welcome_path)
+        flash[:alert].should_not == nil
+      end
+    end
   end
   
   describe "GET search" do
