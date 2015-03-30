@@ -24,7 +24,7 @@ class Oauth::Authorization
     user.gravatar_url = auth_hash.extra.raw_info.avatar_url
     user.location = auth_hash.extra.raw_info.location
     user.organization = auth_hash.extra.raw_info.type!="User"
-    user.save!
+    user.save
   end
   
   def update_authentication_provider(authentication_provider:, auth_hash:)
@@ -32,6 +32,6 @@ class Oauth::Authorization
     authentication_provider.uid = auth_hash.uid
     authentication_provider.token = auth_hash.credentials.token
     authentication_provider.provider = auth_hash.provider
-    authentication_provider.save!
+    authentication_provider.save
   end
 end
