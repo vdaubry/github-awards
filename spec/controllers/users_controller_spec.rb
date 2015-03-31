@@ -86,5 +86,12 @@ render_views
       get :index, :city => "Paris", :language => "Ruby", :type => "city"
       assigns(:user_list_presenter).should_not == nil
     end
+    
+    context "invalid type" do
+      it "should not fail" do
+        get :index, :type => "foo"
+        response.code.should == "200"
+      end
+    end
   end
 end
