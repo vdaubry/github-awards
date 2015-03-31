@@ -6,16 +6,7 @@ render_views
   
   before(:each) do
     @user = FactoryGirl.create(:user, :login => "vdaubry", :city => "paris", :country => "france")
-    FactoryGirl.create(:repository, :language => "ruby", :user_id => @user.login)
-    FactoryGirl.create(:repository, :language => "javascript", :user_id => @user.login)
-    $redis.zadd("rank_paris_ruby", 1.1, @user.id)
-    $redis.zadd("rank_france_ruby", 1.1, @user.id)
-    $redis.zadd("rank_ruby", 1.1, @user.id)
-    $redis.zadd("rank_paris_javascript", 1.1, @user.id)
-    $redis.zadd("rank_france_javascript", 1.1, @user.id)
-    $redis.zadd("rank_javascript", 1.1, @user.id)
   end
-  
   
   describe "GET show" do
     context "user exists" do
@@ -85,6 +76,16 @@ render_views
     it "returns presenter" do
       get :index, :city => "Paris", :language => "Ruby", :type => "city"
       assigns(:user_list_presenter).should_not == nil
+    end
+    
+    context "country as city" do
+      it "should not fail" do
+        user = FactoryGirl.create(:user, :city => nil, :country => "france")
+        FactoryGirl.create(:repository, :language => "ruby", :user => user)
+        $redis.zadd("user_ruby_france", 1.1, user.id)
+        get :index, :city => "france", :language => "ruby", :type => "city"
+        response.code.should == "200"
+      end
     end
     
     context "invalid type" do

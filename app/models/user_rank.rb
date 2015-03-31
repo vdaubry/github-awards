@@ -46,7 +46,7 @@ class UserRank
       result = $redis.zrevrank(key, @user.id)
     end
     
-    result+1
+    result.try(:+, 1)
   end
   
   def count(key)
