@@ -32,9 +32,21 @@ class UserRank
     count("user_#{@language}")
   end
   
+  def update_rank
+    RankWorker.new.perform(user.id)
+  end
+  
   private
   def rank(key)
-    $redis.zrevrank(key, @user.id).try(:+, 1 )
+    result = $redis.zrevrank(key, @user.id)
+    
+    #if an error occured when updating user location we force a new ranking compute with the new location
+    if result.nil?
+      RankWorker.new.perform(user.id)
+      result = $redis.zrevrank(key, @user.id)
+    end
+    
+    result+1
   end
   
   def count(key)

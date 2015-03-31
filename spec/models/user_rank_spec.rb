@@ -46,4 +46,13 @@ describe "UserRank" do
     it { user_rank.world_user_count.should == 3 }
   end
   
+  describe "rank" do
+    context "user has changed location" do
+      it "updates ranking" do
+        FactoryGirl.create(:repository, :user => user, :language => "ruby", :stars => 5)
+        user_rank.city_rank.should == 1
+      end
+    end
+  end
+  
 end
