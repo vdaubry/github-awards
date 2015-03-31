@@ -23,10 +23,13 @@ class UserRankPresenter
   end
   
   def location_rank(type)
+    rank = @user_rank.send("#{type}_rank")
+    user_count = @user_rank.send("#{type}_user_count")
     content_tag(:td) do
-      rank = @user_rank.send("#{type}_rank")
-      user_count = @user_rank.send("#{type}_user_count")
-      "<strong>#{rank.gh_format}</strong> / #{user_count.gh_format} <i class='fa fa-trophy'></i>".html_safe
+      concat raw "<strong>#{rank.gh_format}</strong>"
+      concat " / "
+      concat user_count.gh_format
+      concat raw " <i class='fa fa-trophy'></i>"
     end
   end
   
@@ -35,8 +38,13 @@ class UserRankPresenter
       location_link(:city) + location_rank(:city)
     else 
       content_tag(:td, colspan: 2) do
-        "<p>We couldn't find your city from your location on GitHub :( </p>".html_safe +
-        "<p>You can manually search for ".html_safe + link_to("top #{@user_rank.language.capitalize} GitHub developers in your city", users_path(:language => @user_rank.language)) + "</p>".html_safe
+        concat(content_tag(:p, raw("We couldn't find your city from your location on GitHub :( ")))
+        concat(
+          content_tag(:p) do
+            concat("You can manually search for ")
+            concat(link_to("top #{@user_rank.language.capitalize} GitHub developers in your city", users_path(:language => @user_rank.language)))
+          end
+        )
       end
     end
   end
