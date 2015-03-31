@@ -24,8 +24,14 @@ class UserPresenter
     if @user_ranks.present? && @user.city
       lr = @user_ranks.first
       tweet_message = "I am the top #{lr.city_rank} #{lr.language} developer in #{@user.city.capitalize}. Check your GitHub ranking on GitHub Awards !"
+      tweet_link = "http://twitter.com/share?text=#{tweet_message}&url=#{user_url(@user)}"
       content_tag :p do 
-        "Tweet your <a href='http://twitter.com/share?text=#{tweet_message}&url=#{user_url(@user)}' title='Share GitHub Awards on Twitter' target='_blank'>ranking <i class='fa fa-twitter'></i></a>".html_safe
+        concat "Tweet your "
+        concat(
+          link_to(tweet_link, target: "_blank", title: "Share GitHub Awards on Twitter") do
+            raw("ranking <i class='fa fa-twitter'></i>")
+          end
+        )
       end
     end
   end
