@@ -20,6 +20,10 @@ class UserListPresenter
     @type != :world
   end
   
+  def empty_message
+    "Could not find any user for <strong> #{@type} </strong> '#{@location}'. Use the auto completion to avoid spelling errors, or go to Top users by country for country search".html_safe
+  end
+  
   def location_input
     ActionController::Base.helpers.text_field_tag @type, @location.capitalize, :class => "form-control"
   end
