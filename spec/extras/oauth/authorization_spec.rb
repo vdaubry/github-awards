@@ -95,11 +95,11 @@ describe "Oauth::Authorization" do
         end
       end
       
-      context "same login different github id" do
-        it "raises race condition error" do
-          User.any_instance.stubs(:save).raises(ActiveRecord::RecordNotUnique.new(""))
-          expect { Oauth::Authorization.new.authorize(auth_hash: auth_hash)
-           }.to raise_error(RaceCondition)
+      context "race condition" do
+        it "catches error and updates user" do
+          user = FactoryGirl.create(:user, :login => "vdaubry")
+          User.any_instance.stubs(:save).raises(ActiveRecord::RecordNotUnique.new("")).then.returns(true)
+          Oauth::Authorization.new.authorize(auth_hash: auth_hash)
         end
       end
     end

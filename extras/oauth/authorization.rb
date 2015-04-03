@@ -12,7 +12,8 @@ class Oauth::Authorization
     begin
       update_user(user: user, auth_hash: auth_hash)
     rescue ActiveRecord::RecordNotUnique => e
-      raise RaceCondition.new(e)
+      user = User.where(:login => user.login).first
+      update_user(user: user, auth_hash: auth_hash)
     end
     update_authentication_provider(authentication_provider: authentication_provider, auth_hash: auth_hash)
     
@@ -20,6 +21,7 @@ class Oauth::Authorization
   end
   
   def update_user(user:, auth_hash:)
+    user.github_id = auth_hash.uid
     user.email = auth_hash.info.email
     user.login = auth_hash.extra.raw_info.login
     user.name = auth_hash.extra.raw_info.name
