@@ -24,7 +24,7 @@ render_views
       stub_request(:get, "https://api.github.com/users/vdaubry").
         to_return(:status => 200, :body => "", :headers => {})
       
-      stub_request(:get, "https://api.github.com/users/vdaubry/repos?access_token=&per_page=2000").
+      stub_request(:get, "https://api.github.com/users/vdaubry/repos?access_token=&per_page=100").
         to_return(:status => 200, :body => "", :headers => {})
          
       request.env['omniauth.auth'] = auth_hash
