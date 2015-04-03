@@ -18,7 +18,7 @@ class UserUpdateWorker
     update_user(user, result)
     
     if include_repo
-      resp = HTTParty.get("https://api.github.com/users/#{user.login}/repos?access_token=#{ENV['GITHUB_TOKEN2']}").body
+      resp = HTTParty.get("https://api.github.com/users/#{user.login}/repos?access_token=#{ENV['GITHUB_TOKEN2']}&per_page=100").body
       unless resp.nil?
         repos = JSON.parse(resp)
         repos.each do |repo|
