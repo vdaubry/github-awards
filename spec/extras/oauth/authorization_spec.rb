@@ -94,6 +94,14 @@ describe "Oauth::Authorization" do
           user.login.should == "vdaubry"
         end
       end
+      
+      context "same login different github id" do
+        it "raises race condition error" do
+          User.any_instance.stubs(:save).raises(ActiveRecord::RecordNotUnique.new(""))
+          expect { Oauth::Authorization.new.authorize(auth_hash: auth_hash)
+           }.to raise_error(RaceCondition)
+        end
+      end
     end
   end
 end

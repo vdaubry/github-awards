@@ -52,6 +52,14 @@ render_views
       
       session[:user_id].should_not == nil
     end
+    
+    context "race condition" do
+      it "returns to home page" do
+        Oauth::Authorization.any_instance.stubs(:authorize).raises(RaceCondition.new(""))
+        get :create, provider: "github"
+        response.should redirect_to '/'
+      end
+    end
   end
   
   describe "failure" do

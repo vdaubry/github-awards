@@ -1,0 +1,2 @@
+class RaceCondition < StandardError
+end

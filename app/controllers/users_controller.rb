@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def search
     show_user(params[:login])
     rescue ActiveRecord::RecordNotFound => e
-      redirect_to welcome_path, :alert => "User #{params[:login]} not found"
+      redirect_to welcome_path, :alert => "User #{params[:login]} not found. If you are looking for your own profile you can <a href='/auth/github'>refresh it from Github</a>"
   end
 
   def show

@@ -23,7 +23,7 @@ module GithubAwards
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     
-    config.autoload_paths += %W(#{config.root}/extras #{config.root}/extras/tasks #{config.root}/extras/models #{config.root}/extras/utils #{config.root}/app/presenters)
+    config.autoload_paths += %W(#{config.root}/extras #{config.root}/extras/tasks #{config.root}/extras/models #{config.root}/extras/exceptions #{config.root}/app/presenters)
         
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)
   end

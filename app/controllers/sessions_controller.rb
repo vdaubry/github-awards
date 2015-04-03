@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  rescue_from RaceCondition, :with => :race_condition
+  
   def create
     @user = Oauth::Authorization.new.authorize(auth_hash: auth_hash)
     UserUpdateWorker.perform_async(@user.login, true)
@@ -16,5 +18,10 @@ class SessionsController < ApplicationController
 
   def auth_hash
     request.env['omniauth.auth']
+  end
+  
+  def race_condition
+    flash[:alert] = "Your accound could not be updated, please try again"
+    return redirect_to '/'
   end
 end

@@ -9,7 +9,11 @@ class Oauth::Authorization
     end
     
     user = authentication_provider.user
-    update_user(user: user, auth_hash: auth_hash)
+    begin
+      update_user(user: user, auth_hash: auth_hash)
+    rescue ActiveRecord::RecordNotUnique => e
+      raise RaceCondition.new(e)
+    end
     update_authentication_provider(authentication_provider: authentication_provider, auth_hash: auth_hash)
     
     return user
