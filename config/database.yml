@@ -1,0 +1,31 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+development:
+  adapter: postgresql
+  encoding: UTF8
+  database: gitubawards_development
+  pool: 100
+  username: gitubawards
+  password: 
+
+test:
+  adapter: postgresql
+  encoding: UTF8
+  database: gitubawards_test
+  pool: 5
+  username: gitubawards
+  password: 
+
+production:
+  adapter: postgresql
+  encoding: UTF8
+  host: localhost
+  port: 5432
+  database: gitubawards_production
+  pool: 100
+  username: gitubawards
+  password: <%= ENV['DATABASE_PASSWORD'] %>
