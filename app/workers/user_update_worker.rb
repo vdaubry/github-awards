@@ -3,7 +3,7 @@ class UserUpdateWorker
   sidekiq_options throttle: { threshold: 5000, period: 1.hour }
 
   def perform(login, include_repo=false)
-    github_client = Models::GithubClient.new(ENV['GITHUB_TOKEN2'])
+    github_client = Models::GithubClient.new(ENV['GITHUB_TOKEN'])
     github_client.on_too_many_requests = lambda do |error|
       raise error
     end
@@ -14,11 +14,14 @@ class UserUpdateWorker
       return 
     end
     
-    user = User.where(:login => login).first_or_initialize
+    user = User.where(:login => login.downcase).first_or_initialize
     update_user(user, result)
     
     if include_repo
-      resp = HTTParty.get("https://api.github.com/users/#{user.login}/repos?access_token=#{ENV['GITHUB_TOKEN2']}&per_page=100").body
+      url = "https://api.github.com/users/#{user.login}/repos?per_page=100"
+      url += "&access_token=#{ENV['GITHUB_TOKEN']}" if ENV['GITHUB_TOKEN']
+      resp = HTTParty.get(url).body
+      
       unless resp.nil?
         repos = JSON.parse(resp)
         repos.each do |repo|

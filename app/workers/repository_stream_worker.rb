@@ -1,17 +1,21 @@
+require 'net/http'
+
 class RepositoryStreamWorker
   include Sidekiq::Worker
 
-  def perform(filepath)
-    event_stream = File.read(filepath); 0
-    Models::StreamParser.new(event_stream).parse do |event|
-      repo = Repository.where(:user_id => event["a_repository_owner"], :name => event["a_repository_name"]).first
-      if repo
-        repo.stars = event["a_repository_watchers"].to_i if repo.stars==0
-        repo.language ||= event["a_repository_language"]
-        repo.processed = true
-        repo.save
-        
-        puts "updated with language = #{repo.language} , stars = #{repo.stars}"
+  def perform(time:)
+    stream = Models::Stream.new(time: time)
+    stream.parse
+    stream.each do |repo_name|
+      login = repo_name.split("/")[0]
+      user = User.where(:login => login.downcase).first
+      if user.nil?
+        Rails.logger.info("Creating user #{login}")
+        UserUpdateWorker.perform_async(login, true) 
+      else
+        repo = repo_name.split("/")[1]
+        Rails.logger.info("Updating repo #{repo}")
+        RepositoryUpdateWorker.perform_async(user.id, repo) 
       end
     end
   end

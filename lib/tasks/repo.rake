@@ -6,9 +6,8 @@ namespace :repo do
     Tasks::RepositoryImporter.new.crawl_github_repos(since)
   end
   
-  desc "Get latest infos for each repos"
-  task parse_repos: :environment do
-    "ressources/repos000000000000.json"
-    RepositoryStreamWorker.perform_async(filepath)
+  desc "Import repos from github archive"
+  task import: :environment do
+    RepositoryStreamWorker.new.perform(time: 1.day.ago)
   end
 end
