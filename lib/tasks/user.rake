@@ -16,33 +16,12 @@ namespace :user do
     end
   end
   
-  desc "Parse events from GithubArchive and update corresponding users"
-  task parse_users: :environment do
-    filepath = "ressources/users000000000000.json"
-    UserStreamWorker.perform_async(filepath)
-  end
-  
   desc "update a single user data from Github API"
   task :reload, [:login] => :environment do |t, args|
     login = args.login
     Rails.logger.info "Update user #{login}"
     if login
       UserUpdateWorker.perform_async(login, true)
-    end
-  end
-  
-  desc "fix republic of china bug"
-  task :fix_china_location => :environment do |t, args|
-    User.where(:country => "people's republic of china").update_all(:country => "china")
-    User.where(:country => "china").find_each do |user|
-      RankWorker.perform_async(user.id)
-    end
-  end
-  
-  desc "fix missing users"
-  task :fix_missing_user => :environment do
-    Repository.select("user_login").where("user_id IS NULL").distinct.each do |repo|
-      UserUpdateWorker.perform_async(repo.user_login)
     end
   end
 end

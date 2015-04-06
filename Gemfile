@@ -36,6 +36,7 @@ group :test do
   gem 'mocha',                      '~> 1.1.0'
   gem 'fakeredis',                  '~> 0.5.0'
   gem 'webmock',                    '~> 1.20.4'
+  gem 'vcr',                        '~> 2.9.3'
 end
 
 group :development, :test do
