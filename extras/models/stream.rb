@@ -5,7 +5,7 @@ require 'yajl'
 class Models::Stream
   def initialize(time:)
     #Githubarchive events are available starting yesterday
-    @filename = "#{time.strftime("%Y-%m-%d-%H")}.json.gz"
+    @filename = "#{time.strftime("%Y-%m-%d-%-k")}.json.gz"
   end
   
   def download(filename:)

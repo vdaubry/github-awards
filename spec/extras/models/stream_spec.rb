@@ -6,20 +6,30 @@ describe Models::Stream do
   
   before(:each) do
     repos_json = File.read("spec/fixtures/githubArchive/repos.json")
-    io = StringIO.new("w")
-    gz = Zlib::GzipWriter.new(io)
+    @io = StringIO.new("w")
+    gz = Zlib::GzipWriter.new(@io)
     gz.write(repos_json)
     gz.close
     
     stub_request(:get, "http://data.githubarchive.org/2015-04-04-16.json.gz").
        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-       to_return(:status => 200, :body => io.string, :headers => {})
+       to_return(:status => 200, :body => @io.string, :headers => {})
   end
   
   describe "parse" do
     it "adds unique watched repos in redis" do
       stream.parse
       $redis.smembers("stream_repos").size.should == 2
+    end
+    
+    it "downloads filename with hour zero blanked" do
+      stream = Models::Stream.new(time: DateTime.parse("2015-04-04 09:00"))
+      
+      #Check that we download a file called 2015-04-04-9.json.gz
+      stub_request(:get, "http://data.githubarchive.org/2015-04-04-9.json.gz").
+       with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+       to_return(:status => 200, :body => @io.string, :headers => {})
+      stream.parse
     end
   end
   
