@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   
   resources :repositories
 
-  resources :users do
+  #We only accept html request to block request like /users/robots.txt
+  resources :users, :constraints => {:format => /(html)/} do
     get 'search', on: :collection
   end
   
