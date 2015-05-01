@@ -34,5 +34,18 @@ describe RepositoryUpdateWorker do
       repo.stars.should == 2
       repo.language.should == "Ruby"
     end
+    
+    it "updates user rank" do
+      Models::GithubClient.any_instance.stubs(:get).returns({})
+      RepositoryUpdateWorker.any_instance.stubs(:update_repo).returns(:nil)
+      
+      user = FactoryGirl.create(:user, city: "paris")
+      repo = FactoryGirl.create(:repository, language: "ruby", name: "flowl", stars: 5, user: user)
+      $redis.zadd("user_ruby_paris", 1.0, user.id)
+      
+      RepositoryUpdateWorker.new.perform(user.id, "foobar")
+      
+      $redis.zscore("user_ruby_paris", user.id).should == 5.0
+    end
   end
 end

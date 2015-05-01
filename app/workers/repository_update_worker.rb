@@ -13,6 +13,8 @@ class RepositoryUpdateWorker
     end
     
     update_repo(repo, result) 
+    
+    RankWorker.perform_async(user_id)
   end
   
   def update_repo(repo, result)
