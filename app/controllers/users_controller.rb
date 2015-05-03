@@ -17,9 +17,6 @@ class UsersController < ApplicationController
   
   def show_user(login)
     @user = User.where(:login => login.try(:downcase).try(:strip)).first || not_found
-    if @user.organization
-      return redirect_to welcome_path, :alert => "Organization are not displayed yet, stay tuned"
-    end
     
     @user_presenter = UserPresenter.new(@user)
     render action: 'show'
