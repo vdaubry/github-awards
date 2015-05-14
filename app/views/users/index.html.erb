@@ -45,7 +45,7 @@
         <% user_ranks = @user_list_presenter.user_ranks %>
         <% if user_ranks.empty? %>
           <tr>
-            <td><%= @user_list_presenter.empty_message %> </td>
+            <td><%=h @user_list_presenter.empty_message %> </td>
           </tr>
         <% end %>
         <% @user_list_presenter.user_ranks.each do |user_rank| %>
