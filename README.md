@@ -38,11 +38,11 @@ Now we need to get detailed informations such as location, language, number of s
 
 The GitHub Archive dataset is public, with Google Big Query we can filter the dataset to get only the latest event for each repo and users. Unfortunatly the GitHub Archives events starts from 2011, so we won't get ranking informations for users and repos that have been inactive since 2011.
 
-- Request for repositories :
+- Request for users :
 
 [users.sql](https://github.com/vdaubry/github-awards-api/blob/master/sql/GoogleBigQuery/users.sql)
 
-- Request for users :
+- Request for repositories :
 
 [repos.sql](https://github.com/vdaubry/github-awards-api/blob/master/sql/GoogleBigQuery/repos.sql)
 
