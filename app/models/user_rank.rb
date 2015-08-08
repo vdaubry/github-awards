@@ -35,6 +35,12 @@ class UserRank
   def update_rank
     RankWorker.new.perform(user.id)
   end
+
+  def remove
+    $redis.zrem("user_#{@language}_#{@user.city}", user.id) if user.city
+    $redis.zrem("user_#{@language}_#{@user.country}", user.id) if user.country
+    $redis.zrem("user_#{@language}", user.id)
+  end
   
   private
   def rank(key)

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include User::Rank  
-  has_many :repositories
-  has_many :authentication_providers
+  has_many :repositories, dependent: :destroy
+  has_many :authentication_providers, dependent: :destroy
   validates :login, presence: true, uniqueness: true
   before_save { |user| user.login.downcase! }
   

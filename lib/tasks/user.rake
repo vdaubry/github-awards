@@ -20,8 +20,17 @@ namespace :user do
   task :reload, [:login] => :environment do |t, args|
     login = args.login
     Rails.logger.info "Update user #{login}"
-    if login
-      UserUpdateWorker.perform_async(login, true)
+    UserUpdateWorker.perform_async(login, true) if login
+  end
+
+  desc "Remove user"
+  task :remove, [:login] => :environment do |t, args|
+    login = args.login
+    user = User.where(login: login).first
+    Rails.logger.info "Remove user #{user.login}"
+    if user
+      user.remove_ranks
+      user.destroy
     end
   end
 end
