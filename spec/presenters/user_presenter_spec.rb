@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe "UserPresenter" do
   before(:each) do
-    @user = FactoryGirl.create(:user, :city => "paris", :country => "france")
+    @user = FactoryGirl.create(:user, city: "paris", country: "france")
 
-    FactoryGirl.create(:repository, :user => @user, :language => "ruby", :stars => 1)
-    FactoryGirl.create(:repository, :user => @user, :language => "javascript", :stars => 2)
-    FactoryGirl.create(:repository, :user => @user, :language => "ruby", :stars => 0)
+    FactoryGirl.create(:repository, user: @user, language: "ruby", stars: 1)
+    FactoryGirl.create(:repository, user: @user, language: "javascript", stars: 2)
+    FactoryGirl.create(:repository, user: @user, language: "ruby", stars: 0)
     
     $redis.zadd("user_ruby_paris", 1.5, @user.id)
     $redis.zadd("user_javascript_paris", 2.0, @user.id)
@@ -29,8 +29,8 @@ describe "UserPresenter" do
     
     context "no city" do
       it "returns nil" do
-        user = FactoryGirl.create(:user, :city => nil)
-        FactoryGirl.create(:repository, :user => user, :language => "ruby", :stars => 1)
+        user = FactoryGirl.create(:user, city: nil)
+        FactoryGirl.create(:repository, user: user, language: "ruby", stars: 1)
         $redis.zadd("user_ruby_paris", 1.0, user.id)
         UserPresenter.new(user).best_rank_tweet.should == nil
       end

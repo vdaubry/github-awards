@@ -17,6 +17,6 @@ class GoogleMapClient
       
     city = address_components.select { |r| r["types"].include?("locality")}.first.try(:[], "long_name")
     country = address_components.select { |r| r["types"].include?("country")}.first.try(:[], "long_name")
-    return {:city => city, :country => country} if city || country
+    return {city: city, country: country} if city || country
   end
 end

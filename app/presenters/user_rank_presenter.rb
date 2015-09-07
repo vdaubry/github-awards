@@ -13,11 +13,11 @@ class UserRankPresenter
   end
   
   def location_link(type)
-    content_tag(:td, :class => "col-md-3") do
+    content_tag(:td, class: "col-md-3") do
       if type == :world
-        link_to "Worldwide", users_path(:language => @user_rank.language, :type => type)
+        link_to "Worldwide", users_path(language: @user_rank.language, type: type)
       else
-        link_to @user.send(type).capitalize, users_path(:language => @user_rank.language, type => @user.send(type), :type => type)
+        link_to @user.send(type).capitalize, users_path(language: @user_rank.language, type => @user.send(type), type: type)
       end
     end
   end
@@ -42,7 +42,7 @@ class UserRankPresenter
         concat(
           content_tag(:p) do
             concat("You can manually search for ")
-            concat(link_to("top #{@user_rank.language.capitalize} GitHub developers in your city", users_path(:language => @user_rank.language)))
+            concat(link_to("top #{@user_rank.language.capitalize} GitHub developers in your city", users_path(language: @user_rank.language)))
           end
         )
       end
@@ -63,6 +63,6 @@ end
 class Fixnum
   include ActionView::Helpers::NumberHelper
   def gh_format
-    number_with_delimiter(self, :delimiter => " ")
+    number_with_delimiter(self, delimiter: " ")
   end
 end

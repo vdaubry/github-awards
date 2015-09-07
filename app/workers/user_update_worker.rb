@@ -14,7 +14,7 @@ class UserUpdateWorker
       return 
     end
     
-    user = User.where(:login => login.downcase).first_or_initialize
+    user = User.where(login: login.downcase).first_or_initialize
     update_user(user, result)
     
     if include_repo

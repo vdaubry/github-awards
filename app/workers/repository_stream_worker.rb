@@ -8,7 +8,7 @@ class RepositoryStreamWorker
     stream.parse
     stream.each do |repo_name|
       login = repo_name.split("/")[0]
-      user = User.where(:login => login.downcase).first
+      user = User.where(login: login.downcase).first
       if user.nil?
         Rails.logger.info("Creating user #{login}")
         UserUpdateWorker.perform_async(login, true) 

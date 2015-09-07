@@ -4,8 +4,8 @@ describe Tasks::UserImporter do
   describe "crawl_github_users" do
     it "iterates while max users is reached" do
       Octokit::Client.any_instance.stubs(:all_users)
-      .returns([{"login" => "foo1", :id => 0}, {"login" => "foo2", :id => 1}])
-      .then.returns([{"login" => "foo3", :id => 2}])
+      .returns([{"login" => "foo1", id: 0}, {"login" => "foo2", id: 1}])
+      .then.returns([{"login" => "foo3", id: 2}])
       Models::GithubClient.any_instance.stubs(:max_list_size).returns(2)
       Tasks::UserImporter.new.crawl_github_users("0")
       User.count.should == 3

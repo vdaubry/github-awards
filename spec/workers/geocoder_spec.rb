@@ -6,7 +6,7 @@ describe GeocoderWorker do
     context "Google Map" do
       context "valid location" do
         it "returns geocoded result" do
-          res = {:city => "Paris", :country => "France"}
+          res = {city: "Paris", country: "France"}
           GoogleMapClient.any_instance.stubs(:geocode).with("paris").returns(res)
           GeocoderWorker.new.geocode("paris", :googlemap).should == res
         end
@@ -21,7 +21,7 @@ describe GeocoderWorker do
     context "Open Street Map" do
       context "valid location" do
         it "returns geocoded result" do
-          res = {:city => "Paris", :country => "France"}
+          res = {city: "Paris", country: "France"}
           OpenStreetMapClient.any_instance.stubs(:geocode).with("paris").returns(res)
           GeocoderWorker.new.geocode("paris", :openstreetmap).should == res
         end
