@@ -3,14 +3,14 @@ require "rails_helper"
 describe TopRank do
   describe "user_ranks" do
     before(:each) do
-      @user1 = FactoryGirl.create(:user, :city => "paris")
-      FactoryGirl.create(:repository, :language => "ruby", :user => @user1, :stars => 1)
+      @user1 = FactoryGirl.create(:user, city: "paris")
+      FactoryGirl.create(:repository, language: "ruby", user: @user1, stars: 1)
       
-      @user2 = FactoryGirl.create(:user, :city => "paris")
-      FactoryGirl.create(:repository, :language => "ruby", :user => @user2, :stars => 2)
+      @user2 = FactoryGirl.create(:user, city: "paris")
+      FactoryGirl.create(:repository, language: "ruby", user: @user2, stars: 2)
       
-      @user3 = FactoryGirl.create(:user, :city => "paris")
-      FactoryGirl.create(:repository, :language => "ruby", :user => @user3, :stars => 3)
+      @user3 = FactoryGirl.create(:user, city: "paris")
+      FactoryGirl.create(:repository, language: "ruby", user: @user3, stars: 3)
       
       $redis.zadd("user_ruby_paris", 1.1, @user1.id)
       $redis.zadd("user_ruby_paris", 5.0, @user2.id)

@@ -3,13 +3,13 @@ class Models::GithubClient
   attr_accessor :on_found_object, :on_error, :on_too_many_requests
   
   def initialize(token=nil)
-    @client = Octokit::Client.new(:access_token => token)
+    @client = Octokit::Client.new(access_token: token)
     @max_list_size = 100
   end
   
   def list(method, since)
     loop do
-      results = api_call(method, {:since => since})
+      results = api_call(method, {since: since})
       next if results.nil?
       
       Rails.logger.info "found #{results.size} objects starting at #{since}"

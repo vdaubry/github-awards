@@ -22,7 +22,7 @@ describe "Oauth::Authorization" do
     context "new user" do
       it "creates user" do
         Oauth::Authorization.new.authorize(auth_hash: auth_hash)
-        user = User.where(:github_id => '498298').first
+        user = User.where(github_id: '498298').first
         user.email.should == "vdaubry@gmail.com"
         user.login.should == "vdaubry"
         user.name.should == "vincent daubry"
@@ -35,7 +35,7 @@ describe "Oauth::Authorization" do
       
       it "creates authentication provider" do
         Oauth::Authorization.new.authorize(auth_hash: auth_hash)
-        authentication_provider = AuthenticationProvider.where(:uid => '498298').first
+        authentication_provider = AuthenticationProvider.where(uid: '498298').first
         authentication_provider.user.github_id.should == 498298
         authentication_provider.uid.should == "498298"
         authentication_provider.token.should == "fc6c66e14ccfe22e33ae2390d9db791a23b89415"
@@ -50,13 +50,13 @@ describe "Oauth::Authorization" do
     
     context "user already exists" do
       before(:each) do
-        @user = FactoryGirl.create(:user, :github_id => '498298', :location => "foo", :email => nil)
+        @user = FactoryGirl.create(:user, github_id: '498298', location: "foo", email: nil)
       end
       
       it "updates the user" do
         Oauth::Authorization.new.authorize(auth_hash: auth_hash)
         
-        users = User.where(:github_id => '498298')
+        users = User.where(github_id: '498298')
         users.count.should == 1
         user = users.first
         user.location.should == "Paris"
@@ -67,7 +67,7 @@ describe "Oauth::Authorization" do
         it "connects to github" do
           Oauth::Authorization.new.authorize(auth_hash: auth_hash)
           
-          user = User.where(:github_id => '498298').first
+          user = User.where(github_id: '498298').first
           user.authentication_providers.count.should == 1
         end
         
@@ -79,13 +79,13 @@ describe "Oauth::Authorization" do
       
       context "already connected to github" do
         before(:each) do
-          FactoryGirl.create(:authentication_provider, :uid => '498298', :token => "foo", :user => @user)
+          FactoryGirl.create(:authentication_provider, uid: '498298', token: "foo", user: @user)
         end
         
         it "updates authentication provider" do
           Oauth::Authorization.new.authorize(auth_hash: auth_hash)
           
-          authentication_provider = User.where(:github_id => '498298').first.authentication_providers.first
+          authentication_provider = User.where(github_id: '498298').first.authentication_providers.first
           authentication_provider.token.should == "fc6c66e14ccfe22e33ae2390d9db791a23b89415"
         end
         
@@ -97,7 +97,7 @@ describe "Oauth::Authorization" do
       
       context "race condition" do
         it "catches error and updates user" do
-          user = FactoryGirl.create(:user, :login => "vdaubry")
+          user = FactoryGirl.create(:user, login: "vdaubry")
           User.any_instance.stubs(:save).raises(ActiveRecord::RecordNotUnique.new("")).then.returns(true)
           Oauth::Authorization.new.authorize(auth_hash: auth_hash)
         end

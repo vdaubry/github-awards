@@ -16,8 +16,8 @@ describe "AuthenticationProvider" do
     
     context "duplicate authentication provider" do
       it "doesn't save duplicate uid" do
-        FactoryGirl.build(:authentication_provider, :uid => "foo").save.should == true
-        FactoryGirl.build(:authentication_provider, :uid => "foo").save.should == false
+        FactoryGirl.build(:authentication_provider, uid: "foo").save.should == true
+        FactoryGirl.build(:authentication_provider, uid: "foo").save.should == false
       end
       
       it "attaches only one authentication provider to user" do
@@ -31,10 +31,10 @@ describe "AuthenticationProvider" do
     end
     
     context "missing attributes" do
-      it { FactoryGirl.build(:authentication_provider, :user => nil).save.should == false }
-      it { FactoryGirl.build(:authentication_provider, :uid => nil).save.should == false }
-      it { FactoryGirl.build(:authentication_provider, :token => nil).save.should == false }
-      it { FactoryGirl.build(:authentication_provider, :provider => nil).save.should == false }
+      it { FactoryGirl.build(:authentication_provider, user: nil).save.should == false }
+      it { FactoryGirl.build(:authentication_provider, uid: nil).save.should == false }
+      it { FactoryGirl.build(:authentication_provider, token: nil).save.should == false }
+      it { FactoryGirl.build(:authentication_provider, provider: nil).save.should == false }
     end
   end
 end

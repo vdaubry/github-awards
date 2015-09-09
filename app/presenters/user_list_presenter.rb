@@ -25,7 +25,7 @@ class UserListPresenter
   end
   
   def location_input
-    ActionController::Base.helpers.text_field_tag @type, @location.capitalize, :class => "form-control"
+    ActionController::Base.helpers.text_field_tag @type, @location.capitalize, class: "form-control"
   end
   
   def rank_label

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "UserRank" do
   
-  let(:user) { FactoryGirl.create(:user, :city => "paris", :country => "france") }
+  let(:user) { FactoryGirl.create(:user, city: "paris", country: "france") }
   let(:user_rank) { UserRank.new(user, "ruby", 10, 4) }
   
   describe "stars_count" do
@@ -49,7 +49,7 @@ describe "UserRank" do
   describe "rank" do
     context "user has changed location" do
       it "updates ranking" do
-        FactoryGirl.create(:repository, :user => user, :language => "ruby", :stars => 5)
+        FactoryGirl.create(:repository, user: user, language: "ruby", stars: 5)
         user_rank.city_rank.should == 1
       end
     end

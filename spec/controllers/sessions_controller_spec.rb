@@ -22,10 +22,10 @@ render_views
   describe "create" do
     before(:each) do
       stub_request(:get, "https://api.github.com/users/vdaubry").
-        to_return(:status => 200, :body => "", :headers => {})
+        to_return(status: 200, body: "", headers: {})
       
       stub_request(:get, "https://api.github.com/users/vdaubry/repos?per_page=100").
-        to_return(:status => 200, :body => "", :headers => {})
+        to_return(status: 200, body: "", headers: {})
          
       request.env['omniauth.auth'] = auth_hash
     end

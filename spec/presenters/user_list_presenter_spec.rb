@@ -2,16 +2,16 @@ require 'rails_helper'
 
 describe "UserListPresenter" do
   
-  let(:presenter) { UserListPresenter.new(:type => :city) }
+  let(:presenter) { UserListPresenter.new(type: :city) }
   
   describe "new" do
     context "empty location" do
       it "sets default city" do
-        UserListPresenter.new(:type => :city).location.should == "san francisco"
+        UserListPresenter.new(type: :city).location.should == "san francisco"
       end
       
       it "sets default country" do
-        UserListPresenter.new(:type => :country).location.should == "united states"
+        UserListPresenter.new(type: :country).location.should == "united states"
       end
       
       it "sets default language" do
@@ -21,7 +21,7 @@ describe "UserListPresenter" do
 
     context "location provided" do
       it "location trim whitespace" do
-        UserListPresenter.new(:type => :city, :city => " paris ").location.should == "paris"
+        UserListPresenter.new(type: :city, city: " paris ").location.should == "paris"
       end
     end
   end
@@ -31,25 +31,25 @@ describe "UserListPresenter" do
   end
   
   describe "title" do
-    it { UserListPresenter.new(:type => :city, :city => "paris").title.should == "in Paris" }
-    it { UserListPresenter.new(:type => :world).title.should == "worldwide" }
+    it { UserListPresenter.new(type: :city, city: "paris").title.should == "in Paris" }
+    it { UserListPresenter.new(type: :world).title.should == "worldwide" }
     
     context "invalid params" do
       it "returns default location" do
-        UserListPresenter.new(:type => "jp", :language => "CSS").title.should == "in San francisco"
+        UserListPresenter.new(type: "jp", language: "CSS").title.should == "in San francisco"
       end
     end
     
     context "missing params" do
       it "returns default location" do
-        UserListPresenter.new(:type => "city").title.should == "in San francisco"
+        UserListPresenter.new(type: "city").title.should == "in San francisco"
       end
     end
   end
   
   describe "show_location_input" do
-    it { UserListPresenter.new(:type => :city).show_location_input?.should == true }
-    it { UserListPresenter.new(:type => :world).show_location_input?.should == false }
+    it { UserListPresenter.new(type: :city).show_location_input?.should == true }
+    it { UserListPresenter.new(type: :world).show_location_input?.should == false }
   end
   
   describe "user_ranks" do
@@ -58,15 +58,15 @@ describe "UserListPresenter" do
         u1 = FactoryGirl.create(:user)
         u2 = FactoryGirl.create(:user)
         u3 = FactoryGirl.create(:user)
-        r1 = FactoryGirl.create(:repository, :user => u1, :language => "ruby")
-        r2 = FactoryGirl.create(:repository, :user => u2, :language => "ruby")
-        r3 = FactoryGirl.create(:repository, :user => u3, :language => "ruby")
+        r1 = FactoryGirl.create(:repository, user: u1, language: "ruby")
+        r2 = FactoryGirl.create(:repository, user: u2, language: "ruby")
+        r3 = FactoryGirl.create(:repository, user: u3, language: "ruby")
         
         $redis.zadd("user_ruby_paris", 1.1, u1.id)
         $redis.zadd("user_ruby_paris", 3.2, u2.id)
         $redis.zadd("user_ruby_paris", 2.2, u3.id)
         
-        presenter = UserListPresenter.new(:type => :city, :city => "paris", :language => "ruby") 
+        presenter = UserListPresenter.new(type: :city, city: "paris", language: "ruby") 
         
         presenter.user_ranks[0].user.id.should == u2.id
         presenter.user_ranks[1].user.id.should == u3.id
@@ -76,7 +76,7 @@ describe "UserListPresenter" do
     
     context "has no result" do
       it "returns empty" do
-        presenter = UserListPresenter.new(:type => :city, :city => "paris", :language => "ruby") 
+        presenter = UserListPresenter.new(type: :city, city: "paris", language: "ruby") 
         presenter.user_ranks.should == []
       end
     end

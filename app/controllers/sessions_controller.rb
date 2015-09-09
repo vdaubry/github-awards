@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  rescue_from RaceCondition, :with => :race_condition
+  rescue_from RaceCondition, with: :race_condition
   
   def create
     @user = Oauth::Authorization.new.authorize(auth_hash: auth_hash)

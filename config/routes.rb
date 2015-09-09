@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  root to: "application#welcome", :as => 'welcome'
+  root to: "application#welcome", as: 'welcome'
   
   get "about" => "application#about"
   
   resources :repositories
 
   #We only accept html request to block request like /users/robots.txt
-  resources :users, :constraints => {:format => /(html)/}, only: [:index, :search, :show] do
+  resources :users, constraints: {format: /(html)/}, only: [:index, :search, :show] do
     get 'search', on: :collection
   end
   

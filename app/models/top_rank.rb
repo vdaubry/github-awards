@@ -18,7 +18,7 @@ class TopRank
     users = User.find_as_sorted(results)
     .joins(:repositories)
     .select("users.id, users.city, users.country, users.gravatar_url, users.login, sum(stars) AS stars_count, count(repositories.id) as repository_count")
-    .where(:repositories => {:language => @language})
+    .where(repositories: {language: @language})
     .group("users.id")
     
     users.map do |user| 

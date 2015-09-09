@@ -8,6 +8,6 @@ class OpenStreetMapClient
     result = JSON.parse(response.body)
     
     place = result.select {|r| ["administrative", "suburb", "residential", "city", "town", "village"].include?(r["type"]) }.first
-    return {:city => place["address"]["city"], :country => place["address"]["country"]} if place
+    return {city: place["address"]["city"], country: place["address"]["country"]} if place
   end
 end

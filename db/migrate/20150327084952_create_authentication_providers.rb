@@ -9,7 +9,7 @@ class CreateAuthenticationProviders < ActiveRecord::Migration
       t.timestamps null: false
     end
     
-    add_index :authentication_providers, :user_id, :unique => false
-    add_index :authentication_providers, :uid, :unique => true
+    add_index :authentication_providers, :user_id, unique: false
+    add_index :authentication_providers, :uid, unique: true
   end
 end

@@ -12,8 +12,8 @@ describe Models::Stream do
     gz.close
     
     stub_request(:get, "http://data.githubarchive.org/2015-04-04-16.json.gz").
-       with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-       to_return(:status => 200, :body => @io.string, :headers => {})
+       with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+       to_return(status: 200, body: @io.string, headers: {})
   end
   
   describe "parse" do
@@ -27,8 +27,8 @@ describe Models::Stream do
       
       #Check that we download a file called 2015-04-04-9.json.gz
       stub_request(:get, "http://data.githubarchive.org/2015-04-04-9.json.gz").
-       with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-       to_return(:status => 200, :body => @io.string, :headers => {})
+       with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+       to_return(status: 200, body: @io.string, headers: {})
       stream.parse
     end
   end

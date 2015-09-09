@@ -1,9 +1,9 @@
 class Oauth::Authorization
   def authorize(auth_hash:)
-    authentication_provider = AuthenticationProvider.where(:uid => auth_hash["uid"]).first
+    authentication_provider = AuthenticationProvider.where(uid: auth_hash["uid"]).first
     
     if authentication_provider.nil?
-      user = User.where(:github_id => auth_hash["uid"]).first_or_initialize
+      user = User.where(github_id: auth_hash["uid"]).first_or_initialize
       authentication_provider = AuthenticationProvider.new
       authentication_provider.user = user
     end
@@ -12,7 +12,7 @@ class Oauth::Authorization
     begin
       update_user(user: user, auth_hash: auth_hash)
     rescue ActiveRecord::RecordNotUnique => e
-      user = User.where(:login => user.login).first
+      user = User.where(login: user.login).first
       update_user(user: user, auth_hash: auth_hash)
     end
     update_authentication_provider(authentication_provider: authentication_provider, auth_hash: auth_hash)
