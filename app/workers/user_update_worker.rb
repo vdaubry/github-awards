@@ -3,6 +3,8 @@ class UserUpdateWorker
   sidekiq_options throttle: { threshold: 5000, period: 1.hour }
 
   def perform(login, include_repo=false)
+    return if BlacklistedUser.where(username:login.downcase).count > 0
+
     github_client = Models::GithubClient.new(ENV['GITHUB_TOKEN'])
     github_client.on_too_many_requests = lambda do |error|
       raise error

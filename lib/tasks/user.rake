@@ -32,6 +32,8 @@ namespace :user do
       user.remove_ranks
       user.destroy
     end
+
+    BlacklistedUser.create!(username: login.downcase)
   end
 
 
