@@ -33,4 +33,24 @@ namespace :user do
       user.destroy
     end
   end
+
+
+  desc "remove duplicate user"
+  task remove_duplicate: :environment do
+    User.joins(:authentication_providers).find_each do |user|
+      current_user_ranks = user.repositories.with_language.select("language, count(repositories.id) as repository_count, sum(stars) as stars_count").group("repositories.language").map do |repo|
+        res = ["user_#{repo.language}"]
+        res << "user_#{repo.language}_#{user.city}" if user.city
+        res << "user_#{repo.language}_#{user.country}" if user.country
+      end.flatten
+
+      other_keys = $redis.keys("user_*") - current_user_ranks
+      other_keys.each do |key|
+        if $redis.zscore(key, user.id).present?
+          puts "found duplicate rank in #{key}"
+          $redis.zrem(key, user.id)
+        end
+      end
+    end
+  end
 end

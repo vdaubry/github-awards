@@ -15,6 +15,8 @@ class UserUpdateWorker
     end
     
     user = User.where(login: login.downcase).first_or_initialize
+    #always remove ranks in case user location changes
+    user.remove_ranks
     update_user(user, result)
     
     if include_repo
@@ -30,7 +32,7 @@ class UserUpdateWorker
         end
       end
     end
-    
+
     if user.location.present?
       #perform synchronously to be sure all repos are updating when we compute rank
       GeocoderWorker.new.perform(user.location, :googlemap, nil) 
