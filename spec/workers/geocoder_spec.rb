@@ -8,12 +8,12 @@ describe GeocoderWorker do
         it "returns geocoded result" do
           res = {city: "Paris", country: "France"}
           GoogleMapClient.any_instance.stubs(:geocode).with("paris").returns(res)
-          GeocoderWorker.new.geocode("paris", :googlemap).should == res
+          expect(GeocoderWorker.new.geocode("paris", :googlemap)).to eq(res)
         end
         
         it "catches GoogleMapRateLimitExceeded" do
           GoogleMapClient.any_instance.stubs(:geocode).with("paris").raises GoogleMapRateLimitExceeded
-          GeocoderWorker.new.geocode("paris", :googlemap).should == nil
+          expect(GeocoderWorker.new.geocode("paris", :googlemap)).to eq(nil)
         end
       end
     end
@@ -23,12 +23,12 @@ describe GeocoderWorker do
         it "returns geocoded result" do
           res = {city: "Paris", country: "France"}
           OpenStreetMapClient.any_instance.stubs(:geocode).with("paris").returns(res)
-          GeocoderWorker.new.geocode("paris", :openstreetmap).should == res
+          expect(GeocoderWorker.new.geocode("paris", :openstreetmap)).to eq(res)
         end
         
         it "catches Errors" do
           OpenStreetMapClient.any_instance.stubs(:geocode).with("paris").raises Errno::ENETDOWN
-          GeocoderWorker.new.geocode("paris", :openstreetmap).should == nil
+          expect(GeocoderWorker.new.geocode("paris", :openstreetmap)).to eq(nil)
         end
       end
     end

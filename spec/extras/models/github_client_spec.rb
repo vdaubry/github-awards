@@ -8,7 +8,7 @@ describe Models::GithubClient do
     it "returns github api response" do
       Octokit::Client.any_instance.stubs(:user).with("vdaubry").returns(valid_response)
       result = Models::GithubClient.new.get(:user, "vdaubry")
-      result["login"].should == "vdaubry"
+      expect(result["login"]).to eq("vdaubry")
     end
   end
 end

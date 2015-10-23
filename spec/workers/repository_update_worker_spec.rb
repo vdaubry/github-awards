@@ -10,7 +10,7 @@ describe RepositoryUpdateWorker do
       it "creates repo" do
         Models::GithubClient.any_instance.stubs(:get).returns(github_result)
         RepositoryUpdateWorker.perform_async(user.id, "foo")
-        user.repositories.count.should == 1
+        expect(user.repositories.count).to eq(1)
       end
     end
     
@@ -18,7 +18,7 @@ describe RepositoryUpdateWorker do
       it "ignores repo" do
         Models::GithubClient.any_instance.stubs(:get).returns(nil)
         RepositoryUpdateWorker.perform_async(user.id, "foo")
-        user.repositories.count.should == 0
+        expect(user.repositories.count).to eq(0)
       end
     end
   end
@@ -28,11 +28,11 @@ describe RepositoryUpdateWorker do
       repo = FactoryGirl.create(:repository)
       RepositoryUpdateWorker.new.update_repo(repo, github_result)
       repo.reload
-      repo.name.should == "github-awards"
-      repo.github_id.should == 29809978
-      repo.forked.should == true
-      repo.stars.should == 2
-      repo.language.should == "Ruby"
+      expect(repo.name).to eq("github-awards")
+      expect(repo.github_id).to eq(29809978)
+      expect(repo.forked).to eq(true)
+      expect(repo.stars).to eq(2)
+      expect(repo.language).to eq("Ruby")
     end
     
     it "updates user rank" do
@@ -45,7 +45,7 @@ describe RepositoryUpdateWorker do
       
       RepositoryUpdateWorker.new.perform(user.id, "foobar")
       
-      $redis.zscore("user_ruby_paris", user.id).should == 5.0
+      expect($redis.zscore("user_ruby_paris", user.id)).to eq(5.0)
     end
   end
 end

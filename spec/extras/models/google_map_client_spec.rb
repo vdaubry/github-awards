@@ -11,29 +11,29 @@ describe GoogleMapClient do
   describe "geocode" do
     context "valid location" do
       it "returns city and country" do
-        HTTParty.stubs(:get).returns(stub(body: valid_response.to_json))
-        client.geocode("New York").should == {city: "New York", country: "United States"}
+        HTTParty.stubs(:get).returns(double(body: valid_response.to_json))
+        expect(client.geocode("New York")).to eq({city: "New York", country: "United States"})
       end
     end
     
     context "invalid location" do
       it "returns nil" do
-        HTTParty.stubs(:get).returns(stub(body: invalid_response.to_json))
-        client.geocode("New York").should == nil
+        HTTParty.stubs(:get).returns(double(body: invalid_response.to_json))
+        expect(client.geocode("New York")).to eq(nil)
       end
     end
     
     context "cannot find city" do
       it "return only country" do
-        HTTParty.stubs(:get).returns(stub(body: country_only.to_json))
-        client.geocode("France").should == {city: nil, country: "France"}
+        HTTParty.stubs(:get).returns(double(body: country_only.to_json))
+        expect(client.geocode("France")).to eq({city: nil, country: "France"})
       end
     end
     
     
     context "raises GoogleMapRateLimitExceeded" do
       it "returns city and country" do
-        HTTParty.stubs(:get).returns(stub(body: rate_limit.to_json))
+        HTTParty.stubs(:get).returns(double(body: rate_limit.to_json))
         expect {
           client.geocode("New York")
         }.to raise_error GoogleMapRateLimitExceeded

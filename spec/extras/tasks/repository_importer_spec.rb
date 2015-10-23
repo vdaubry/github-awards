@@ -10,10 +10,10 @@ describe Tasks::UserImporter do
       Tasks::RepositoryImporter.new.crawl_github_repos("0")
       
       repo = Repository.first
-      repo.github_id.should == 17654
-      repo.name.should == "grit"
-      repo.user.should == user
-      repo.forked.should == true
+      expect(repo.github_id).to eq(17654)
+      expect(repo.name).to eq("grit")
+      expect(repo.user).to eq(user)
+      expect(repo.forked).to eq(true)
     end
     
     it "iterates while max repos is reached" do
@@ -23,7 +23,7 @@ describe Tasks::UserImporter do
       .then.returns([{"owner" => {"login" => "foo1"}, "name" => "bar3", "id" => 2}])
       Models::GithubClient.any_instance.stubs(:max_list_size).returns(2)
       Tasks::RepositoryImporter.new.crawl_github_repos("0")
-      Repository.count.should == 3
+      expect(Repository.count).to eq(3)
     end
     
     context "network error" do
@@ -32,7 +32,7 @@ describe Tasks::UserImporter do
         Octokit::Client.any_instance.stubs(:all_repositories).raises(Errno::ETIMEDOUT)
         .then.returns([{"owner" => {"login" => "foo1"}, "name" => "bar3", id: 2}])
         Tasks::RepositoryImporter.new.crawl_github_repos("0")
-        Repository.count.should == 1
+        expect(Repository.count).to eq(1)
       end
     end
   end

@@ -24,9 +24,9 @@ describe RepositoryStreamWorker, vcr: true do
   context "user doesn't exist" do
     it "creates users and repos" do
       RepositoryStreamWorker.new.perform(time: DateTime.parse("2015-04-04 16:00"))
-      User.count.should == 2
-      Repository.count.should == 35
-      User.where(login: "ahmed-talaat").first.country.should == "egypt"
+      expect(User.count).to eq(2)
+      expect(Repository.count).to eq(35)
+      expect(User.where(login: "ahmed-talaat").first.country).to eq("egypt")
     end
   end
   
@@ -37,13 +37,13 @@ describe RepositoryStreamWorker, vcr: true do
     
     it "doesn't update user" do
       RepositoryStreamWorker.new.perform(time: DateTime.parse("2015-04-04 16:00"))
-      User.where(login: @user.login).first.country.should == nil
+      expect(User.where(login: @user.login).first.country).to eq(nil)
     end
     
     it "updates repo" do
       FactoryGirl.create(:repository, user: @user, name: "Android-Arabic-Fonts", stars: 0)
       RepositoryStreamWorker.new.perform(time: DateTime.parse("2015-04-04 16:00"))
-      @user.repositories.where(name: "Android-Arabic-Fonts").first.stars.should == 1
+      expect(@user.repositories.where(name: "Android-Arabic-Fonts").first.stars).to eq(1)
     end
   end
 end

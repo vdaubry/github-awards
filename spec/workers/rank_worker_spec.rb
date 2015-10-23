@@ -16,17 +16,17 @@ describe RankWorker do
   
       it "sets city rank" do
         RankWorker.new.perform(user.id)
-        $redis.zscore("user_ruby_paris", user.id).should == 2.5
+        expect($redis.zscore("user_ruby_paris", user.id)).to eq(2.5)
       end
       
       it "sets country rank" do
         RankWorker.new.perform(user.id)
-        $redis.zscore("user_ruby_france", user.id).should == 2.5
+        expect($redis.zscore("user_ruby_france", user.id)).to eq(2.5)
       end
       
       it "sets world rank" do
         RankWorker.new.perform(user.id)
-        $redis.zscore("user_ruby", user.id).should == 2.5
+        expect($redis.zscore("user_ruby", user.id)).to eq(2.5)
       end
     end
     
@@ -35,7 +35,7 @@ describe RankWorker do
   
       it "doesn't set city rank" do
         RankWorker.new.perform(user.id)
-        $redis.zscore("user_ruby_paris", user.id).should == nil
+        expect($redis.zscore("user_ruby_paris", user.id)).to eq(nil)
       end
     end
     
@@ -44,7 +44,7 @@ describe RankWorker do
   
       it "doesn't set country rank" do
         RankWorker.new.perform(user.id)
-        $redis.zscore("user_ruby_france", user.id).should == nil
+        expect($redis.zscore("user_ruby_france", user.id)).to eq(nil)
       end
     end
   end

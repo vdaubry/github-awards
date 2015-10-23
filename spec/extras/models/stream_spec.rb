@@ -19,7 +19,7 @@ describe Models::Stream do
   describe "parse" do
     it "adds unique watched repos in redis" do
       stream.parse
-      $redis.smembers("stream_repos").size.should == 2
+      expect($redis.smembers("stream_repos").size).to eq(2)
     end
     
     it "downloads filename with hour zero blanked" do
@@ -41,7 +41,7 @@ describe Models::Stream do
         res << repo_name
       end
       
-      res.should =~ ["Ahmed-Talaat/Android-Arabic-Fonts", "phonegap-build/PushPlugin"]
+      expect(res).to match_array(["Ahmed-Talaat/Android-Arabic-Fonts", "phonegap-build/PushPlugin"])
     end
   end
 end

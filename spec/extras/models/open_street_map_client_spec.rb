@@ -10,22 +10,22 @@ describe OpenStreetMapClient do
   describe "geocode" do
     context "valid location" do
       it "returns city and country" do
-        HTTParty.stubs(:get).returns(stub(body: valid_response.to_json))
-        client.geocode("New York").should == {city: "New York City", country: "United States of America"}
+        HTTParty.stubs(:get).returns(double(body: valid_response.to_json))
+        expect(client.geocode("New York")).to eq({city: "New York City", country: "United States of America"})
       end
     end
     
     context "invalid location" do
       it "returns nil" do
-        HTTParty.stubs(:get).returns(stub(body: invalid_response.to_json))
-        client.geocode("New York").should == nil
+        HTTParty.stubs(:get).returns(double(body: invalid_response.to_json))
+        expect(client.geocode("New York")).to eq(nil)
       end
     end
     
     context "cannot find city" do
       it "return only country" do
-        HTTParty.stubs(:get).returns(stub(body: country_only.to_json))
-        client.geocode("United States").should == {city: nil, country: "United States of America"}
+        HTTParty.stubs(:get).returns(double(body: country_only.to_json))
+        expect(client.geocode("United States")).to eq({city: nil, country: "United States of America"})
       end
     end
   end
