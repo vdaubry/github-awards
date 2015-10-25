@@ -23,28 +23,28 @@ describe "Oauth::Authorization" do
       it "creates user" do
         Oauth::Authorization.new.authorize(auth_hash: auth_hash)
         user = User.where(github_id: '498298').first
-        user.email.should == "vdaubry@gmail.com"
-        user.login.should == "vdaubry"
-        user.name.should == "vincent daubry"
-        user.company.should == "Youboox"
-        user.blog.should == "http://www.youboox.fr"
-        user.gravatar_url.should == "https://avatars.githubusercontent.com/u/498298?v=3"
-        user.location.should == "Paris"
-        user.organization.should == false
+        expect(user.email).to eq("vdaubry@gmail.com")
+        expect(user.login).to eq("vdaubry")
+        expect(user.name).to eq("vincent daubry")
+        expect(user.company).to eq("Youboox")
+        expect(user.blog).to eq("http://www.youboox.fr")
+        expect(user.gravatar_url).to eq("https://avatars.githubusercontent.com/u/498298?v=3")
+        expect(user.location).to eq("Paris")
+        expect(user.organization).to eq(false)
       end
       
       it "creates authentication provider" do
         Oauth::Authorization.new.authorize(auth_hash: auth_hash)
         authentication_provider = AuthenticationProvider.where(uid: '498298').first
-        authentication_provider.user.github_id.should == 498298
-        authentication_provider.uid.should == "498298"
-        authentication_provider.token.should == "fc6c66e14ccfe22e33ae2390d9db791a23b89415"
-        authentication_provider.provider.should == "github"
+        expect(authentication_provider.user.github_id).to eq(498298)
+        expect(authentication_provider.uid).to eq("498298")
+        expect(authentication_provider.token).to eq("fc6c66e14ccfe22e33ae2390d9db791a23b89415")
+        expect(authentication_provider.provider).to eq("github")
       end
       
       it "returns user" do
         user = Oauth::Authorization.new.authorize(auth_hash: auth_hash)
-        user.login.should == "vdaubry"
+        expect(user.login).to eq("vdaubry")
       end
     end
     
@@ -57,10 +57,10 @@ describe "Oauth::Authorization" do
         Oauth::Authorization.new.authorize(auth_hash: auth_hash)
         
         users = User.where(github_id: '498298')
-        users.count.should == 1
+        expect(users.count).to eq(1)
         user = users.first
-        user.location.should == "Paris"
-        user.email.should == "vdaubry@gmail.com"
+        expect(user.location).to eq("Paris")
+        expect(user.email).to eq("vdaubry@gmail.com")
       end
       
       context "not connected to github" do
@@ -68,12 +68,12 @@ describe "Oauth::Authorization" do
           Oauth::Authorization.new.authorize(auth_hash: auth_hash)
           
           user = User.where(github_id: '498298').first
-          user.authentication_providers.count.should == 1
+          expect(user.authentication_providers.count).to eq(1)
         end
         
         it "returns user" do
           user = Oauth::Authorization.new.authorize(auth_hash: auth_hash)
-          user.login.should == "vdaubry"
+          expect(user.login).to eq("vdaubry")
         end
       end
       
@@ -86,12 +86,12 @@ describe "Oauth::Authorization" do
           Oauth::Authorization.new.authorize(auth_hash: auth_hash)
           
           authentication_provider = User.where(github_id: '498298').first.authentication_providers.first
-          authentication_provider.token.should == "fc6c66e14ccfe22e33ae2390d9db791a23b89415"
+          expect(authentication_provider.token).to eq("fc6c66e14ccfe22e33ae2390d9db791a23b89415")
         end
         
         it "returns user" do
           user = Oauth::Authorization.new.authorize(auth_hash: auth_hash)
-          user.login.should == "vdaubry"
+          expect(user.login).to eq("vdaubry")
         end
       end
       

@@ -7,49 +7,49 @@ describe "UserListPresenter" do
   describe "new" do
     context "empty location" do
       it "sets default city" do
-        UserListPresenter.new(type: :city).location.should == "san francisco"
+        expect(UserListPresenter.new(type: :city).location).to eq("san francisco")
       end
       
       it "sets default country" do
-        UserListPresenter.new(type: :country).location.should == "united states"
+        expect(UserListPresenter.new(type: :country).location).to eq("united states")
       end
       
       it "sets default language" do
-        presenter.language.should == "JavaScript"
+        expect(presenter.language).to eq("JavaScript")
       end
     end
 
     context "location provided" do
       it "location trim whitespace" do
-        UserListPresenter.new(type: :city, city: " paris ").location.should == "paris"
+        expect(UserListPresenter.new(type: :city, city: " paris ").location).to eq("paris")
       end
     end
   end
   
   describe "languages" do
-    it { presenter.languages.count.should == 223 }
+    it { expect(presenter.languages.count).to eq(223) }
   end
   
   describe "title" do
-    it { UserListPresenter.new(type: :city, city: "paris").title.should == "in Paris" }
-    it { UserListPresenter.new(type: :world).title.should == "worldwide" }
+    it { expect(UserListPresenter.new(type: :city, city: "paris").title).to eq("in Paris") }
+    it { expect(UserListPresenter.new(type: :world).title).to eq("worldwide") }
     
     context "invalid params" do
       it "returns default location" do
-        UserListPresenter.new(type: "jp", language: "CSS").title.should == "in San francisco"
+        expect(UserListPresenter.new(type: "jp", language: "CSS").title).to eq("in San francisco")
       end
     end
     
     context "missing params" do
       it "returns default location" do
-        UserListPresenter.new(type: "city").title.should == "in San francisco"
+        expect(UserListPresenter.new(type: "city").title).to eq("in San francisco")
       end
     end
   end
   
   describe "show_location_input" do
-    it { UserListPresenter.new(type: :city).show_location_input?.should == true }
-    it { UserListPresenter.new(type: :world).show_location_input?.should == false }
+    it { expect(UserListPresenter.new(type: :city).show_location_input?).to eq(true) }
+    it { expect(UserListPresenter.new(type: :world).show_location_input?).to eq(false) }
   end
   
   describe "user_ranks" do
@@ -68,16 +68,16 @@ describe "UserListPresenter" do
         
         presenter = UserListPresenter.new(type: :city, city: "paris", language: "ruby") 
         
-        presenter.user_ranks[0].user.id.should == u2.id
-        presenter.user_ranks[1].user.id.should == u3.id
-        presenter.user_ranks[2].user.id.should == u1.id
+        expect(presenter.user_ranks[0].user.id).to eq(u2.id)
+        expect(presenter.user_ranks[1].user.id).to eq(u3.id)
+        expect(presenter.user_ranks[2].user.id).to eq(u1.id)
       end
     end
     
     context "has no result" do
       it "returns empty" do
         presenter = UserListPresenter.new(type: :city, city: "paris", language: "ruby") 
-        presenter.user_ranks.should == []
+        expect(presenter.user_ranks).to eq([])
       end
     end
   end

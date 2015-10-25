@@ -8,7 +8,7 @@ describe Tasks::UserImporter do
       .then.returns([{"login" => "foo3", id: 2}])
       Models::GithubClient.any_instance.stubs(:max_list_size).returns(2)
       Tasks::UserImporter.new.crawl_github_users("0")
-      User.count.should == 3
+      expect(User.count).to eq(3)
     end
     
     context "network error" do
@@ -16,7 +16,7 @@ describe Tasks::UserImporter do
         Octokit::Client.any_instance.stubs(:all_users).raises(Errno::ETIMEDOUT)
         .then.returns([{"login" => "foo", "id" => 0}])
         Tasks::UserImporter.new.crawl_github_users("0")
-        User.count.should == 1
+        expect(User.count).to eq(1)
       end
     end
   end

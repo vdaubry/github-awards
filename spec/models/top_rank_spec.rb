@@ -19,30 +19,30 @@ describe TopRank do
     
     it "returns asked number of result" do
       user_ranks = TopRank.new(type: "city", language: "ruby", location: "paris").user_ranks(page: 1, per: 2)
-      user_ranks.count.should == 2
+      expect(user_ranks.count).to eq(2)
     end
     
     it "returns users ordered by rank" do
       user_ranks = TopRank.new(type: "city", language: "ruby", location: "paris").user_ranks(page: 1, per: 3)
-      user_ranks[0].user.id.should == @user2.id
-      user_ranks[1].user.id.should == @user1.id
-      user_ranks[2].user.id.should == @user3.id
+      expect(user_ranks[0].user.id).to eq(@user2.id)
+      expect(user_ranks[1].user.id).to eq(@user1.id)
+      expect(user_ranks[2].user.id).to eq(@user3.id)
     end
     
     it "returns stars_count" do
       user_ranks = TopRank.new(type: "city", language: "ruby", location: "paris").user_ranks(page: 1, per: 1)
-      user_ranks[0].user.stars_count.should == 2
+      expect(user_ranks[0].user.stars_count).to eq(2)
     end
     
     it "returns repository_count" do
       user_ranks = TopRank.new(type: "city", language: "ruby", location: "paris").user_ranks(page: 1, per: 1)
-      user_ranks[0].user.repository_count.should == 1
+      expect(user_ranks[0].user.repository_count).to eq(1)
     end
     
     context "location not found" do
       it "returns empty result" do
         user_ranks = TopRank.new(type: "city", language: "ruby", location: "foo").user_ranks(page: 1, per: 2)
-        user_ranks.count.should == 0
+        expect(user_ranks.count).to eq(0)
       end
     end
   end

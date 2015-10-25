@@ -18,12 +18,12 @@ describe "UserPresenter" do
 
   describe "best_rank_tweet" do
     it "returns language with best city rank" do
-      @presenter.best_rank_tweet.should == "<p>Tweet your <a target=\"_blank\" title=\"Share GitHub Awards on Twitter\" href=\"http://twitter.com/share?text=I am the top 1 javascript developer in Paris. Check your GitHub ranking on GitHub Awards !&amp;url=http://localhost:5000/users/#{URI.encode(@user.login)}\">ranking <i class='fa fa-twitter'></i></a></p>"
+      expect(@presenter.best_rank_tweet).to eq("<p>Tweet your <a target=\"_blank\" title=\"Share GitHub Awards on Twitter\" href=\"http://twitter.com/share?text=I am the top 1 javascript developer in Paris. Check your GitHub ranking on GitHub Awards !&amp;url=http://localhost:5000/users/#{URI.encode(@user.login)}\">ranking <i class='fa fa-twitter'></i></a></p>")
     end
     
     context "no ranking" do
       it "returns nil" do
-         UserPresenter.new(FactoryGirl.create(:user)).best_rank_tweet.should == nil
+         expect(UserPresenter.new(FactoryGirl.create(:user)).best_rank_tweet).to eq(nil)
       end
     end
     
@@ -32,7 +32,7 @@ describe "UserPresenter" do
         user = FactoryGirl.create(:user, city: nil)
         FactoryGirl.create(:repository, user: user, language: "ruby", stars: 1)
         $redis.zadd("user_ruby_paris", 1.0, user.id)
-        UserPresenter.new(user).best_rank_tweet.should == nil
+        expect(UserPresenter.new(user).best_rank_tweet).to eq(nil)
       end
     end
   end

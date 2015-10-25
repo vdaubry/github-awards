@@ -4,22 +4,22 @@ describe "User" do
   let(:user) { FactoryGirl.create(:user) }
 
   describe "new" do
-    it { FactoryGirl.build(:user, login: nil).save.should == false }
-    it { FactoryGirl.build(:user).save.should == true }
+    it { expect(FactoryGirl.build(:user, login: nil).save).to eq(false) }
+    it { expect(FactoryGirl.build(:user).save).to eq(true) }
   end
   
   describe "save" do
     it "downcase login before save" do
       user = FactoryGirl.build(:user, login: "ABC")
       user.save
-      user.reload.login.should == "abc" 
+      expect(user.reload.login).to eq("abc") 
     end 
   end
   
   describe "repositories"  do
     it "has many repositories" do
       FactoryGirl.create_list(:repository, 2, user: user)
-      user.reload.repositories.count.should == 2
+      expect(user.reload.repositories.count).to eq(2)
     end
   end
 
@@ -27,13 +27,13 @@ describe "User" do
     it "cascades deletes repositories" do
       FactoryGirl.create_list(:repository, 2, user: user)
       user.destroy
-      Repository.count.should == 0
+      expect(Repository.count).to eq(0)
     end
 
     it "cascades deletes authentication_providers" do
       FactoryGirl.create_list(:authentication_provider, 2, user: user)
       user.destroy
-      AuthenticationProvider.count.should == 0
+      expect(AuthenticationProvider.count).to eq(0)
     end
   end
   
@@ -43,11 +43,11 @@ describe "User" do
     end
     
     it "allows different login" do
-      FactoryGirl.build(:user, login: "bar").save.should == true
+      expect(FactoryGirl.build(:user, login: "bar").save).to eq(true)
     end
     
     it "forbids duplicates login" do
-      FactoryGirl.build(:user, login: "foo").save.should == false
+      expect(FactoryGirl.build(:user, login: "foo").save).to eq(false)
     end
   end
   
@@ -60,21 +60,21 @@ describe "User" do
       FactoryGirl.create(:repository, language: nil, user: user, stars: 1)
       
       user_ranks = user.user_ranks
-      user_ranks.count.should == 2
+      expect(user_ranks.count).to eq(2)
       
-      user_ranks[0].language.should == "javascript"
-      user_ranks[0].stars_count.should == 3
-      user_ranks[0].repository_count.should == 1
+      expect(user_ranks[0].language).to eq("javascript")
+      expect(user_ranks[0].stars_count).to eq(3)
+      expect(user_ranks[0].repository_count).to eq(1)
       
-      user_ranks[1].language.should == "ruby"
-      user_ranks[1].stars_count.should == 2
-      user_ranks[1].repository_count.should == 1
+      expect(user_ranks[1].language).to eq("ruby")
+      expect(user_ranks[1].stars_count).to eq(2)
+      expect(user_ranks[1].repository_count).to eq(1)
     end
     
     it "ignores repo without languages" do
       FactoryGirl.create(:repository, language: "ruby", user: user, stars: 2)
       FactoryGirl.create(:repository, language: nil, user: user, stars: 3)
-      user.user_ranks.count.should == 1
+      expect(user.user_ranks.count).to eq(1)
     end
   end
 

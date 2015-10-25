@@ -16,14 +16,14 @@ describe UserUpdateWorker do
 
       it "creates user" do
         UserUpdateWorker.perform_async("vdaubry")
-        User.count.should == 1
+        expect(User.count).to eq(1)
       end
 
       context "blacklisted user" do
         it "ignores user" do
           BlacklistedUser.create(username: "vdaubry")
           UserUpdateWorker.perform_async("vdaubry")
-          User.count.should == 0
+          expect(User.count).to eq(0)
         end
       end
     end
@@ -32,7 +32,7 @@ describe UserUpdateWorker do
       it "ignores user" do
         Models::GithubClient.any_instance.stubs(:get).returns(nil)
         UserUpdateWorker.perform_async("vdaubry")
-        User.count.should == 0
+        expect(User.count).to eq(0)
       end
     end
   end
@@ -42,14 +42,14 @@ describe UserUpdateWorker do
       user = FactoryGirl.create(:user)
       UserUpdateWorker.new.update_user(user, github_result)
       user.reload
-      user.login.should == "vdaubry"
-      user.blog.should == "http://www.youboox.fr"
-      user.company.should == "Youboox"
-      user.name.should == "vincent daubry"
-      user.email.should == "vdaubry@gmail.com"
-      user.location.should == "Paris"
-      user.organization.should == true
-      user.gravatar_url.should == "https://avatars.githubusercontent.com/u/498298?v=3"
+      expect(user.login).to eq("vdaubry")
+      expect(user.blog).to eq("http://www.youboox.fr")
+      expect(user.company).to eq("Youboox")
+      expect(user.name).to eq("vincent daubry")
+      expect(user.email).to eq("vdaubry@gmail.com")
+      expect(user.location).to eq("Paris")
+      expect(user.organization).to eq(true)
+      expect(user.gravatar_url).to eq("https://avatars.githubusercontent.com/u/498298?v=3")
     end
   end
 end

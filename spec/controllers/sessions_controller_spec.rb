@@ -32,7 +32,7 @@ render_views
     
     it "finds user from auth_hash" do
       get :create, provider: "github"
-      assigns(:user).login.should == "vdaubry"
+      expect(assigns(:user).login).to eq("vdaubry")
     end
     
     it "updates user" do
@@ -44,20 +44,20 @@ render_views
       user = FactoryGirl.create(:user, github_id: 498298)
       get :create, provider: "github"
       
-      response.should redirect_to user_path("vdaubry")
+      expect(response).to redirect_to user_path("vdaubry")
     end
     
     it "sets user id in session" do
       get :create, provider: "github"
       
-      session[:user_id].should_not == nil
+      expect(session[:user_id]).not_to eq(nil)
     end
     
     context "race condition" do
       it "returns to home page" do
         Oauth::Authorization.any_instance.stubs(:authorize).raises(RaceCondition.new(""))
         get :create, provider: "github"
-        response.should redirect_to '/'
+        expect(response).to redirect_to '/'
       end
     end
   end
@@ -65,7 +65,7 @@ render_views
   describe "failure" do
     it "redirects to home page" do
       get :failure
-      response.should redirect_to '/'
+      expect(response).to redirect_to '/'
     end
   end
 end
