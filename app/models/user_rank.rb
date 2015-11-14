@@ -31,10 +31,6 @@ class UserRank
   def world_user_count
     count("user_#{@language}")
   end
-  
-  def update_rank
-    RankWorker.new.perform(user.id)
-  end
 
   def remove
     $redis.zrem("user_#{@language}_#{@user.city}", user.id) if user.city

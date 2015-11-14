@@ -55,4 +55,15 @@ namespace :user do
       end
     end
   end
+
+  desc "reload rank cache"
+  task :reload_ranks => :environment do |t, args|
+    User.joins(:repositories)
+      .where("repositories.language IS NOT NULL")
+      .group("repositories.user_id, users.id")
+      .having("SUM(repositories.stars)>1")
+      .find_each do |user|
+        user.update_rank
+      end
+  end
 end
