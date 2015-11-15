@@ -1,0 +1,7 @@
+development:
+  app_id: 102
+  api_key: "<%= ENV['RORVSWILD_API_KEY'] %>"
+
+production:
+  app_id: 102
+  api_key: "<%= ENV['RORVSWILD_API_KEY'] %>"

@@ -183,6 +183,7 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    rorvswild (0.3.5)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -282,6 +283,7 @@ DEPENDENCIES
   quiet_assets (~> 1.1.0)
   rails (~> 4.2.0)
   redis (~> 3.2.0)
+  rorvswild (~> 0.3.5)
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sentry-raven!
@@ -295,3 +297,6 @@ DEPENDENCIES
   web-console (~> 2.0)
   webmock (~> 1.20.4)
   yajl-ruby (~> 1.2.1)
+
+BUNDLED WITH
+   1.10.6

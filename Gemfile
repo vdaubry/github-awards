@@ -19,7 +19,7 @@ gem 'httparty',                     '~> 0.13.3'
 gem 'kaminari',                     '~> 0.16.3'
 gem 'dalli',                        '~> 2.7.4'
 gem 'omniauth-github',              '~> 1.1.2'
-
+gem 'rorvswild',                    '~> 0.3.5'
 
 group :development do
   gem 'quiet_assets',               '~> 1.1.0'
