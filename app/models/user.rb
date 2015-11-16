@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  include User::Rank  
+  include User::Rank
+  include User::Token
   has_many :repositories, dependent: :destroy
   has_many :authentication_providers, dependent: :destroy
   validates :login, presence: true, uniqueness: true
