@@ -28,6 +28,7 @@ render_views
         to_return(status: 200, body: "", headers: {})
          
       request.env['omniauth.auth'] = auth_hash
+      User.any_instance.stubs(:token).returns(nil)
     end
     
     it "finds user from auth_hash" do
@@ -41,7 +42,7 @@ render_views
     end
     
     it "redirects to user show" do
-      user = FactoryGirl.create(:user, github_id: 498298)
+      FactoryGirl.create(:user, github_id: 498298)
       get :create, provider: "github"
       
       expect(response).to redirect_to user_path("vdaubry")
