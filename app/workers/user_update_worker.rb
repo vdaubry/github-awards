@@ -5,7 +5,10 @@ class UserUpdateWorker
   def perform(login, include_repo=false)
     return if BlacklistedUser.where(username:login.downcase).count > 0
 
-    github_client = Models::GithubClient.new(ENV['GITHUB_TOKEN'])
+    user = User.where(login: login.downcase).first_or_initialize
+    github_token = user.token || ENV['GITHUB_TOKEN']
+
+    github_client = Models::GithubClient.new(github_token)
     github_client.on_too_many_requests = lambda do |error|
       raise error
     end
@@ -15,15 +18,14 @@ class UserUpdateWorker
       Rails.logger.error "User not found : #{login}"
       return 
     end
-    
-    user = User.where(login: login.downcase).first_or_initialize
+
     #always remove ranks in case user location changes
     user.remove_ranks
     update_user(user, result)
     
     if include_repo
       url = "https://api.github.com/users/#{user.login}/repos?per_page=100"
-      url += "&access_token=#{ENV['GITHUB_TOKEN']}" if ENV['GITHUB_TOKEN']
+      url += "&access_token=#{github_token}" if github_token
       resp = HTTParty.get(url).body
       
       unless resp.nil?
