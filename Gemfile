@@ -19,7 +19,7 @@ gem 'httparty',                     '~> 0.13.3'
 gem 'kaminari',                     '~> 0.16.3'
 gem 'dalli',                        '~> 2.7.4'
 gem 'omniauth-github',              '~> 1.1.2'
-
+gem 'active_model_serializers',     '~> 0.9.3'
 
 group :development do
   gem 'quiet_assets',               '~> 1.1.0'
@@ -40,7 +40,8 @@ group :test do
 end
 
 group :development, :test do
-  gem 'byebug',                      '~> 3.5.1'
+  # gem 'byebug',                      '~> 3.5.1'
+  gem 'pry-byebug',                  '~> 3.1'
 end
 
 group :production do
