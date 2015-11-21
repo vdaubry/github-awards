@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v0 do
-      resources :users, constraints: { format: /(json)/ }, only: [:index, :show]
+      resources :users, constraints: { format: /(json)/ }, only: [:index]
+      resources :users, constraints: { format: /(json)/ }, only: [:index] do
+        get 'search', on: :collection
+      end
     end
   end
 end
