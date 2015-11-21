@@ -3,12 +3,16 @@ module Api
     module UserRanks
       class Index < ActiveModel::Serializer
 
-        has_many :users
+        attributes :users
 
         def users
           object.user_ranks.map do |user|
-            Users::Index.new(user.user).serializable_hash
+            UserSerializer.new(user.user).serializable_hash.merge(ranks_for(user))
           end
+        end
+
+        def ranks_for(user)
+          user.ranks
         end
 
       end

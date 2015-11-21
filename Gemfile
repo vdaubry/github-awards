@@ -40,7 +40,6 @@ group :test do
 end
 
 group :development, :test do
-  # gem 'byebug',                      '~> 3.5.1'
   gem 'pry-byebug',                  '~> 3.1'
 end
 
