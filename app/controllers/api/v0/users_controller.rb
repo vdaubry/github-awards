@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'rails_helper'
-
 module Api
   module V0
     class UsersController < ApiController

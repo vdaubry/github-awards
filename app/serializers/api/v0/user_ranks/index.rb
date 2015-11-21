@@ -12,7 +12,11 @@ module Api
         end
 
         def ranks_for(user)
-          user.ranks
+          {
+            city_rank: user.city_rank,
+            country_rank: user.country_rank,
+            world_rank: user.world_rank
+          }
         end
 
       end
