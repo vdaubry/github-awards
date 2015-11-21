@@ -77,7 +77,46 @@ describe Api::V0::UsersController, :testing do
   context 'GET#show' do
     it 'should return status 200' do
       get :search, login: 'nunogoncalves'
+      first_user = response_hash
+
       expect(response.status).to eq(200)
+    end
+
+    it 'should return proper user information' do
+      get :search, login: 'nunogoncalves'
+
+      user = response_hash['user']
+
+      expect(user['gravatar_url']).to eq('url')
+      expect(user['login']).to eq('nunogoncalves')
+      expect(user['city']).to eq('lisbon')
+      expect(user['country']).to eq('portugal')
+    end
+
+    it 'should return propper ranking information' do
+      get :search, login: 'nunogoncalves'
+      user_rankings = response_hash['user']['rankings']
+
+      expect(user_rankings.length).to be(2)
+
+      expect(user_rankings[0]['language']).to eq('swift')
+      expect(user_rankings[0]['repository_count']).to eq(2)
+      expect(user_rankings[0]['stars_count']).to eq(0)
+      expect(user_rankings[0]['city']).to eq('lisbon')
+      expect(user_rankings[0]['city_rank']).to eq(1)
+      expect(user_rankings[0]['country']).to eq('portugal')
+      expect(user_rankings[0]['country_rank']).to eq(1)
+      expect(user_rankings[0]['world_rank']).to eq(1)
+
+      expect(user_rankings[1]['language']).to eq('ruby')
+      expect(user_rankings[1]['repository_count']).to eq(1)
+      expect(user_rankings[1]['stars_count']).to eq(0)
+      expect(user_rankings[1]['city']).to eq('lisbon')
+      expect(user_rankings[1]['city_rank']).to eq(1)
+      expect(user_rankings[1]['country']).to eq('portugal')
+      expect(user_rankings[1]['country_rank']).to eq(1)
+      expect(user_rankings[1]['world_rank']).to eq(1)
+
     end
   end
 end
