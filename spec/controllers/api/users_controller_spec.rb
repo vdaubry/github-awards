@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Api::V0::UsersController do
+describe Api::V0::UsersController, :users_api_spec do
 
   def response_hash
     @response_body = JSON.parse(response.body)
@@ -54,6 +54,7 @@ describe Api::V0::UsersController do
         expect(first_user['country_rank']).to eq(1)
         expect(first_user['world_rank']).to eq(1)
       end
+
     end
 
     context 'without scope' do
@@ -71,6 +72,31 @@ describe Api::V0::UsersController do
         expect(first_user['login']).to eq('sherlockholmes')
         expect(first_user['city']).to eq('san francisco')
         expect(first_user['country']).to eq('us')
+      end
+    end
+
+    context 'pagination metadata' do
+      it 'should return pagination metadata' do
+        get :index, language: 'swift', city: 'lisbon', type: 'city'
+        expect(response_hash['total_count']).to eq(1)
+        expect(response_hash['page']).to eq(1)
+        expect(response_hash['total_pages']).to eq(1)
+      end
+    end
+
+    context 'search context', :testing do
+      it 'should return search context (city)' do
+        get :index, language: 'Swift', city: 'lisbon', type: 'city'
+        expect(response_hash['language']).to eq('Swift')
+        expect(response_hash['location_name']).to eq('lisbon')
+        expect(response_hash['location_type']).to eq('city')
+      end
+
+      it 'should return search context (country)' do
+        get :index, language: 'Swift', country: 'Portugal', type: 'country'
+        expect(response_hash['language']).to eq('Swift')
+        expect(response_hash['location_name']).to eq('portugal')
+        expect(response_hash['location_type']).to eq('country')
       end
     end
   end
