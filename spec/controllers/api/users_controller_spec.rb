@@ -120,7 +120,7 @@ describe Api::V0::UsersController, :users_api_spec do
       expect(user['country']).to eq('portugal')
     end
 
-    it 'should return propper ranking information' do
+    it 'should return propper ranking information', :t do
       get :search, login: 'nunogoncalves'
       user_rankings = response_hash['user']['rankings']
 
@@ -131,18 +131,24 @@ describe Api::V0::UsersController, :users_api_spec do
       expect(user_rankings[0]['stars_count']).to eq(0)
       expect(user_rankings[0]['city']).to eq('lisbon')
       expect(user_rankings[0]['city_rank']).to eq(1)
+      expect(user_rankings[0]['city_count']).to eq(1)
       expect(user_rankings[0]['country']).to eq('portugal')
       expect(user_rankings[0]['country_rank']).to eq(1)
+      expect(user_rankings[0]['country_count']).to eq(1)
       expect(user_rankings[0]['world_rank']).to eq(1)
+      expect(user_rankings[0]['world_count']).to eq(1)
 
       expect(user_rankings[1]['language']).to eq('ruby')
       expect(user_rankings[1]['repository_count']).to eq(1)
       expect(user_rankings[1]['stars_count']).to eq(0)
       expect(user_rankings[1]['city']).to eq('lisbon')
       expect(user_rankings[1]['city_rank']).to eq(1)
+      expect(user_rankings[1]['city_count']).to eq(1)
       expect(user_rankings[1]['country']).to eq('portugal')
+      expect(user_rankings[1]['country_count']).to eq(1)
       expect(user_rankings[1]['country_rank']).to eq(1)
       expect(user_rankings[1]['world_rank']).to eq(1)
+      expect(user_rankings[1]['world_count']).to eq(1)
 
     end
   end
