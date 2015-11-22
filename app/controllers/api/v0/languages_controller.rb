@@ -4,16 +4,15 @@ module Api
     class LanguagesController < ApiController
 
       def index
-        languages = get_languages
-
+        languages = read_languages_from_file
         respond(languages, :ok)
       end
 
       private
 
-      def get_languages
-        languges_file = Rails.root.join('app/assets/json/languages.json')
-        file_contents = File.read(languges_file)
+      def read_languages_from_file
+        languages_file = Rails.root.join('app/assets/json/languages.json')
+        file_contents = File.read(languages_file)
         Rails.cache.fetch('languages') { JSON.parse(file_contents) }
       end
 
