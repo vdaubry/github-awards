@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Api::V0::UsersController, :testing do
+describe Api::V0::UsersController do
 
   def response_hash
     @response_body = JSON.parse(response.body)
@@ -45,6 +45,7 @@ describe Api::V0::UsersController, :testing do
         get :index, language: 'swift', city: 'lisbon', type: 'city'
 
         first_user = response_hash['users'].first
+
         expect(first_user['gravatar_url']).to eq('url')
         expect(first_user['login']).to eq('nunogoncalves')
         expect(first_user['city']).to eq('lisbon')

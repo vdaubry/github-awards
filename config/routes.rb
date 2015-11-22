@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :users, constraints: { format: /(json)/ }, only: [:index] do
         get 'search', on: :collection
       end
+      resources :languages, only: [:index]
     end
   end
 end
