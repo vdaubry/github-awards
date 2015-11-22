@@ -6,16 +6,16 @@ module Api
         attributes :users
 
         def users
-          object.user_ranks.map do |user|
-            UserSerializer.new(user.user).serializable_hash.merge(ranks_for(user))
+          object.user_ranks.map do |rank|
+            UserSerializer.new(rank.user).serializable_hash.merge(ranks_for(rank))
           end
         end
 
-        def ranks_for(user)
+        def ranks_for(rank)
           {
-            city_rank: user.city_rank,
-            country_rank: user.country_rank,
-            world_rank: user.world_rank
+            city_rank: rank.city_rank,
+            country_rank: rank.country_rank,
+            world_rank: rank.world_rank
           }
         end
 

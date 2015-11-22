@@ -6,7 +6,7 @@ module Api
         has_one :user
 
         def user
-          h =UserSerializer.new(object).serializable_hash
+          h = UserSerializer.new(object).serializable_hash
           h.merge(ranks_for(object))
         end
 
