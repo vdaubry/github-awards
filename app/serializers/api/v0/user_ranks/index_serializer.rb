@@ -1,12 +1,12 @@
 module Api
   module V0
     module UserRanks
-      class Index < ActiveModel::Serializer
+      class IndexSerializer < ActiveModel::Serializer
 
-        attributes :users
+        attributes :users, :page, :total_pages, :total_count
 
         def users
-          object.user_ranks.map do |rank|
+          object.map do |rank|
             UserSerializer.new(rank.user).serializable_hash.merge(ranks_for(rank))
           end
         end
@@ -17,6 +17,18 @@ module Api
             country_rank: rank.country_rank,
             world_rank: rank.world_rank
           }
+        end
+
+        def total_pages
+          object.total_pages
+        end
+
+        def page
+          object.current_page
+        end
+
+        def  total_count
+          object.total_count
         end
 
       end
