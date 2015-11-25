@@ -50,8 +50,14 @@
                 <%= presenter.world_infos %>
               </tr>
               <tr>
-                <td class="col-md-3">Repos :</td>
-                <td><%= user_rank.repository_count %> <span class="octicon octicon-repo"></span></td>
+                <td class="col-md-3">
+                  <%= link_to "https://github.com/search?q=user:#{@user.login}+language:#{user_rank.language}", target: '_blank' do %>
+                    Repos :
+                  <% end %>
+                </td>
+                <td>
+                  <%= user_rank.repository_count %> <span class="octicon octicon-repo"></span>
+                </td>
               </tr>
               <tr>
                 <td class="col-md-3">Stars :</td>
