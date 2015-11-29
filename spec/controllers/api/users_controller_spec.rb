@@ -103,14 +103,14 @@ describe Api::V0::UsersController, :users_api_spec do
 
   context 'GET#show' do
     it 'should return status 200' do
-      get :search, login: 'nunogoncalves'
+      get :show, login: 'nunogoncalves'
       first_user = response_hash
 
       expect(response.status).to eq(200)
     end
 
     it 'should return proper user information' do
-      get :search, login: 'nunogoncalves'
+      get :show, login: 'nunogoncalves'
 
       user = response_hash['user']
 
@@ -121,7 +121,7 @@ describe Api::V0::UsersController, :users_api_spec do
     end
 
     it 'should return propper ranking information', :t do
-      get :search, login: 'nunogoncalves'
+      get :show, login: 'nunogoncalves'
       user_rankings = response_hash['user']['rankings']
 
       expect(user_rankings.length).to be(2)
