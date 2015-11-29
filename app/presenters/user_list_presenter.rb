@@ -9,7 +9,7 @@ class UserListPresenter
   end
   
   def languages
-    Rails.cache.fetch("languages") { JSON.parse(File.read(Rails.root.join('app/assets/json/languages.json'))) }
+    Languages::Index.get
   end
   
   def title
