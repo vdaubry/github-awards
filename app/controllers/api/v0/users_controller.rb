@@ -10,7 +10,7 @@ module Api
         respond(response.merge(filter_context(user_list_presenter)), :ok)
       end
 
-      def search
+      def show
         user = User.where(login: params[:login].try(:downcase).try(:strip)).first
         return respond({}, :not_found) unless user
 
