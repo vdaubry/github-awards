@@ -1,11 +1,11 @@
 {
-  "apiVersion": "0.0",
+  "apiVersion": "0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:2000/",
   "resourcePath": "users",
   "apis": [
     {
-      "path": "api/v0/users.json",
+      "path": "/api/v0/users.json",
       "operations": [
         {
           "Routes": null,
@@ -17,6 +17,20 @@
               "name": "language",
               "type": "string",
               "description": "Filter users by language",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "city",
+              "type": "string",
+              "description": "Filter users by city",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "country",
+              "type": "string",
+              "description": "Filter users by country",
               "required": false
             }
           ],
@@ -33,20 +47,31 @@
       ]
     },
     {
-      "path": "api/v0/users/{login}",
+      "path": "/api/v0/users/{login}.json",
       "operations": [
         {
           "Routes": null,
           "summary": "She the user details",
           "notes": "Get the details of a user",
           "parameters": [
-
+            {
+              "paramType": "path",
+              "name": "login",
+              "type": "integer",
+              "description": "The user's github login.",
+              "required": true
+            }
           ],
           "responseMessages": [
             {
               "code": 200,
               "responseModel": null,
               "message": "Ok"
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Not Found"
             }
           ],
           "method": "get",
