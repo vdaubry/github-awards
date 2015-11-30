@@ -1,6 +1,6 @@
 API = "docs"
 Swagger::Docs::Config.register_apis({
-  "0.0" => {
+  "0" => {
     # the extension used for the API
     :api_extension_type => :json,
     # the output location where your .json files are written to
@@ -25,6 +25,6 @@ Swagger::Docs::Config.register_apis({
 
 class Swagger::Docs::Config
   def self.transform_path(path, api_version)
-    "/#{API}/#{path}/"
+    "/#{API}/#{path}"
   end
 end
