@@ -1,0 +1,58 @@
+{
+  "apiVersion": "0.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:2000/",
+  "resourcePath": "users",
+  "apis": [
+    {
+      "path": "api/v0/users.json",
+      "operations": [
+        {
+          "Routes": null,
+          "summary": "Get the list of users",
+          "notes": "Filter users by location and language",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "language",
+              "type": "string",
+              "description": "Filter users by language",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Ok"
+            }
+          ],
+          "method": "get",
+          "nickname": "Api::V0::Users#index"
+        }
+      ]
+    },
+    {
+      "path": "api/v0/users/{login}",
+      "operations": [
+        {
+          "Routes": null,
+          "summary": "She the user details",
+          "notes": "Get the details of a user",
+          "parameters": [
+
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Ok"
+            }
+          ],
+          "method": "get",
+          "nickname": "Api::V0::Users#show"
+        }
+      ]
+    }
+  ]
+}
