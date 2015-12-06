@@ -6,6 +6,10 @@
     {
       "path": "/docs/api/v0/users.{format}",
       "description": "Api::V0::UsersController"
+    },
+    {
+      "path": "/docs/api/v0/languages.{format}",
+      "description": "Api::V0::LanguagesController"
     }
   ],
   "info": {
