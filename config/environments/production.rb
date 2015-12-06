@@ -78,7 +78,7 @@
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   
-  Rails.application.routes.default_url_options = { host: 'github-awards.com' }
+  Rails.application.routes.default_url_options = { host: ENV['HOST'] }
   
   REDIS_URL="redis://localhost:6379"
 end
