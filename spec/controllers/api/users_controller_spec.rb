@@ -22,9 +22,13 @@ describe Api::V0::UsersController, :users_api_spec do
     FactoryGirl.create(:repository, language: 'JavaScript', user: @sherlockholmes)
 
     $redis.zadd("user_ruby_paris", 1.1, @vdaubry.id)
+    $redis.zadd("user_ruby", 1.1, @vdaubry.id)
     $redis.zadd("user_swift_lisbon", 5.0, @nunogoncalves.id)
+    $redis.zadd("user_swift", 5.0, @nunogoncalves.id)
     $redis.zadd("user_JavaScript_albuquerque", 0.2, @walterwhite.id)
+    $redis.zadd("user_JavaScript", 0.2, @walterwhite.id)
     $redis.zadd("user_JavaScript_san francisco", 0.5, @sherlockholmes.id)
+    $redis.zadd("user_JavaScript", 0.5, @sherlockholmes.id)
   end
 
   context 'GET#index' do
@@ -36,13 +40,13 @@ describe Api::V0::UsersController, :users_api_spec do
 
     context 'with scope' do
       it 'should return 1 user' do
-        get :index, language: 'swift', city: 'lisbon', type: 'city'
+        get :index, language: 'swift', city: 'lisbon'
 
         expect(response_hash['users'].count).to eq(1)
       end
 
       it 'should return propper user information' do
-        get :index, language: 'swift', city: 'lisbon', type: 'city'
+        get :index, language: 'swift', city: 'lisbon'
 
         first_user = response_hash['users'].first
 
@@ -61,7 +65,7 @@ describe Api::V0::UsersController, :users_api_spec do
       it 'should return 1 user' do
         get :index
 
-        expect(response_hash['users'].count).to eq(1)
+        expect(response_hash['users'].count).to eq(2)
       end
 
       it 'should return propper user information' do
@@ -77,7 +81,7 @@ describe Api::V0::UsersController, :users_api_spec do
 
     context 'pagination metadata' do
       it 'should return pagination metadata' do
-        get :index, language: 'swift', city: 'lisbon', type: 'city'
+        get :index, language: 'swift', city: 'lisbon'
         expect(response_hash['total_count']).to eq(1)
         expect(response_hash['page']).to eq(1)
         expect(response_hash['total_pages']).to eq(1)
@@ -86,14 +90,14 @@ describe Api::V0::UsersController, :users_api_spec do
 
     context 'search context', :testing do
       it 'should return search context (city)' do
-        get :index, language: 'Swift', city: 'lisbon', type: 'city'
+        get :index, language: 'Swift', city: 'lisbon'
         expect(response_hash['language']).to eq('Swift')
         expect(response_hash['location_name']).to eq('lisbon')
         expect(response_hash['location_type']).to eq('city')
       end
 
       it 'should return search context (country)' do
-        get :index, language: 'Swift', country: 'Portugal', type: 'country'
+        get :index, language: 'Swift', country: 'Portugal'
         expect(response_hash['language']).to eq('Swift')
         expect(response_hash['location_name']).to eq('portugal')
         expect(response_hash['location_type']).to eq('country')
@@ -147,8 +151,8 @@ describe Api::V0::UsersController, :users_api_spec do
       expect(user_rankings[1]['country']).to eq('portugal')
       expect(user_rankings[1]['country_count']).to eq(1)
       expect(user_rankings[1]['country_rank']).to eq(1)
-      expect(user_rankings[1]['world_rank']).to eq(1)
-      expect(user_rankings[1]['world_count']).to eq(1)
+      expect(user_rankings[1]['world_rank']).to eq(2)
+      expect(user_rankings[1]['world_count']).to eq(2)
 
     end
   end
