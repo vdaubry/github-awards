@@ -28,7 +28,8 @@ describe "UserListPresenter" do
   end
   
   describe "languages" do
-    it { expect(presenter.languages.count).to eq(223) }
+    it { expect(presenter.languages.count).to eq(228) }
+    it { expect(presenter.languages.first(3)).to eq(["JavaScript","Java","Ruby"]) }
   end
   
   describe "title" do

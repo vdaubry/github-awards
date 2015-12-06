@@ -87,22 +87,6 @@ describe Api::V0::UsersController, :users_api_spec do
         expect(response_hash['total_pages']).to eq(1)
       end
     end
-
-    context 'search context', :testing do
-      it 'should return search context (city)' do
-        get :index, language: 'Swift', city: 'lisbon'
-        expect(response_hash['language']).to eq('Swift')
-        expect(response_hash['location_name']).to eq('lisbon')
-        expect(response_hash['location_type']).to eq('city')
-      end
-
-      it 'should return search context (country)' do
-        get :index, language: 'Swift', country: 'Portugal'
-        expect(response_hash['language']).to eq('Swift')
-        expect(response_hash['location_name']).to eq('portugal')
-        expect(response_hash['location_type']).to eq('country')
-      end
-    end
   end
 
   context 'GET#show' do

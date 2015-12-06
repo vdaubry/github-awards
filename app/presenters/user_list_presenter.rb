@@ -9,7 +9,7 @@ class UserListPresenter
   end
   
   def languages
-    Languages::Index.get
+    Languages::Index.get(sort: :popularity)
   end
   
   def title
