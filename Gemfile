@@ -21,6 +21,7 @@ gem 'dalli',                        '~> 2.7.4'
 gem 'omniauth-github',              '~> 1.1.2'
 gem 'rorvswild',                    '~> 0.3.5'
 gem 'active_model_serializers',     '~> 0.9.3'
+gem 'swagger-docs',                 '~> 0.1.9'
 
 group :development do
   gem 'quiet_assets',               '~> 1.1.0'
