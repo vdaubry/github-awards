@@ -5,7 +5,7 @@
   "resourcePath": "users",
   "apis": [
     {
-      "path": "/api/v0/users.json",
+      "path": "api/v0/users.json",
       "operations": [
         {
           "Routes": null,
@@ -47,7 +47,7 @@
       ]
     },
     {
-      "path": "/api/v0/users/{login}.json",
+      "path": "api/v0/users/{login}.json",
       "operations": [
         {
           "Routes": null,
