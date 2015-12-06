@@ -1,7 +1,7 @@
 class TopRank
   def initialize(type:, language:, location:)
     @type = type
-    @language = language
+    @language = language.redis_key
     @location = location
   end
 
