@@ -1324,7 +1324,11 @@ SwaggerClient.prototype.buildFromSpec = function (response) {
 
   this.apis = {};
   this.apisArray = [];
-  this.basePath = response.basePath || '';
+  if (response.basePath) {
+    this.basePath = response.basePath + '/';
+  } else {
+    this.basePath = '';
+  }
   this.consumes = response.consumes;
   this.host = response.host || '';
   this.info = response.info || {};
@@ -23545,9 +23549,9 @@ Response.prototype.setHeaderProperties = function(header){
 
 /**
  * Force given parser
- * 
+ *
  * Sets the body parser no matter type.
- * 
+ *
  * @param {Function}
  * @api public
  */
@@ -24526,7 +24530,7 @@ Emitter.prototype.hasListeners = function(event){
  * TODO: combatible error handling?
  */
 
-module.exports = function(arr, fn, initial){  
+module.exports = function(arr, fn, initial){
   var idx = 0;
   var len = arr.length;
   var curr = arguments.length == 3
@@ -24536,7 +24540,7 @@ module.exports = function(arr, fn, initial){
   while (idx < len) {
     curr = fn.call(null, curr, arr[idx], ++idx, arr);
   }
-  
+
   return curr;
 };
 },{}]},{},[1])(1)
