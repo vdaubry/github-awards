@@ -51,11 +51,7 @@
       "operations": [
         {
           "Routes": null,
-<<<<<<< HEAD
           "summary": "Get the user details",
-=======
-          "summary": "She the user details",
->>>>>>> vdaubry/API
           "notes": "Get the details of a user",
           "parameters": [
             {
