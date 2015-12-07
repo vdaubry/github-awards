@@ -3,9 +3,10 @@ module Languages
 
     class << self
 
-      def get
+      def get(sort: :alphabetical)
         file_contents = File.read(languages_file)
-        Rails.cache.fetch('languages') { JSON.parse(file_contents) }
+        languages = Rails.cache.fetch('languages') { JSON.parse(file_contents).compact }
+        sort == :alphabetical ? languages.sort : languages
       end
 
       def languages_file
