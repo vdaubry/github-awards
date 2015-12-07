@@ -1,7 +1,7 @@
 {
   "apiVersion": "0",
   "swaggerVersion": "1.2",
-  "basePath": "http://github-awards.com/",
+  "basePath": "http://localhost:3000/",
   "resourcePath": "users",
   "apis": [
     {
@@ -51,7 +51,7 @@
       "operations": [
         {
           "Routes": null,
-          "summary": "She the user details",
+          "summary": "Get the user details",
           "notes": "Get the details of a user",
           "parameters": [
             {
