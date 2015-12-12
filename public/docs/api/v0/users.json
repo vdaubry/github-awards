@@ -34,6 +34,7 @@
               "required": false
             }
           ],
+          "type": "index_response",
           "responseMessages": [
             {
               "code": 200,
@@ -62,6 +63,7 @@
               "required": true
             }
           ],
+          "type": "show_response",
           "responseMessages": [
             {
               "code": 200,
@@ -79,5 +81,198 @@
         }
       ]
     }
-  ]
+  ],
+  "models": {
+    "index_response": {
+      "id": "index_response",
+      "required": [
+        "users",
+        "page",
+        "total_count",
+        "total_pages"
+      ],
+      "properties": {
+        "users": {
+          "type": "array",
+          "description": "List of users",
+          "items": {
+            "$ref": "index_user_item"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "description": "Page being returned"
+        },
+        "totalCount": {
+          "type": "integer",
+          "description": "Total count of records"
+        },
+        "totalPages": {
+          "type": "integer",
+          "description": "Total pages"
+        }
+      }
+    },
+    "index_user_item": {
+      "id": "index_user_item",
+      "required": [
+        "id",
+        "login",
+        "gravatar_url",
+        "city",
+        "country",
+        "city_rank",
+        "country_rank",
+        "world_rank"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The id of the user"
+        },
+        "login": {
+          "type": "string",
+          "description": "The github login name of the user"
+        },
+        "gravatarUrl": {
+          "type": "string",
+          "description": "The gravatar_url of the user"
+        },
+        "city": {
+          "type": "string",
+          "description": "The city of the user"
+        },
+        "country": {
+          "type": "string",
+          "description": "The country of the user"
+        },
+        "cityRank": {
+          "type": "integer",
+          "description": "The city rank of the user"
+        },
+        "countryRank": {
+          "type": "integer",
+          "description": "The country rank of the user"
+        },
+        "worldRank": {
+          "type": "integer",
+          "description": "The world rank of the user"
+        }
+      }
+    },
+    "show_response": {
+      "id": "show_response",
+      "required": [
+        "user"
+      ],
+      "properties": {
+        "user": {
+          "type": "user",
+          "description": "User"
+        }
+      }
+    },
+    "user": {
+      "id": "user",
+      "required": [
+        "id",
+        "login",
+        "gravatar_url",
+        "city",
+        "country",
+        "rankings"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The id of the user"
+        },
+        "login": {
+          "type": "string",
+          "description": "The github login name of the user"
+        },
+        "gravatarUrl": {
+          "type": "string",
+          "description": "The gravatar_url of the user"
+        },
+        "city": {
+          "type": "string",
+          "description": "The city of the user"
+        },
+        "country": {
+          "type": "string",
+          "description": "The country of the user"
+        },
+        "rankings": {
+          "type": "array",
+          "description": "List of rankings (one for each language)",
+          "items": {
+            "$ref": "user_ranking"
+          }
+        }
+      }
+    },
+    "user_ranking": {
+      "id": "user_ranking",
+      "required": [
+        "language",
+        "repository_count",
+        "stars_count",
+        "city",
+        "city_rank",
+        "city_count",
+        "country",
+        "country_rank",
+        "country_count",
+        "world_rank",
+        "world_count"
+      ],
+      "properties": {
+        "language": {
+          "type": "string",
+          "description": "The ranking's language"
+        },
+        "repositoryCount": {
+          "type": "string",
+          "description": "The ranking's repository_count"
+        },
+        "starsCount": {
+          "type": "string",
+          "description": "The ranking's stars_count"
+        },
+        "city": {
+          "type": "string",
+          "description": "The ranking's city"
+        },
+        "cityRank": {
+          "type": "string",
+          "description": "The ranking's city_rank"
+        },
+        "cityCount": {
+          "type": "string",
+          "description": "The ranking's city_count"
+        },
+        "country": {
+          "type": "string",
+          "description": "The ranking's country"
+        },
+        "countryRank": {
+          "type": "string",
+          "description": "The ranking's country_rank"
+        },
+        "countryCount": {
+          "type": "string",
+          "description": "The ranking's country_count"
+        },
+        "worldRank": {
+          "type": "string",
+          "description": "The ranking's world_rank"
+        },
+        "worldCount": {
+          "type": "string",
+          "description": "The ranking's world_count"
+        }
+      }
+    }
+  }
 }

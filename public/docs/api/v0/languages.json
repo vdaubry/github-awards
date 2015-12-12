@@ -16,10 +16,18 @@
               "paramType": "query",
               "name": "sort",
               "type": "string",
-              "description": "Sort order. (alphabetical or popularity)",
-              "required": false
+              "description": "Sort order (alphabetical, or popularity, defaults  to alphabetical)",
+              "required": false,
+              "allowableValues": {
+                "valueType": "LIST",
+                "values": [
+                  "alphabetical",
+                  "popularity"
+                ]
+              }
             }
           ],
+          "type": "response",
           "responseMessages": [
             {
               "code": 200,
@@ -32,5 +40,22 @@
         }
       ]
     }
-  ]
+  ],
+  "models": {
+    "response": {
+      "id": "response",
+      "required": [
+        "languages"
+      ],
+      "properties": {
+        "languages": {
+          "type": "array",
+          "description": "List of languages",
+          "items": {
+            "$ref": "string"
+          }
+        }
+      }
+    }
+  }
 }
