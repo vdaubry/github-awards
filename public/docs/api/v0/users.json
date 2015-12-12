@@ -32,6 +32,13 @@
               "type": "string",
               "description": "Filter users by country",
               "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "integer",
+              "description": "Return the results for the disered page. Each page returns 25 records.",
+              "required": false
             }
           ],
           "type": "index_response",
