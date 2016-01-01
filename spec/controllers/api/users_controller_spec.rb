@@ -16,19 +16,19 @@ describe Api::V0::UsersController, :users_api_spec do
     FactoryGirl.create(:repository, name: 'rails', language: 'ruby', user: @nunogoncalves)
 
     @walterwhite = FactoryGirl.create(:user, login: 'walterwhite', city: 'albuquerque', country: 'usa')
-    FactoryGirl.create(:repository, language: 'JavaScript', user: @walterwhite)
+    FactoryGirl.create(:repository, language: 'javascript', user: @walterwhite)
 
     @sherlockholmes = FactoryGirl.create(:user, login: 'sherlockholmes', city: 'san francisco', country: 'us', gravatar_url: 'url')
-    FactoryGirl.create(:repository, language: 'JavaScript', user: @sherlockholmes)
+    FactoryGirl.create(:repository, language: 'javascript', user: @sherlockholmes)
 
     $redis.zadd("user_ruby_paris", 1.1, @vdaubry.id)
     $redis.zadd("user_ruby", 1.1, @vdaubry.id)
     $redis.zadd("user_swift_lisbon", 5.0, @nunogoncalves.id)
     $redis.zadd("user_swift", 5.0, @nunogoncalves.id)
-    $redis.zadd("user_JavaScript_albuquerque", 0.2, @walterwhite.id)
-    $redis.zadd("user_JavaScript", 0.2, @walterwhite.id)
-    $redis.zadd("user_JavaScript_san francisco", 0.5, @sherlockholmes.id)
-    $redis.zadd("user_JavaScript", 0.5, @sherlockholmes.id)
+    $redis.zadd("user_javascript_albuquerque", 0.2, @walterwhite.id)
+    $redis.zadd("user_javascript", 0.2, @walterwhite.id)
+    $redis.zadd("user_javascript_san_francisco", 0.5, @sherlockholmes.id)
+    $redis.zadd("user_javascript", 0.5, @sherlockholmes.id)
   end
 
   context 'GET#index' do
