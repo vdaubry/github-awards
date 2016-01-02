@@ -40,6 +40,7 @@ module Api
               property :id, :integer, :required, 'The id of the user'
               property :login, :string, :required, 'The github login name of the user'
               property :gravatar_url, :string, :required, 'The gravatar_url of the user'
+              property :stars_count, :integer, :required, 'The number of stars for the users for the selected language'
               property :city, :string, :required, 'The city of the user'
               property :country, :string, :required, 'The country of the user'
               property :city_rank, :integer, :required, 'The city rank of the user'
