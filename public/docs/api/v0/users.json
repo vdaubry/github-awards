@@ -225,10 +225,8 @@
         "language",
         "repository_count",
         "stars_count",
-        "city",
         "city_rank",
         "city_count",
-        "country",
         "country_rank",
         "country_count",
         "world_rank",
@@ -247,10 +245,6 @@
           "type": "string",
           "description": "The ranking's stars_count"
         },
-        "city": {
-          "type": "string",
-          "description": "The ranking's city"
-        },
         "cityRank": {
           "type": "string",
           "description": "The ranking's city_rank"
@@ -258,10 +252,6 @@
         "cityCount": {
           "type": "string",
           "description": "The ranking's city_count"
-        },
-        "country": {
-          "type": "string",
-          "description": "The ranking's country"
         },
         "countryRank": {
           "type": "string",
