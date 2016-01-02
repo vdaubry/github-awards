@@ -16,10 +16,25 @@
               "paramType": "query",
               "name": "sort",
               "type": "string",
+<<<<<<< HEAD
               "description": "Sort order. (alphabetical or popularity)",
               "required": false
             }
           ],
+=======
+              "description": "Sort order (alphabetical, or popularity, defaults  to alphabetical)",
+              "required": false,
+              "allowableValues": {
+                "valueType": "LIST",
+                "values": [
+                  "alphabetical",
+                  "popularity"
+                ]
+              }
+            }
+          ],
+          "type": "response",
+>>>>>>> e5ae3404dcaf26a932932599c2456a8ab0d48d18
           "responseMessages": [
             {
               "code": 200,
@@ -32,5 +47,26 @@
         }
       ]
     }
+<<<<<<< HEAD
   ]
+=======
+  ],
+  "models": {
+    "response": {
+      "id": "response",
+      "required": [
+        "languages"
+      ],
+      "properties": {
+        "languages": {
+          "type": "array",
+          "description": "List of languages",
+          "items": {
+            "$ref": "string"
+          }
+        }
+      }
+    }
+  }
+>>>>>>> e5ae3404dcaf26a932932599c2456a8ab0d48d18
 }

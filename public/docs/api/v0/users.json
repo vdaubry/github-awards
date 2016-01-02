@@ -2,38 +2,32 @@
   "apiVersion": "0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000/",
-  "resourcePath": "users",
+  "resourcePath": "languages",
   "apis": [
     {
-      "path": "api/v0/users.json",
+      "path": "api/v0/languages.json",
       "operations": [
         {
           "Routes": null,
-          "summary": "Get the list of users",
-          "notes": "Filter users by location and language",
+          "summary": "Get the list of languages.",
+          "notes": "You can choose between an alphabetical order or by popularity.",
           "parameters": [
             {
               "paramType": "query",
-              "name": "language",
+              "name": "sort",
               "type": "string",
-              "description": "Filter users by language",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "city",
-              "type": "string",
-              "description": "Filter users by city",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "country",
-              "type": "string",
-              "description": "Filter users by country",
-              "required": false
+              "description": "Sort order (alphabetical, or popularity, defaults  to alphabetical)",
+              "required": false,
+              "allowableValues": {
+                "valueType": "LIST",
+                "values": [
+                  "alphabetical",
+                  "popularity"
+                ]
+              }
             }
           ],
+          "type": "response",
           "responseMessages": [
             {
               "code": 200,
@@ -42,42 +36,26 @@
             }
           ],
           "method": "get",
-          "nickname": "Api::V0::Users#index"
-        }
-      ]
-    },
-    {
-      "path": "api/v0/users/{login}.json",
-      "operations": [
-        {
-          "Routes": null,
-          "summary": "She the user details",
-          "notes": "Get the details of a user",
-          "parameters": [
-            {
-              "paramType": "path",
-              "name": "login",
-              "type": "integer",
-              "description": "The user's github login.",
-              "required": true
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 200,
-              "responseModel": null,
-              "message": "Ok"
-            },
-            {
-              "code": 404,
-              "responseModel": null,
-              "message": "Not Found"
-            }
-          ],
-          "method": "get",
-          "nickname": "Api::V0::Users#show"
+          "nickname": "Api::V0::Languages#index"
         }
       ]
     }
-  ]
+  ],
+  "models": {
+    "response": {
+      "id": "response",
+      "required": [
+        "languages"
+      ],
+      "properties": {
+        "languages": {
+          "type": "array",
+          "description": "List of languages",
+          "items": {
+            "$ref": "string"
+          }
+        }
+      }
+    }
+  }
 }
