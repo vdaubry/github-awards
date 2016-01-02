@@ -13,6 +13,7 @@ module Api
 
         def ranks_for(rank)
           {
+            stars_count: rank.stars_count,
             city_rank: rank.city_rank,
             country_rank: rank.country_rank,
             world_rank: rank.world_rank

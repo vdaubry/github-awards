@@ -11,15 +11,15 @@ describe Api::V0::UsersController, :users_api_spec do
     FactoryGirl.create(:repository, language: 'ruby', user: @vdaubry)
 
     @nunogoncalves = FactoryGirl.create(:user, gravatar_url: 'url', login: 'nunogoncalves', city: 'lisbon', country: 'portugal')
-    FactoryGirl.create(:repository, name: 'ios app', language: 'swift', user: @nunogoncalves)
-    FactoryGirl.create(:repository, name: 'macos app', language: 'swift', user: @nunogoncalves)
-    FactoryGirl.create(:repository, name: 'rails', language: 'ruby', user: @nunogoncalves)
+    FactoryGirl.create(:repository, name: 'ios app', language: 'swift', user: @nunogoncalves, stars: 1)
+    FactoryGirl.create(:repository, name: 'macos app', language: 'swift', user: @nunogoncalves, stars: 2)
+    FactoryGirl.create(:repository, name: 'rails', language: 'ruby', user: @nunogoncalves, stars: 3)
 
     @walterwhite = FactoryGirl.create(:user, login: 'walterwhite', city: 'albuquerque', country: 'usa')
-    FactoryGirl.create(:repository, language: 'javascript', user: @walterwhite)
+    FactoryGirl.create(:repository, language: 'javascript', user: @walterwhite, stars: 4)
 
     @sherlockholmes = FactoryGirl.create(:user, login: 'sherlockholmes', city: 'san francisco', country: 'us', gravatar_url: 'url')
-    FactoryGirl.create(:repository, language: 'javascript', user: @sherlockholmes)
+    FactoryGirl.create(:repository, language: 'javascript', user: @sherlockholmes, stars: 5)
 
     $redis.zadd("user_ruby_paris", 1.1, @vdaubry.id)
     $redis.zadd("user_ruby", 1.1, @vdaubry.id)
@@ -49,7 +49,6 @@ describe Api::V0::UsersController, :users_api_spec do
         get :index, language: 'swift', city: 'lisbon'
 
         first_user = response_hash['users'].first
-
         expect(first_user['gravatar_url']).to eq('url')
         expect(first_user['login']).to eq('nunogoncalves')
         expect(first_user['city']).to eq('lisbon')
@@ -57,6 +56,7 @@ describe Api::V0::UsersController, :users_api_spec do
         expect(first_user['city_rank']).to eq(1)
         expect(first_user['country_rank']).to eq(1)
         expect(first_user['world_rank']).to eq(1)
+        expect(first_user['stars_count']).to eq(3)
       end
 
     end
@@ -76,6 +76,7 @@ describe Api::V0::UsersController, :users_api_spec do
         expect(first_user['login']).to eq('sherlockholmes')
         expect(first_user['city']).to eq('san francisco')
         expect(first_user['country']).to eq('us')
+        expect(first_user['stars_count']).to eq(5)
       end
     end
 
@@ -116,7 +117,7 @@ describe Api::V0::UsersController, :users_api_spec do
 
       expect(user_rankings[0]['language']).to eq('swift')
       expect(user_rankings[0]['repository_count']).to eq(2)
-      expect(user_rankings[0]['stars_count']).to eq(0)
+      expect(user_rankings[0]['stars_count']).to eq(3)
       expect(user_rankings[0]['city_rank']).to eq(1)
       expect(user_rankings[0]['city_count']).to eq(1)
       expect(user_rankings[0]['country_rank']).to eq(1)
@@ -126,12 +127,12 @@ describe Api::V0::UsersController, :users_api_spec do
 
       expect(user_rankings[1]['language']).to eq('ruby')
       expect(user_rankings[1]['repository_count']).to eq(1)
-      expect(user_rankings[1]['stars_count']).to eq(0)
+      expect(user_rankings[1]['stars_count']).to eq(3)
       expect(user_rankings[1]['city_rank']).to eq(1)
       expect(user_rankings[1]['city_count']).to eq(1)
       expect(user_rankings[1]['country_count']).to eq(1)
       expect(user_rankings[1]['country_rank']).to eq(1)
-      expect(user_rankings[1]['world_rank']).to eq(2)
+      expect(user_rankings[1]['world_rank']).to eq(1)
       expect(user_rankings[1]['world_count']).to eq(2)
 
     end
