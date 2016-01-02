@@ -58,14 +58,6 @@ namespace :deploy do
     end
   end
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      within release_path do
-        execute :rake, 'cache:clear'
-      end
-    end
-  end
-  
   desc "Upload config files"
   task :upload_conf  do
     on roles(:web) do
@@ -97,6 +89,24 @@ namespace :deploy do
     end
   end
 
+  desc "Update API documentation"
+  task :update_api_docs do
+    on roles(:web) do
+      within current_path do
+        execute :rake, 'swagger:docs'
+      end
+    end
+  end
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      within current_path do
+        execute :rake, 'cache:clear'
+      end
+    end
+  end
+
   after "deploy:published", "deploy:symlink_config"
+  after "deploy:published", "deploy:update_api_docs"
   after "deploy:symlink_config", "deploy:monit_restart"
 end

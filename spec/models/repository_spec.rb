@@ -6,6 +6,7 @@ describe "Repository" do
     it { expect(FactoryGirl.build(:repository, name: nil).save).to eq(false) }
     it { expect(FactoryGirl.build(:repository, user_id: nil).save).to eq(false) }
     it { expect(FactoryGirl.build(:repository).save).to eq(true) }
+    it { expect(FactoryGirl.create(:repository, language: "Visual Basic").language).to eq("visual_basic") }
   end
   
   describe "unique fields" do

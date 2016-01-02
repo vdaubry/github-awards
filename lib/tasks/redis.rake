@@ -15,4 +15,18 @@ namespace :redis do
     end
   end
 
+  desc "rename keys"
+  task rename_keys: :environment do
+    puts "rename redis keys "
+    $redis.keys.each do |key|
+      $redis.rename(key, key.redis_key) if key != key.redis_key
+    end
+  end
+
+  desc "rename language keys"
+  task rename_languages: :environment do
+    puts "rename languages"
+    ActiveRecord::Base.connection.execute("update repositories set language=lower(replace(language, ' ', '_'))")
+  end
+
 end

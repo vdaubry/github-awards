@@ -32,7 +32,7 @@ describe RepositoryUpdateWorker do
       expect(repo.github_id).to eq(29809978)
       expect(repo.forked).to eq(true)
       expect(repo.stars).to eq(2)
-      expect(repo.language).to eq("Ruby")
+      expect(repo.language).to eq("ruby")
     end
     
     it "updates user rank" do

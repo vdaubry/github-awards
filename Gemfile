@@ -22,6 +22,7 @@ gem 'omniauth-github',              '~> 1.1.2'
 gem 'rorvswild',                    '~> 0.3.5'
 gem 'active_model_serializers',     '~> 0.9.3'
 gem 'swagger-docs',                 '~> 0.1.9'
+gem 'newrelic_rpm',                 '~> 3.9.9.275'
 
 group :development do
   gem 'quiet_assets',               '~> 1.1.0'
@@ -30,6 +31,7 @@ group :development do
   gem 'capistrano-rails',           '~> 1.1.2'
   gem 'capistrano-bundler',         '~> 1.1.4'
   gem 'sitemap_generator',          '~> 5.0.5'
+  gem 'dotenv-rails',               '~> 2.0.2'
 end
 
 group :test do
@@ -46,6 +48,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'newrelic_rpm',               '~> 3.9.9.275'
   gem "sentry-raven",               :git => "https://github.com/getsentry/raven-ruby.git"
 end

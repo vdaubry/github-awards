@@ -11,12 +11,16 @@ class RepositoryStreamWorker
       user = User.where(login: login.downcase).first
       if user.nil?
         Rails.logger.info("Creating user #{login}")
-        UserUpdateWorker.perform_async(login, true) 
+        UserUpdateWorker.perform_in(job_delay, login, true)
       else
         repo = repo_name.split("/")[1]
         Rails.logger.info("Updating repo #{repo}")
-        RepositoryUpdateWorker.perform_async(user.id, repo) 
+        RepositoryUpdateWorker.perform_in(job_delay, user.id, repo)
       end
     end
+  end
+
+  def job_delay
+    rand(0..60*60).seconds
   end
 end

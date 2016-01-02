@@ -2,7 +2,6 @@
 module Api
   module V0
     class UsersController < ApiController
-
       include Documentation::SwaggerUsersControllerMod
 
       def index
