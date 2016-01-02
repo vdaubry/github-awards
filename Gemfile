@@ -30,6 +30,7 @@ group :development do
   gem 'capistrano-rails',           '~> 1.1.2'
   gem 'capistrano-bundler',         '~> 1.1.4'
   gem 'sitemap_generator',          '~> 5.0.5'
+  gem 'dotenv-rails',               '~> 2.0.2'
 end
 
 group :test do
