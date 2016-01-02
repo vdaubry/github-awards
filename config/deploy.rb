@@ -92,7 +92,7 @@ namespace :deploy do
   desc "Update API documentation"
   task :update_api_docs do
     on roles(:web) do
-      within release_path do
+      within current_path do
         execute :rake, 'swagger:docs'
       end
     end
@@ -100,7 +100,7 @@ namespace :deploy do
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      within release_path do
+      within current_path do
         execute :rake, 'cache:clear'
       end
     end
