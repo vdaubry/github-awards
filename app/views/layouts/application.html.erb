@@ -47,13 +47,13 @@
               </form>
             </li>
             <li>
-              <%= link_to 'Top users by city', users_path(:type => :city) %>
+              <%= link_to 'Top users by city', users_path(city: "san francisco") %>
             </li>
             <li>
-              <%= link_to 'Top users by country', users_path(:type => :country) %>
+              <%= link_to 'Top users by country', users_path(country: "united states") %>
             </li>
             <li>
-              <%= link_to 'Top users worldwide', users_path(:type => :world) %>
+              <%= link_to 'Top users worldwide', users_path %>
             </li>
           </ul>
           <ul class="nav navbar-nav">

@@ -2,14 +2,14 @@ class UserListPresenter
   attr_reader :type, :language, :location
   
   def initialize(params)
-    @type = sanitize_type(type: params[:type])
+    @type = (params.keys.map(&:to_sym) & [:city, :country]).first || :world
     @page = [params[:page].to_i, 1].max
-    @location = params[@type].try(:downcase).try(:strip) || default_location
+    @location = params.with_indifferent_access[@type].try(:downcase).try(:strip)
     @language = params[:language] || "JavaScript"
   end
   
   def languages
-    Rails.cache.fetch("languages") { JSON.parse(File.read(Rails.root.join('app/assets/json/languages.json'))) }
+    Languages::Index.get(sort: :popularity)
   end
   
   def title
@@ -40,18 +40,5 @@ class UserListPresenter
     top_rank = TopRank.new(type: @type, language: @language, location: @location)
     user_ranks = top_rank.user_ranks(page: @page, per: 25)
     Kaminari.paginate_array(user_ranks, total_count: top_rank.count).page(@page).per(25)
-  end
-  
-  def default_location
-    if @type == :city
-      "san francisco"
-    elsif @type == :country
-      "united states"
-    end
-  end
-  
-  def sanitize_type(type:)
-    type = :city unless type && [:city, :country, :world].include?(type.to_sym)
-    type.to_sym
   end
 end

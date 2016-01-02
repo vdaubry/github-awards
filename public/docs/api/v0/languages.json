@@ -1,0 +1,61 @@
+{
+  "apiVersion": "0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000/",
+  "resourcePath": "languages",
+  "apis": [
+    {
+      "path": "api/v0/languages.json",
+      "operations": [
+        {
+          "Routes": null,
+          "summary": "Get the list of languages.",
+          "notes": "You can choose between an alphabetical order or by popularity.",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "sort",
+              "type": "string",
+              "description": "Sort order (alphabetical, or popularity, defaults  to alphabetical)",
+              "required": false,
+              "allowableValues": {
+                "valueType": "LIST",
+                "values": [
+                  "alphabetical",
+                  "popularity"
+                ]
+              }
+            }
+          ],
+          "type": "response",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Ok"
+            }
+          ],
+          "method": "get",
+          "nickname": "Api::V0::Languages#index"
+        }
+      ]
+    }
+  ],
+  "models": {
+    "response": {
+      "id": "response",
+      "required": [
+        "languages"
+      ],
+      "properties": {
+        "languages": {
+          "type": "array",
+          "description": "List of languages",
+          "items": {
+            "$ref": "string"
+          }
+        }
+      }
+    }
+  }
+}

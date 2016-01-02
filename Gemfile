@@ -20,6 +20,8 @@ gem 'kaminari',                     '~> 0.16.3'
 gem 'dalli',                        '~> 2.7.4'
 gem 'omniauth-github',              '~> 1.1.2'
 gem 'rorvswild',                    '~> 0.3.5'
+gem 'active_model_serializers',     '~> 0.9.3'
+gem 'swagger-docs',                 '~> 0.1.9'
 
 group :development do
   gem 'quiet_assets',               '~> 1.1.0'
@@ -28,6 +30,7 @@ group :development do
   gem 'capistrano-rails',           '~> 1.1.2'
   gem 'capistrano-bundler',         '~> 1.1.4'
   gem 'sitemap_generator',          '~> 5.0.5'
+  gem 'dotenv-rails',               '~> 2.0.2'
 end
 
 group :test do
@@ -40,7 +43,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'byebug',                      '~> 3.5.1'
+  gem 'pry-byebug',                  '~> 3.1'
 end
 
 group :production do
