@@ -47,6 +47,9 @@
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
+  ar_logger = Logger.new(STDOUT)
+  ar_logger.level = Logger::INFO
+  ActiveRecord::Base.logger = ar_logger
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
