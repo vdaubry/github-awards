@@ -23,6 +23,7 @@ gem 'rorvswild',                    '~> 0.3.5'
 gem 'active_model_serializers',     '~> 0.9.3'
 gem 'swagger-docs',                 '~> 0.1.9'
 gem 'newrelic_rpm',                 '~> 3.9.9.275'
+gem 'lograge',                      '~> 0.3.4'
 
 group :development do
   gem 'quiet_assets',               '~> 1.1.0'
