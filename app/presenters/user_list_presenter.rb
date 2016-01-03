@@ -9,7 +9,7 @@ class UserListPresenter
   end
   
   def languages
-    Languages::Index.get(sort: :popularity)
+    Languages::Index.get(sort: :popularity).map {|language| [language, language.downcase] }
   end
   
   def title

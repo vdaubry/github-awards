@@ -7,7 +7,7 @@ describe "UserRankPresenter" do
         user = FactoryGirl.create(:user, city: "paris")
         $redis.zadd("user_ruby_paris", 1, user.id)
         user_rank = UserRank.new(user, "ruby", 7, 2)
-        expect(UserRankPresenter.new(user_rank).city_infos).to eq("<td class=\"col-md-3\"><a href=\"/users?city=paris&amp;language=ruby&amp;type=city\">Paris</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>")
+        expect(UserRankPresenter.new(user_rank).city_infos).to eq("<td class=\"col-md-3\"><a href=\"/users?city=paris&amp;language=ruby\">Paris</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>")
       end
     end
     context "city missing" do
@@ -24,7 +24,7 @@ describe "UserRankPresenter" do
         user = FactoryGirl.create(:user, country: "france")
         $redis.zadd("user_ruby_france", 1, user.id)
         user_rank = UserRank.new(user, "ruby", 7, 2)
-        expect(UserRankPresenter.new(user_rank).country_infos).to eq("<td class=\"col-md-3\"><a href=\"/users?country=france&amp;language=ruby&amp;type=country\">France</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>")
+        expect(UserRankPresenter.new(user_rank).country_infos).to eq("<td class=\"col-md-3\"><a href=\"/users?country=france&amp;language=ruby\">France</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>")
       end
     end
     context "country missing" do
@@ -40,7 +40,7 @@ describe "UserRankPresenter" do
       user = FactoryGirl.create(:user)
       $redis.zadd("user_ruby", 1, user.id)
       user_rank = UserRank.new(user, "ruby", 7, 2)
-      expect(UserRankPresenter.new(user_rank).world_infos).to eq("<td class=\"col-md-3\"><a href=\"/users?language=ruby&amp;type=world\">Worldwide</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>")
+      expect(UserRankPresenter.new(user_rank).world_infos).to eq("<td class=\"col-md-3\"><a href=\"/users?language=ruby\">Worldwide</a></td><td><strong>1</strong> / 1 <i class='fa fa-trophy'></i></td>")
     end
   end
 end
