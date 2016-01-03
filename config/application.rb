@@ -26,7 +26,7 @@ module GithubAwards
     config.autoload_paths += %W(#{config.root}/extras #{config.root}/extras/tasks #{config.root}/extras/models #{config.root}/extras/exceptions #{config.root}/extras/extensions)
 
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)
-
+    
     #lograge
     config.lograge.enabled = true
     config.lograge.custom_options = lambda do |event|

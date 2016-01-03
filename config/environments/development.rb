@@ -26,6 +26,11 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.log_level = :debug
+  ar_logger = Logger.new(STDOUT)
+  ar_logger.level = Logger::DEBUG
+  ActiveRecord::Base.logger = ar_logger
   
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -35,8 +40,6 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-  
-  Rails.logger = Logger.new(STDOUT)
 
   Rails.application.routes.default_url_options = { host: 'localhost:5000' }
   
