@@ -44,9 +44,11 @@
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :debug
+  #Log configuration
+  logger = Logger.new(STDOUT)
+  logger.level = Logger::DEBUG
+  config.logger = logger
+
   ar_logger = Logger.new(STDOUT)
   ar_logger.level = Logger::INFO
   ActiveRecord::Base.logger = ar_logger
