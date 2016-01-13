@@ -12,6 +12,7 @@ module Api
               notes "Filter users by location and language"
 
               param :query, :language, :string, :optional, "Filter users by language"
+              param :query, :type, :string, :optional, "The type of search One of: world, country or city."
               param :query, :city, :string, :optional, "Filter users by city"
               param :query, :country, :string, :optional, "Filter users by country"
               param :query, :page, :integer, :optional, "Return the results for the disered page. Each page returns 25 records."
