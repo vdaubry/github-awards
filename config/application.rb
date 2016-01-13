@@ -26,5 +26,16 @@ module GithubAwards
     config.autoload_paths += %W(#{config.root}/extras #{config.root}/extras/tasks #{config.root}/extras/models #{config.root}/extras/exceptions #{config.root}/extras/extensions)
 
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)
+    
+    #lograge
+    config.lograge.enabled = true
+    config.lograge.custom_options = lambda do |event|
+      params = event.payload[:params].reject do |k|
+        ['controller', 'action'].include? k
+      end
+
+      { "params" => params }
+    end
+    config.log_tags = [ lambda {|req| Time.now.to_s(:db) }, :remote_ip ]
   end
 end

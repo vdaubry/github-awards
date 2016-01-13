@@ -15,9 +15,9 @@ class UserRankPresenter
   def location_link(type)
     content_tag(:td, class: "col-md-3") do
       if type == :world
-        link_to "Worldwide", users_path(language: @user_rank.language, type: type)
+        link_to "Worldwide", users_path(language: @user_rank.language)
       else
-        link_to @user.send(type).capitalize, users_path(language: @user_rank.language, type => @user.send(type), type: type)
+        link_to @user.send(type).capitalize, users_path(language: @user_rank.language, type => @user.send(type))
       end
     end
   end
