@@ -21,6 +21,13 @@
             },
             {
               "paramType": "query",
+              "name": "type",
+              "type": "string",
+              "description": "The type of search One of: world, country or city.",
+              "required": false
+            },
+            {
+              "paramType": "query",
               "name": "city",
               "type": "string",
               "description": "Filter users by city",
@@ -126,6 +133,7 @@
         "id",
         "login",
         "gravatar_url",
+        "stars_count",
         "city",
         "country",
         "city_rank",
@@ -144,6 +152,10 @@
         "gravatarUrl": {
           "type": "string",
           "description": "The gravatar_url of the user"
+        },
+        "starsCount": {
+          "type": "integer",
+          "description": "The number of stars for the users for the selected language"
         },
         "city": {
           "type": "string",
