@@ -21,6 +21,10 @@ describe Api::V0::UsersController, :users_api_spec do
     @sherlockholmes = FactoryGirl.create(:user, login: 'sherlockholmes', city: 'san francisco', country: 'us', gravatar_url: 'url')
     FactoryGirl.create(:repository, language: 'javascript', user: @sherlockholmes, stars: 5)
 
+    @bb8 = FactoryGirl.create(:user, login: 'bb8', city: 'Los Angeles', country: 'us', gravatar_url: 'url')
+    FactoryGirl.create(:repository, language: 'c++', user: @bb8, stars: 5)
+
+
     $redis.zadd("user_ruby_paris", 1.1, @vdaubry.id)
     $redis.zadd("user_ruby", 1.1, @vdaubry.id)
     $redis.zadd("user_swift_lisbon", 5.0, @nunogoncalves.id)
@@ -29,6 +33,8 @@ describe Api::V0::UsersController, :users_api_spec do
     $redis.zadd("user_javascript", 0.2, @walterwhite.id)
     $redis.zadd("user_javascript_san_francisco", 0.5, @sherlockholmes.id)
     $redis.zadd("user_javascript", 0.5, @sherlockholmes.id)
+    $redis.zadd("user_c++_los_angeles", 0.7, @bb8.id)
+    $redis.zadd("user_c++", 0.7, @bb8.id)
   end
 
   context 'GET#index' do
@@ -59,6 +65,12 @@ describe Api::V0::UsersController, :users_api_spec do
         expect(first_user['stars_count']).to eq(3)
       end
 
+      it 'should return c++ users when request has url encoded plus sign' do
+        get :index, language: "c%2B%2B", city: 'los angeles'
+
+        first_user = response_hash['users'].first
+        expect(first_user['login']).to eq('bb8')
+      end
     end
 
     context 'without scope' do
