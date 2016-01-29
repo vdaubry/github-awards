@@ -22,7 +22,7 @@ module Languages
       end
 
       def add_users_count
-        languages.map! { |l| { "#{l}" => users_for_language(l) } }
+        languages.map! { |l| { "name" => "#{l}", "users_count" => users_for_language(l) } }
       end
 
       def languages_file
