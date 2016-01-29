@@ -6,8 +6,9 @@ module Api
 
       def index
         sort = params["sort"].try(:to_sym) || :alphabetical
-        languages = Languages::Index.get(sort: sort)
-        respond({languages: languages}, :ok)
+        with_count = params["with_count"] || false
+        languages = Languages::Index.get({ sort: sort, with_count: with_count })
+        respond({ languages: languages }, :ok)
       end
 
     end

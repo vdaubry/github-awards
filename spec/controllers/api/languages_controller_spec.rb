@@ -36,5 +36,17 @@ describe Api::V0::LanguagesController do
         expect(response_hash['languages']).to eq(["C#","JavaScript","Ruby"])
       end
     end
+
+    context "return with user count" do
+      it 'should return a list of languages with users count' do
+        get :index, sort: :alphabetical, with_count: true
+        expect(response_hash['languages']).to eq([
+          { "C#" => 0 },
+          { "JavaScript" => 0 },
+          { "Ruby" => 0 }
+        ])
+      end
+    end
+
   end
 end
