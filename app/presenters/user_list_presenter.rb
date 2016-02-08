@@ -5,12 +5,7 @@ class UserListPresenter
     @type = (params.keys.map(&:to_sym) & [:city, :country]).first || :world
     @page = [params[:page].to_i, 1].max
     @location = params.with_indifferent_access[@type].try(:downcase).try(:strip)
-    @language = get_language(params)
-  end
-
-  def get_language(params)
-    lang = params[:language] || "JavaScript"
-    URI.decode_www_form_component(lang)
+    @language = params[:language] || "JavaScript"
   end
 
   def languages
