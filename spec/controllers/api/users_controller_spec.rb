@@ -64,13 +64,6 @@ describe Api::V0::UsersController, :users_api_spec do
         expect(first_user['world_rank']).to eq(1)
         expect(first_user['stars_count']).to eq(3)
       end
-
-      it 'should return c++ users when request has url encoded plus sign' do
-        get :index, language: "c%2B%2B", city: 'los angeles'
-
-        first_user = response_hash['users'].first
-        expect(first_user['login']).to eq('bb8')
-      end
     end
 
     context 'without scope' do
