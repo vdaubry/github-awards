@@ -10,7 +10,8 @@ class UserListPresenter
 
   def get_language(params)
     lang = params[:language] || "JavaScript"
-    URI.decode_www_form_component(lang)
+    lang = URI.decode_www_form_component(lang) if lang.include?("%")
+    lang
   end
 
   def languages
