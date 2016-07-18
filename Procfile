@@ -1,2 +1,2 @@
-web: bundle exec rails server -p 5000
+web: bundle exec puma -C /srv/www/githubawards/shared/puma.rb
 worker: bundle exec sidekiq -c 5
