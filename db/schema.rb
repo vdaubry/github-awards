@@ -36,6 +36,37 @@ ActiveRecord::Schema.define(version: 20151006093127) do
 
   add_index "blacklisted_users", ["username"], name: "index_blacklisted_users_on_username", unique: true, using: :btree
 
+  create_table "cities", force: :cascade do |t|
+    t.string "country",           null: false
+    t.string "city",              null: false
+    t.string "accented_city",     null: false
+    t.string "country_full_name"
+  end
+
+  add_index "cities", ["city"], name: "index_cities_on_city", using: :btree
+  add_index "cities", ["country"], name: "index_cities_on_country", using: :btree
+
+  create_table "language_ranks", force: :cascade do |t|
+    t.integer "user_id",                        null: false
+    t.string  "language",                       null: false
+    t.float   "score",                          null: false
+    t.integer "city_rank",          default: 0, null: false
+    t.integer "country_rank",       default: 0, null: false
+    t.integer "world_rank",         default: 0, null: false
+    t.string  "city"
+    t.string  "country"
+    t.integer "repository_count",   default: 0, null: false
+    t.integer "stars_count",        default: 0, null: false
+    t.integer "city_user_count",    default: 0, null: false
+    t.integer "country_user_count", default: 0, null: false
+    t.integer "world_user_count",   default: 0, null: false
+  end
+
+  add_index "language_ranks", ["language", "city_rank", "city"], name: "language_ranks_city", using: :btree
+  add_index "language_ranks", ["language", "country_rank", "city"], name: "language_ranks_country", using: :btree
+  add_index "language_ranks", ["language", "world_rank", "city"], name: "language_ranks_world", using: :btree
+  add_index "language_ranks", ["user_id"], name: "language_ranks_user_id", using: :btree
+
   create_table "repositories", force: :cascade do |t|
     t.string   "name",                         null: false
     t.integer  "stars",        default: 0,     null: false
@@ -49,6 +80,7 @@ ActiveRecord::Schema.define(version: 20151006093127) do
     t.integer  "user_id",                      null: false
   end
 
+  add_index "repositories", ["processed"], name: "index_repositories_on_processed", using: :btree
   add_index "repositories", ["user_id", "language", "stars"], name: "index_repositories_on_user_id_and_language_and_stars", using: :btree
 
   create_table "users", force: :cascade do |t|

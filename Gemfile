@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 gem 'rails',                        '~> 4.2.0'
 gem 'sass-rails',                   '~> 5.0'
@@ -33,6 +33,7 @@ group :development do
   gem 'capistrano-bundler',         '~> 1.1.4'
   gem 'sitemap_generator',          '~> 5.0.5'
   gem 'dotenv-rails',               '~> 2.0.2'
+  gem 'spring-commands-rspec',      '~> 1.0.4'
 end
 
 group :test do
