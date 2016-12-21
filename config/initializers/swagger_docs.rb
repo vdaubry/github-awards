@@ -12,8 +12,8 @@ Swagger::Docs::Config.register_apis({
     # add custom attributes to api-docs
     :attributes => {
       :info => {
-        "title" => "Github Awards Api",
-        "description" => "The Github Awards api description.",
+        "title" => "Git Awards Api",
+        "description" => "The Git Awards api description.",
         "termsOfServiceUrl" => "http://helloreverb.com/terms/",
         "contact" => "numicago@gmail.com",
         "license" => "Apache 2.0",

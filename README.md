@@ -1,8 +1,10 @@
 [![Build Status](https://semaphoreci.com/api/v1/projects/aa2cd6ce-b19d-43bc-9db1-f1c3c2756be9/389922/badge.svg)](https://semaphoreci.com/vdaubry/github-awards)      
 
-# GitHub Awards
+# Important notice : Github Awards becomes Git Awards !
 
-GitHub Awards gives your ranking on GitHub by language and by location (city, country and worldwide) based on the number of stars on your repos.
+# Git Awards
+
+Git Awards gives your ranking on GitHub by language and by location (city, country and worldwide) based on the number of stars on your repos.
 
 
 ## How does it work ?
