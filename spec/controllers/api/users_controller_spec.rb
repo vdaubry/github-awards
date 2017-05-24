@@ -123,7 +123,7 @@ describe Api::V0::UsersController, :users_api_spec do
 
     it 'should return propper ranking information', :t do
       get :show, login: 'nunogoncalves'
-      user_rankings = response_hash['user']['rankings']
+      p user_rankings = response_hash['user']['rankings']
 
       expect(user_rankings.length).to be(2)
 
