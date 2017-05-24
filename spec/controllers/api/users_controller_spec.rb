@@ -11,7 +11,7 @@ describe Api::V0::UsersController, :users_api_spec do
     FactoryGirl.create(:repository, language: 'ruby', user: @vdaubry)
 
     @nunogoncalves = FactoryGirl.create(:user, gravatar_url: 'url', login: 'nunogoncalves', city: 'lisbon', country: 'portugal')
-    FactoryGirl.create(:repository, name: 'ios app', language: 'swift', user: @nunogoncalves, stars: 1)
+    FactoryGirl.create(:repository, name: 'ios app', language: 'swift', user: @nunogoncalves, stars: 2)
     FactoryGirl.create(:repository, name: 'macos app', language: 'swift', user: @nunogoncalves, stars: 2)
     FactoryGirl.create(:repository, name: 'rails', language: 'ruby', user: @nunogoncalves, stars: 3)
 
@@ -62,7 +62,7 @@ describe Api::V0::UsersController, :users_api_spec do
         expect(first_user['city_rank']).to eq(1)
         expect(first_user['country_rank']).to eq(1)
         expect(first_user['world_rank']).to eq(1)
-        expect(first_user['stars_count']).to eq(3)
+        expect(first_user['stars_count']).to eq(4)
       end
 
       it 'should return c++ users when request has url encoded plus sign' do
@@ -129,7 +129,7 @@ describe Api::V0::UsersController, :users_api_spec do
 
       expect(user_rankings[0]['language']).to eq('swift')
       expect(user_rankings[0]['repository_count']).to eq(2)
-      expect(user_rankings[0]['stars_count']).to eq(3)
+      expect(user_rankings[0]['stars_count']).to eq(4)
       expect(user_rankings[0]['city_rank']).to eq(1)
       expect(user_rankings[0]['city_count']).to eq(1)
       expect(user_rankings[0]['country_rank']).to eq(1)
