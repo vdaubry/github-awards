@@ -26,7 +26,12 @@ module GithubAwards
     config.autoload_paths += %W(#{config.root}/extras #{config.root}/extras/tasks #{config.root}/extras/models #{config.root}/extras/exceptions #{config.root}/extras/extensions)
 
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)
-    
+   
+    # Allow Web Sites to Make Requests
+    config.action_dispatch.default_headers = {
+    'Access-Control-Allow-Origin' => 'http://gitmatch.me',
+    'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
+  }
     #lograge
     config.lograge.enabled = true
     config.lograge.custom_options = lambda do |event|
