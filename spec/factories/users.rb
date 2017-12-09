@@ -11,5 +11,9 @@ FactoryGirl.define do
     city              "string"
     github_id         123
     processed         false
+
+    factory :organization do
+      organization    true
+    end
   end
 end

@@ -24,6 +24,8 @@ describe Api::V0::UsersController, :users_api_spec do
     @bb8 = FactoryGirl.create(:user, login: 'bb8', city: 'Los Angeles', country: 'us', gravatar_url: 'url')
     FactoryGirl.create(:repository, language: 'c++', user: @bb8, stars: 5)
 
+    @org = FactoryGirl.create(:organization, login: 'org')
+
 
     $redis.zadd("user_ruby_paris", 1.1, @vdaubry.id)
     $redis.zadd("user_ruby", 1.1, @vdaubry.id)
@@ -119,6 +121,15 @@ describe Api::V0::UsersController, :users_api_spec do
       expect(user['login']).to eq('nunogoncalves')
       expect(user['city']).to eq('lisbon')
       expect(user['country']).to eq('portugal')
+      expect(user['type']).to eq('user')
+    end
+
+    context 'organization' do
+      it 'should return correct type' do
+        get :show, login: 'org'
+
+        expect(response_hash['user']['type']).to eq('organization')
+      end
     end
 
     it 'should return propper ranking information', :t do
