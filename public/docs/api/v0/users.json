@@ -1,7 +1,7 @@
 {
   "apiVersion": "0",
   "swaggerVersion": "1.2",
-  "basePath": "http://localhost:3000/",
+  "basePath": "http://git-awards.com/",
   "resourcePath": "users",
   "apis": [
     {
