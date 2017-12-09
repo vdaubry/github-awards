@@ -48,7 +48,7 @@
               </tr>
               <tr>
                 <td class="col-md-3">
-                  <%= link_to "https://github.com/search?q=user:#{@user.login}+language:#{user_rank.language}", target: '_blank' do %>
+                  <%= link_to "https://github.com/search?" + {q: "user:#{@user.login} language:#{user_rank.language}"}.to_query, target: '_blank' do %>
                     Repos :
                   <% end %>
                 </td>
