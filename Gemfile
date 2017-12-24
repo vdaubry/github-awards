@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.2.5'
+ruby '2.3.1'
 
-gem 'rails',                        '~> 4.2.0'
+gem 'rails',                        '~> 4.2.7.1'
 gem 'sass-rails',                   '~> 5.0'
 gem 'uglifier',                     '~> 2.7.0'
 gem 'turbolinks',                   '~> 2.5.3'
-gem 'yajl-ruby',                    '~> 1.2.1'
+gem 'yajl-ruby',                    '~> 1.3.1'
 gem 'pg',                           '~> 0.18.2'
 gem 'sidekiq',                      '~> 3.4.2'
 gem 'sidekiq-throttler',            '~> 0.4.1'
