@@ -1,4 +1,5 @@
-[![Build Status](https://semaphoreci.com/api/v1/projects/aa2cd6ce-b19d-43bc-9db1-f1c3c2756be9/389922/badge.svg)](https://semaphoreci.com/vdaubry/github-awards)      
+[![Build Status](https://semaphoreci.com/api/v1/projects/aa2cd6ce-b19d-43bc-9db1-f1c3c2756be9/389922/badge.svg)](https://semaphoreci.com/vdaubry/github-awards)
+[![Help Contribute to Open Source](https://www.codetriage.com/vdaubry/github-awards/badges/users.svg)](https://www.codetriage.com/vdaubry/github-awards)
 
 # Important notice : Github Awards becomes Git Awards !
 
@@ -12,7 +13,7 @@ Git Awards gives your ranking on GitHub by language and by location (city, count
 In order to calculate your ranking on GitHub we:
 - Get all GitHub users with their location
 - Geocode their location
-- Get all GitHub repositories with language and number of stars 
+- Get all GitHub repositories with language and number of stars
 
 With this information we are able to compute your ranking for a given language in a given city.
 
@@ -34,7 +35,7 @@ Rake tasks are :
 Now we need to get detailed informations such as location, language, number of stars.
 
 
-## Step 2 : Use Google Big Query to get details about active users and repositories 
+## Step 2 : Use Google Big Query to get details about active users and repositories
 
 > GitHub Archive is a project to record the public GitHub timeline, archive it, and make it easily accessible for further analysis.
 
@@ -108,6 +109,6 @@ Next steps :
 * Push to the branch `git push origin my-new-feature`
 * Create a new Pull Request
 
-## License 
+## License
 
 This project is available under the MIT license. [See the license file](LICENSE.md) for more details.
