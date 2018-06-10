@@ -6,7 +6,12 @@ module Api
                    :login,
                    :gravatar_url,
                    :city,
-                   :country
+                   :country,
+                   :type
+
+        def type
+          object.organization? ? 'organization' : 'user'
+        end
     end
   end
 end
