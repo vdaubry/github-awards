@@ -1,3 +1,5 @@
+Deprecated
+
 [![Build Status](https://semaphoreci.com/api/v1/projects/aa2cd6ce-b19d-43bc-9db1-f1c3c2756be9/389922/badge.svg)](https://semaphoreci.com/vdaubry/github-awards)      
 
 # Important notice : Github Awards becomes Git Awards !
