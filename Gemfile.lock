@@ -271,7 +271,7 @@ GEM
       hitimes
     turbolinks (2.5.4)
       coffee-rails
-    tzinfo (1.2.4)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
